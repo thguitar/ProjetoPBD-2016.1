@@ -22,6 +22,7 @@ public class Login extends JFrame {
 	private JButton buttonEntrar;
 	
 	public Login() {
+		
 		setTitle("Login");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
