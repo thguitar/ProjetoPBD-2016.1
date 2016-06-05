@@ -57,4 +57,30 @@ public class Login extends JFrame {
 		buttonEntrar.setBounds(120, 166, 117, 25);
 		contentPane.add(buttonEntrar);
 	}
+
+	
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public JLabel getLabelUser() {
+		return labelUser;
+	}
+
+	public JLabel getLabelSenha() {
+		return labelSenha;
+	}
+
+	public JTextField getFieldUser() {
+		return fieldUser;
+	}
+
+	public JPasswordField getFieldSenha() {
+		return fieldSenha;
+	}
+
+	public JButton getButtonEntrar() {
+		return buttonEntrar;
+	}
+	
 }
