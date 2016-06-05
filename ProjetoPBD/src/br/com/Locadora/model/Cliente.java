@@ -2,13 +2,13 @@ package br.com.Locadora.model;
 
 abstract class Cliente {
 	
-	private int id, numero;
+	private int id, numeroEndereco;
 	private String nome, rua, bairro, cidade, estado;
 	
-	public Cliente(int id, int numero, String nome, String rua, String bairro,
+	public Cliente(int id, int numeroEndereco, String nome, String rua, String bairro,
 			String cidade, String estado) {
 		this.id = id;
-		this.numero = numero;
+		this.numeroEndereco = numeroEndereco;
 		this.nome = nome;
 		this.rua = rua;
 		this.bairro = bairro;
@@ -24,12 +24,12 @@ abstract class Cliente {
 		this.id = id;
 	}
 
-	public int getNumero() {
-		return numero;
+	public int getnumeroEndereco() {
+		return numeroEndereco;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setnumeroEndereco(int numeroEndereco) {
+		this.numeroEndereco = numeroEndereco;
 	}
 
 	public String getNome() {
