@@ -6,16 +6,17 @@ public class PessoaFisica extends Cliente{
 	
 	private char sexo;
 	private int numeroHabilitacao;
-	private Date dataVencimentoHailitacao;
+	private Date dataVencimentoHailitacao, dataNascimento;
 	private String cpf;
 
 	public PessoaFisica(int id, int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado, char sexo,
-			int numeroHabilitacao, Date dataVencimentoHailitacao, String cpf) {
+			int numeroHabilitacao, Date dataVencimentoHailitacao, Date dataNascimento, String cpf) {
 		super(id, numeroEndereco, nome, rua, bairro, cidade, estado);
 		this.sexo = sexo;
 		this.numeroHabilitacao = numeroHabilitacao;
 		this.dataVencimentoHailitacao = dataVencimentoHailitacao;
+		this.dataNascimento = dataNascimento;
 		this.cpf = cpf;
 	}
 
@@ -41,6 +42,14 @@ public class PessoaFisica extends Cliente{
 
 	public void setDataVencimentoHailitacao(Date dataVencimentoHailitacao) {
 		this.dataVencimentoHailitacao = dataVencimentoHailitacao;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getCpf() {
