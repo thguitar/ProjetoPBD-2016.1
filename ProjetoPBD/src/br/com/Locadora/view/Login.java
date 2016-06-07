@@ -23,6 +23,7 @@ public class Login extends JFrame {
 	private JButton buttonEntrar;
 	
 	public Login() {
+		setResizable(false);
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 220);
@@ -38,16 +39,19 @@ public class Login extends JFrame {
 		
 		labelUser = new JLabel();
 		labelUser.setIcon(new ImageIcon("imagens/user.png"));
-		labelUser.setBounds(62, 31, 46, 48);
+		labelUser.setBounds(45, 11, 69, 68);
 		contentPane.add(labelUser);
 		
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		passwordField.setToolTipText("Senha");
+		passwordField.setFont(new Font("Tahoma", Font.BOLD, 20));
 		passwordField.setBounds(123, 88, 119, 27);
 		contentPane.add(passwordField);
 		
 		FieldUser = new JTextField();
-		FieldUser.setBounds(123, 52, 119, 27);
+		FieldUser.setFont(new Font("Tahoma", Font.BOLD, 20));
+		FieldUser.setToolTipText("Usu\u00E1rio");
+		FieldUser.setBounds(123, 32, 119, 27);
 		contentPane.add(FieldUser);
 		FieldUser.setColumns(10);
 		
