@@ -8,20 +8,33 @@ public class Locacao {
 	private PessoaFisica pessoaFisica;
 	private String modalidade;
 	private Double valorTotal;
-	private Date horaLocacao, horaDevolucao;
+	private Date horaLocacao, tempoDevolucao;
+	private Devolucao devolucao;
 	public Locacao(int id, Cliente cliente, PessoaFisica pessoaFisica,
 			String modalidade, Double valorTotal, Date horaLocacao,
-			Date horaDevolucao) {
+			Date tempoDevolucao) {
 		this.id = id;
 		this.cliente = cliente;
 		this.pessoaFisica = pessoaFisica;
 		this.modalidade = modalidade;
 		this.valorTotal = valorTotal;
 		this.horaLocacao = horaLocacao;
-		this.horaDevolucao = horaDevolucao;
+		this.tempoDevolucao = tempoDevolucao;
 	}
 	public int getId() {
 		return id;
+	}
+	public Date getTempoDevolucao() {
+		return tempoDevolucao;
+	}
+	public void setTempoDevolucao(Date tempoDevolucao) {
+		this.tempoDevolucao = tempoDevolucao;
+	}
+	public Devolucao getDevolucao() {
+		return devolucao;
+	}
+	public void setDevolucao(Devolucao devolucao) {
+		this.devolucao = devolucao;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -55,12 +68,6 @@ public class Locacao {
 	}
 	public void setHoraLocacao(Date horaLocacao) {
 		this.horaLocacao = horaLocacao;
-	}
-	public Date getHoraDevolucao() {
-		return horaDevolucao;
-	}
-	public void setHoraDevolucao(Date horaDevolucao) {
-		this.horaDevolucao = horaDevolucao;
 	}
 	
 	
