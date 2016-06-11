@@ -22,16 +22,21 @@ public class TelaInicial extends JFrame {
 	private JPanel contentPane;
 	private JPanel panelInformacoes;
 	private JMenuBar menuBar;
-	private JMenu mnArquivo;
-	private JMenu mnCadastros;
-	private JMenu mnReservas;
-	private JMenu mnLocao;
-	private JMenu mnRelatrios;
-	private JMenu mnSobre;
-	private JMenuItem menuItem;
-	private JMenuItem mntmVeculos;
-	private JMenuItem mntmClientes;
-	private JMenuItem mntmEmpresasfiliais;
+	private JMenu menuArquivo;
+	private JMenu menuCadastros;
+	private JMenu menuReservas;
+	private JMenu menuLocao;
+	private JMenu menuRelatorios;
+	private JMenu menuSobre;
+	private JMenu menuRCadastro;
+	private JMenu menuRFinanceiro;
+	private JMenu menuRLocao;
+	private JMenu menuRReserva;
+	private JMenuItem mnitemVeiculos;
+	private JMenuItem mnitemClientes;
+	private JMenuItem mnitemEmpresas;
+	private JMenuItem mnitemConfiguracoes;
+	private JMenuItem mnitemSair;
 	private JLabel labelEmpresa;
 	private JLabel labelData;
 	private JLabel labelData2;
@@ -52,41 +57,55 @@ public class TelaInicial extends JFrame {
 	}
 
 	public TelaInicial() {
+		setTitle("NOME DO SISTEMA");		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		setExtendedState(MAXIMIZED_BOTH);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		mnArquivo = new JMenu("Arquivo");
-		menuBar.add(mnArquivo);
+		menuArquivo = new JMenu("Arquivo");
+		menuBar.add(menuArquivo);
 		
-		mnCadastros = new JMenu("Cadastros");
-		menuBar.add(mnCadastros);
+			mnitemConfiguracoes = new JMenuItem("Configura\u00E7\u00F5es");
+			mnitemSair = new JMenuItem("Sair");
 		
-		mntmClientes = new JMenuItem("Clientes");
-		mnCadastros.add(mntmClientes);
+			menuArquivo.add(mnitemConfiguracoes);
+			menuArquivo.add(mnitemSair);
 		
-		mntmEmpresasfiliais = new JMenuItem("Empresas (Matriz e Filiais)");
-		mnCadastros.add(mntmEmpresasfiliais);
+		menuCadastros = new JMenu("Cadastros");
+		menuBar.add(menuCadastros);
 		
-		mntmVeculos = new JMenuItem("Ve\u00EDculos");
-		mnCadastros.add(mntmVeculos);
+			mnitemClientes = new JMenuItem("Clientes");
+			mnitemEmpresas = new JMenuItem("Empresas (Matriz e Filiais)");
+			mnitemVeiculos = new JMenuItem("Ve\u00EDculos");
+
+			menuCadastros.add(mnitemClientes);
+			menuCadastros.add(mnitemEmpresas);
+			menuCadastros.add(mnitemVeiculos);
 		
-		menuItem = new JMenuItem("New menu item");
-		mnCadastros.add(menuItem);
+		menuReservas = new JMenu("Reservas");
+		menuBar.add(menuReservas);
 		
-		mnReservas = new JMenu("Reservas");
-		menuBar.add(mnReservas);
+		menuLocao = new JMenu("Loca\u00E7\u00E3o");
+		menuBar.add(menuLocao);
 		
-		mnLocao = new JMenu("Loca\u00E7\u00E3o");
-		menuBar.add(mnLocao);
+		menuRelatorios = new JMenu("Relat\u00F3rios");
+		menuBar.add(menuRelatorios);
+			
+			menuRCadastro = new JMenu("Cadastro");
+			menuRFinanceiro = new JMenu("Financeiro");
+			menuRLocao = new JMenu("Loca\u00E7\u00E3o");
+			menuRReserva = new JMenu("Reserva");
+
+			menuRelatorios.add(menuRCadastro);
+			menuRelatorios.add(menuRFinanceiro);
+			menuRelatorios.add(menuRLocao);
+			menuRelatorios.add(menuRReserva);
 		
-		mnRelatrios = new JMenu("Relat\u00F3rios");
-		menuBar.add(mnRelatrios);
-		
-		mnSobre = new JMenu("Sobre");
-		menuBar.add(mnSobre);
+		menuSobre = new JMenu("Sobre");
+		menuBar.add(menuSobre);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,7 +114,7 @@ public class TelaInicial extends JFrame {
 		
 		panelInformacoes = new JPanel();
 		panelInformacoes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelInformacoes.setBounds(0, 662, 500, 23);
+		panelInformacoes.setBounds(0, 662, 1370, 23);
 		contentPane.add(panelInformacoes);
 		panelInformacoes.setLayout(null);
 		
@@ -115,5 +134,33 @@ public class TelaInicial extends JFrame {
 		labelData2 = new JLabel(format.format(new Date()));
 		labelData2.setBounds(419, 3, 69, 16);
 		panelInformacoes.add(labelData2);
+	}
+
+	public JMenuItem getMenuitemVeiculos() {
+		return mnitemVeiculos;
+	}
+
+	public JMenuItem getMenuitemClientes() {
+		return mnitemClientes;
+	}
+
+	public JMenuItem getMenuitemEmpresas() {
+		return mnitemEmpresas;
+	}
+
+	public JMenu getMenuRCadastro() {
+		return menuRCadastro;
+	}
+
+	public JMenu getMenuRFinanceiro() {
+		return menuRFinanceiro;
+	}
+
+	public JMenu getMenuRLocao() {
+		return menuRLocao;
+	}
+
+	public JMenu getMenuRReserva() {
+		return menuRReserva;
 	}
 }
