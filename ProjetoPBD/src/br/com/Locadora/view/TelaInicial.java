@@ -119,20 +119,20 @@ public class TelaInicial extends JFrame {
 		panelInformacoes.setLayout(null);
 		
 		labelUsuario = new JLabel("Usu\u00E1rio: TESTANDO");
-		labelUsuario.setBounds(2, 3, 128, 16);
+		labelUsuario.setBounds(3, 3, 150, 16);
 		panelInformacoes.add(labelUsuario);
 		
 		labelEmpresa = new JLabel("Empresa: LOCADORA DE CARROS LTDA");
-		labelEmpresa.setBounds(142, 3, 242, 16);
+		labelEmpresa.setBounds(170, 3, 270, 16);
 		panelInformacoes.add(labelEmpresa);
 		
 		labelData = new JLabel("Data:");
-		labelData.setBounds(386, 3, 34, 16);
+		labelData.setBounds(455, 3, 45, 16);
 		panelInformacoes.add(labelData);
 		
 		format = new SimpleDateFormat("dd/MM/YYYY");
 		labelData2 = new JLabel(format.format(new Date()));
-		labelData2.setBounds(419, 3, 69, 16);
+		labelData2.setBounds(500, 3, 80, 16);
 		panelInformacoes.add(labelData2);
 	}
 
