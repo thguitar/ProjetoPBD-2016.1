@@ -28,7 +28,7 @@ public class LoginController implements ActionListener{
 		if (!telalogin.getFieldUser().getText().isEmpty()&&!telalogin.getPasswordField().getText().isEmpty()) {
 			return true;
 		}else {
-			JOptionPane.showMessageDialog(null,"Campos Obrigatórios",null,JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Campos Obrigat\u00F3rios",null,JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 	}
@@ -37,7 +37,7 @@ public class LoginController implements ActionListener{
 		if (login.getUsuario().equals("THIAGO")&&login.getSenha().equals("123")) {
 			return true;
 		}else {
-			JOptionPane.showMessageDialog(null, "Login Inválido",null ,JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 	}

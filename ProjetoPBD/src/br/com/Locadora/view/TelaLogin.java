@@ -13,61 +13,57 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Toolkit;
 
 public class TelaLogin extends JFrame{
 
 	private static final long serialVersionUID = -7148671693491049508L;
-	
+
 	private JPanel contentPane;
-	private JLabel labelPassword;
-	private JLabel labelUser;
+	private JLabel labelBackground;
 	private JPasswordField passwordField;
 	private JTextField FieldUser;
 	private JButton buttonEntrar;
-	
+
 	public TelaLogin() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens/iconlogin.png"));
 		setResizable(false);
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(300, 220);
+		setSize(534, 318);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		labelPassword = new JLabel();
-		labelPassword.setIcon(new ImageIcon("imagens/password.png"));
-		labelPassword.setBounds(45, 80, 69, 42);
-		
-		labelUser = new JLabel();
-		labelUser.setIcon(new ImageIcon("imagens/user.png"));
-		labelUser.setBounds(45, 11, 69, 68);
+
+		labelBackground = new JLabel();
+		labelBackground.setIcon(new ImageIcon("imagens/login.png"));
+		labelBackground.setBounds(0, 0, 528, 290);
+
+		FieldUser = new JTextField();
+		FieldUser.setForeground(Color.DARK_GRAY);
+		FieldUser.setBackground(Color.WHITE);
+		FieldUser.setFont(new Font("Tahoma", Font.BOLD, 20));
+		FieldUser.setToolTipText("Usu\u00E1rio");
+		FieldUser.setBounds(219, 88, 148, 29);
 		
 		passwordField = new JPasswordField();
 		passwordField.setToolTipText("Senha");
 		passwordField.setFont(new Font("Tahoma", Font.BOLD, 20));
-		passwordField.setBounds(123, 88, 119, 27);
-	
-		FieldUser = new JTextField();
-		FieldUser.setFont(new Font("Tahoma", Font.BOLD, 20));
-		FieldUser.setToolTipText("Usu\u00E1rio");
-		FieldUser.setBounds(123, 32, 119, 27);
+		passwordField.setBounds(219, 169, 148, 29);
 		
-		buttonEntrar = new JButton("Entrar");
-		buttonEntrar.setBounds(94, 133, 89, 23);
+		buttonEntrar = new JButton();
+		buttonEntrar.setIcon(new ImageIcon("imagens/button.jpg"));
+		buttonEntrar.setBounds(143, 221, 258, 38);
 		
-		contentPane.add(labelPassword);
-		contentPane.add(labelUser);
-		contentPane.add(passwordField);
 		contentPane.add(FieldUser);
+		contentPane.add(passwordField);
 		contentPane.add(buttonEntrar);
-		
-		setVisible(true);
-	}
+		contentPane.add(labelBackground);
 
-	public JLabel getLabelPassword() {
-		return labelPassword;
+		setVisible(true);
 	}
 
 	public JPasswordField getPasswordField() {
