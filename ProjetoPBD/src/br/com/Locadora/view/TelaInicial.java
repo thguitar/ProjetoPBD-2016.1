@@ -1,6 +1,5 @@
 package br.com.Locadora.view;
 
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,19 +42,6 @@ public class TelaInicial extends JFrame {
 	private JLabel labelUsuario;
 	private DateFormat format;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaInicial frame = new TelaInicial();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public TelaInicial() {
 		setTitle("NOME DO SISTEMA");		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

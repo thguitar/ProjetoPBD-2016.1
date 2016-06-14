@@ -8,14 +8,14 @@ import javax.swing.JOptionPane;
 
 import br.com.Locadora.model.Login;
 import br.com.Locadora.view.TelaInicial;
-import br.com.Locadora.view.telaLogin;
+import br.com.Locadora.view.TelaLogin;
 
 public class LoginController implements ActionListener{
 
 	//private Login login;
-	private telaLogin telalogin;
+	private TelaLogin telalogin;
 
-	public LoginController(telaLogin telalogin){
+	public LoginController(TelaLogin telalogin){
 		this.telalogin = telalogin;
 	}
 

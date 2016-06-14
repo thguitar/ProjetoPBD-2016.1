@@ -14,7 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class telaLogin extends JFrame{
+public class TelaLogin extends JFrame{
 
 	private static final long serialVersionUID = -7148671693491049508L;
 	
@@ -25,7 +25,7 @@ public class telaLogin extends JFrame{
 	private JTextField FieldUser;
 	private JButton buttonEntrar;
 	
-	public telaLogin() {
+	public TelaLogin() {
 		setResizable(false);
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
