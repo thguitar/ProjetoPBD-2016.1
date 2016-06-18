@@ -2,8 +2,10 @@ package br.com.Locadora.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "grandePorte")
 public class GrandePorte extends Categoria{
 	@Column
 	private int capacidadeDeCarga;
