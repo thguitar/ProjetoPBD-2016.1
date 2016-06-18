@@ -1,14 +1,28 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class MedioPorte extends Categoria{
+	@Column
 	private Acessorios acessorios;
+	@Column
 	private String airBag;
-	private boolean direcaoAssistida, cintosTraseirosRetrateis, rodasDeLigaLeve, controleDePoluicao;
-	public MedioPorte(int id, int kmParaRevisao, Acessorios acessorios,
+	@Column
+	private boolean direcaoAssistida;
+	@Column
+	private boolean cintosTraseirosRetrateis;
+	@Column
+	private boolean rodasDeLigaLeve;
+	@Column
+	private boolean controleDePoluicao;
+	
+	public MedioPorte(int kmParaRevisao, Acessorios acessorios,
 			String airBag, boolean direcaoAssistida,
 			boolean cintosTraseirosRetrateis, boolean rodasDeLigaLeve,
 			boolean controleDePoluicao) {
-		super(id, kmParaRevisao);
+		super(kmParaRevisao);
 		this.acessorios = acessorios;
 		this.airBag = airBag;
 		this.direcaoAssistida = direcaoAssistida;

@@ -1,14 +1,28 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class GrandePorte extends Categoria{
-	private int capacidadeDeCarga, distanciaEntreEixos, desempenhoDoVeiculo, volumeDeAbastecimento;
+	@Column
+	private int capacidadeDeCarga;
+	@Column
+	private int distanciaEntreEixos;
+	@Column
+	private int desempenhoDoVeiculo;
+	@Column
+	private int volumeDeAbastecimento;
+	@Column
 	private String acionamentoEmbreagem;
+	@Column
 	private Double potenciaMotor;
+	
 	public GrandePorte(int id, int kmParaRevisao, int capacidadeDeCarga,
 			int distanciaEntreEixos, int desempenhoDoVeiculo,
 			int volumeDeAbastecimento, String acionamentoEmbreagem,
 			Double potenciaMotor) {
-		super(id, kmParaRevisao);
+		super(kmParaRevisao);
 		this.capacidadeDeCarga = capacidadeDeCarga;
 		this.distanciaEntreEixos = distanciaEntreEixos;
 		this.desempenhoDoVeiculo = desempenhoDoVeiculo;

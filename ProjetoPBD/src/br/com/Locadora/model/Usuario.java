@@ -1,12 +1,28 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario {
+	@Id
+	@GeneratedValue
 	private int id;
-	private String senha, nomeLogin, nome, email;
+	@Column
+	private String senha;
+	@Column
+	private String nomeLogin;
+	@Column
+	private String nome;
+	@Column
+	private String email;
+	@Column
 	private boolean admin;
-	public Usuario(int id, String senha, String nomeLogin, String nome,
+	
+	public Usuario(String senha, String nomeLogin, String nome,
 			String email, boolean admin) {
-		this.id = id;
 		this.senha = senha;
 		this.nomeLogin = nomeLogin;
 		this.nome = nome;

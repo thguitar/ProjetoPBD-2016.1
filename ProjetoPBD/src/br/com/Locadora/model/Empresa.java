@@ -2,16 +2,35 @@ package br.com.Locadora.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+@Entity
 public class Empresa {
+	@Id
+	@GeneratedValue
 	private int id;
+	@Column
 	private boolean filial;
-	private String nome, endRua, endBairro, endNumero, endCidade, endEstado;
+	@Column
+	private String nome;
+	@Column
+	private String endRua;
+	@Column
+	private String endBairro;
+	@Column
+	private String endNumero;
+	@Column
+	private String endCidade;
+	@Column
+	private String endEstado;
+	
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Reserva> reservas;
-	public Empresa(int id, boolean filial, String nome, String endRua,
+	public Empresa(boolean filial, String nome, String endRua,
 			String endBairro, String endNumero, String endCidade,
 			String endEstado) {
-		this.id = id;
 		this.filial = filial;
 		this.nome = nome;
 		this.endRua = endRua;

@@ -1,11 +1,30 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+@Entity
 public class Acessorios {
+	@Id
+	@GeneratedValue
 	private int id;
+	@Column
 	private String TipoDeCambio;
-	private boolean dvd, radio, arCondicionado, direcaoHidraulica, mp3, cameraDeRe;
-	public Acessorios(int id) {
-		this.id = id;
+	@Column
+	private boolean dvd;
+	@Column
+	private boolean radio;
+	@Column
+	private boolean arCondicionado;
+	@Column
+	private boolean direcaoHidraulica;
+	@Column
+	private boolean mp3;
+	@Column
+	private boolean cameraDeRe;
+	public Acessorios() {
+		
 	}
 	public int getId() {
 		return id;

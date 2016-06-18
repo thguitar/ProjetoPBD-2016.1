@@ -1,13 +1,19 @@
 package br.com.Locadora.model;
 
-public class PessoaJuridica extends Cliente{
-	
-	private String inscricaoEstadual, cnpj;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-	public PessoaJuridica(int id, int numeroEndereco, String nome, String rua,
+@Entity
+public class PessoaJuridica extends Cliente{
+	@Column
+	private String inscricaoEstadual;
+	@Column
+	private String cnpj;
+
+	public PessoaJuridica(int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado,
 			String inscricaoEstadual, String cnpj) {
-		super(id, numeroEndereco, nome, rua, bairro, cidade, estado);
+		super(numeroEndereco, nome, rua, bairro, cidade, estado);
 		this.inscricaoEstadual = inscricaoEstadual;
 		this.cnpj = cnpj;
 	}

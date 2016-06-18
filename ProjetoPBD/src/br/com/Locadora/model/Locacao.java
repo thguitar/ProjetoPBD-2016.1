@@ -1,19 +1,36 @@
 package br.com.Locadora.model;
 
-import java.sql.Date;
 
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+@Entity
 public class Locacao {
+	@Id
+	@GeneratedValue
 	private int id;
+	@Column
 	private Cliente cliente;
+	@Column
 	private PessoaFisica pessoaFisica;
+	@Column
 	private String modalidade;
+	@Column
 	private Double valorTotal;
-	private Date horaLocacao, tempoDevolucao;
+	@Column
+	private Date horaLocacao;
+	@Column
+	private Date tempoDevolucao;
+	@Column
 	private Devolucao devolucao;
-	public Locacao(int id, Cliente cliente, PessoaFisica pessoaFisica,
+	
+	public Locacao(Cliente cliente, PessoaFisica pessoaFisica,
 			String modalidade, Double valorTotal, Date horaLocacao,
 			Date tempoDevolucao) {
-		this.id = id;
 		this.cliente = cliente;
 		this.pessoaFisica = pessoaFisica;
 		this.modalidade = modalidade;

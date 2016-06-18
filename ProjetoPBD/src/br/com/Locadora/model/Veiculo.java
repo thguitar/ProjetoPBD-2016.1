@@ -1,10 +1,35 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
 public class Veiculo {
-	private String numeroChassi, cor, combustivel, placa, anoModelo, anoFabricacao;
-	private int numeroPortas, numeroMotor;
-	private Double quilometragem, capacidadePassageiroos, torqueDoMotor;
+	@Id
+	private String numeroChassi;
+	@Column
+	private String cor;
+	@Column
+	private String combustivel;
+	@Column
+	private String placa;
+	@Column
+	private String anoModelo;
+	@Column
+	private String anoFabricacao;
+	@Column
+	private int numeroPortas;
+	@Column
+	private int numeroMotor;
+	@Column
+	private Double quilometragem;
+	@Column
+	private Double capacidadePassageiroos;
+	@Column
+	private Double torqueDoMotor;
+	@Column
 	private Categoria categoria;
+	
 	public Veiculo(String numeroChassi, String cor, String combustivel,
 			String placa, String anoModelo, String anoFabricacao,
 			int numeroPortas, int numeroMotor, Double quilometragem,

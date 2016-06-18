@@ -1,13 +1,28 @@
 package br.com.Locadora.model;
 
-import java.sql.Date;
 
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+@Entity
 abstract class Categoria {
-	private int id, kmParaRevisao;
-	private Date horasReservadasInicio, horasReservadasFim, dataReservada;
+	@Id
+	@GeneratedValue
+	private int id;
+	@Column
+	private int kmParaRevisao;
+	@Column
+	private Date horasReservadasInicio;
+	@Column
+	private Date horasReservadasFim;
+	@Column
+	private Date dataReservada;
 	
-	public Categoria(int id, int kmParaRevisao) {
-		this.id = id;
+	public Categoria(int kmParaRevisao) {
 		this.kmParaRevisao = kmParaRevisao;
 	}
 

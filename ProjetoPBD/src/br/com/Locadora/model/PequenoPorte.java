@@ -1,10 +1,14 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+@Entity
 public class PequenoPorte extends Categoria{
+	@Column
 	private Acessorios acessorios;
 
-	public PequenoPorte(int id, int kmParaRevisao, Acessorios acessorios) {
-		super(id, kmParaRevisao);
+	public PequenoPorte(int kmParaRevisao, Acessorios acessorios) {
+		super(kmParaRevisao);
 		this.acessorios = acessorios;
 	}
 

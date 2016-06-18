@@ -1,16 +1,30 @@
 package br.com.Locadora.model;
 
-import java.sql.Date;
 
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+@Entity
 public class Devolucao {
+	@Id
+	@GeneratedValue
 	private int id;
-	private boolean tanqueCheio, carroLavado;
+	@Column
+	private boolean tanqueCheio;
+	@Column
+	private boolean carroLavado;
+	@Column
 	private Date horarioDevolucao;
+	@Column
 	private Double multa;
+	@Column
 	private String descricao;
-	public Devolucao(int id, boolean tanqueCheio, boolean carroLavado,
+	public Devolucao(boolean tanqueCheio, boolean carroLavado,
 			Date horarioDevolucao) {
-		this.id = id;
 		this.tanqueCheio = tanqueCheio;
 		this.carroLavado = carroLavado;
 		this.horarioDevolucao = horarioDevolucao;

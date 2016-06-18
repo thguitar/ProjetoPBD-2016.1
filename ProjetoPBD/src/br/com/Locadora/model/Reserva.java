@@ -1,11 +1,19 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Reserva {
+	@Id
+	@GeneratedValue
 	private int id;
+	@Column
 	private String descricao;
-	public Reserva(int id, String descricao) {
+	public Reserva(String descricao) {
 		super();
-		this.id = id;
 		this.descricao = descricao;
 	}
 	public int getId() {
