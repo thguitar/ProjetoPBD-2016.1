@@ -5,10 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "medioPorte")
 public class MedioPorte extends Categoria{
-	@Column
-	private Acessorios acessorios;
+//	@Column
+//	private Acessorios acessorios;
 	@Column
 	private String airBag;
 	@Column
@@ -20,24 +19,24 @@ public class MedioPorte extends Categoria{
 	@Column
 	private boolean controleDePoluicao;
 	
-	public MedioPorte(int kmParaRevisao, Acessorios acessorios,
+	public MedioPorte(int kmParaRevisao,
 			String airBag, boolean direcaoAssistida,
 			boolean cintosTraseirosRetrateis, boolean rodasDeLigaLeve,
 			boolean controleDePoluicao) {
 		super(kmParaRevisao);
-		this.acessorios = acessorios;
+//		this.acessorios = acessorios;
 		this.airBag = airBag;
 		this.direcaoAssistida = direcaoAssistida;
 		this.cintosTraseirosRetrateis = cintosTraseirosRetrateis;
 		this.rodasDeLigaLeve = rodasDeLigaLeve;
 		this.controleDePoluicao = controleDePoluicao;
 	}
-	public Acessorios getAcessorios() {
-		return acessorios;
-	}
-	public void setAcessorios(Acessorios acessorios) {
-		this.acessorios = acessorios;
-	}
+//	public Acessorios getAcessorios() {
+//		return acessorios;
+//	}
+//	public void setAcessorios(Acessorios acessorios) {
+//		this.acessorios = acessorios;
+//	}
 	public String getAirBag() {
 		return airBag;
 	}

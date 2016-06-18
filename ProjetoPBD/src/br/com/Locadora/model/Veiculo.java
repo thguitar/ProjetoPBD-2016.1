@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "veiculo")
 public class Veiculo {
 	@Id
 	private String numeroChassi;
@@ -29,27 +28,11 @@ public class Veiculo {
 	private Double capacidadePassageiroos;
 	@Column
 	private Double torqueDoMotor;
-	@Column
-	private Categoria categoria;
 	
-	public Veiculo(String numeroChassi, String cor, String combustivel,
-			String placa, String anoModelo, String anoFabricacao,
-			int numeroPortas, int numeroMotor, Double quilometragem,
-			Double capacidadePassageiroos, Double torqueDoMotor,
-			Categoria categoria) {
-		super();
-		this.numeroChassi = numeroChassi;
-		this.cor = cor;
-		this.combustivel = combustivel;
-		this.placa = placa;
-		this.anoModelo = anoModelo;
-		this.anoFabricacao = anoFabricacao;
-		this.numeroPortas = numeroPortas;
-		this.numeroMotor = numeroMotor;
-		this.quilometragem = quilometragem;
-		this.capacidadePassageiroos = capacidadePassageiroos;
-		this.torqueDoMotor = torqueDoMotor;
-		this.categoria = categoria;
+//	private Categoria categoria;
+	
+	public Veiculo() {
+		
 	}
 	public String getNumeroChassi() {
 		return numeroChassi;
@@ -117,11 +100,11 @@ public class Veiculo {
 	public void setTorqueDoMotor(Double torqueDoMotor) {
 		this.torqueDoMotor = torqueDoMotor;
 	}
-	public Categoria getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
+//	public Categoria getCategoria() {
+//		return categoria;
+//	}
+//	public void setCategoria(Categoria categoria) {
+//		this.categoria = categoria;
+//	}
 	
 }

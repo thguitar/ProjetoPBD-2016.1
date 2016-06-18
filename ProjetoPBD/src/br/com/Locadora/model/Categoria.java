@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "categoria")
 abstract class Categoria {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

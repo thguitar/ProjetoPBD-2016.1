@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuario")
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,13 +23,8 @@ public class Usuario {
 	@Column
 	private boolean admin;
 	
-	public Usuario(String senha, String nomeLogin, String nome,
-			String email, boolean admin) {
-		this.senha = senha;
-		this.nomeLogin = nomeLogin;
-		this.nome = nome;
-		this.email = email;
-		this.admin = admin;
+	public Usuario() {
+		
 	}
 	public int getId() {
 		return id;

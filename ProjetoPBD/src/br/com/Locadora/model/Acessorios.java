@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "acessorios")
 public class Acessorios {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

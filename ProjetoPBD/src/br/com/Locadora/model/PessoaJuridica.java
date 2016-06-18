@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pessoaJuridica")
 public class PessoaJuridica extends Cliente{
 	@Column
 	private String inscricaoEstadual;

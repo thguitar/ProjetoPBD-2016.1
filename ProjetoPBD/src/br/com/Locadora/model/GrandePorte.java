@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "grandePorte")
 public class GrandePorte extends Categoria{
 	@Column
 	private int capacidadeDeCarga;

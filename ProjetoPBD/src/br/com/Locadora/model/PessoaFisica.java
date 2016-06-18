@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 @Entity
-@Table(name = "pessoaFisica")
 public class PessoaFisica extends Cliente{
 	@Column
 	private char sexo;

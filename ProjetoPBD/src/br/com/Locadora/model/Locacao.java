@@ -5,21 +5,21 @@ package br.com.Locadora.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
 @Entity
-@Table(name = "locacao")
 public class Locacao {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column
-	private Cliente cliente;
-	@Column
-	private PessoaFisica pessoaFisica;
+//	@Embedded
+//	private Cliente cliente;
+//	@Embedded
+//	private PessoaFisica pessoaFisica;
 	@Column
 	private String modalidade;
 	@Column
@@ -28,18 +28,10 @@ public class Locacao {
 	private Date horaLocacao;
 	@Column
 	private Date tempoDevolucao;
-	@Column
-	private Devolucao devolucao;
+//	@Embedded
+//	private Devolucao devolucao;
 	
-	public Locacao(Cliente cliente, PessoaFisica pessoaFisica,
-			String modalidade, Double valorTotal, Date horaLocacao,
-			Date tempoDevolucao) {
-		this.cliente = cliente;
-		this.pessoaFisica = pessoaFisica;
-		this.modalidade = modalidade;
-		this.valorTotal = valorTotal;
-		this.horaLocacao = horaLocacao;
-		this.tempoDevolucao = tempoDevolucao;
+	public Locacao() {
 	}
 	public int getId() {
 		return id;
@@ -50,27 +42,27 @@ public class Locacao {
 	public void setTempoDevolucao(Date tempoDevolucao) {
 		this.tempoDevolucao = tempoDevolucao;
 	}
-	public Devolucao getDevolucao() {
-		return devolucao;
-	}
-	public void setDevolucao(Devolucao devolucao) {
-		this.devolucao = devolucao;
-	}
+//	public Devolucao getDevolucao() {
+//		return devolucao;
+//	}
+//	public void setDevolucao(Devolucao devolucao) {
+//		this.devolucao = devolucao;
+//	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Cliente getCliente() {
-		return cliente;
-	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	public PessoaFisica getPessoaFisica() {
-		return pessoaFisica;
-	}
-	public void setPessoaFisica(PessoaFisica pessoaFisica) {
-		this.pessoaFisica = pessoaFisica;
-	}
+//	public Cliente getCliente() {
+//		return cliente;
+//	}
+//	public void setCliente(Cliente cliente) {
+//		this.cliente = cliente;
+//	}
+//	public PessoaFisica getPessoaFisica() {
+//		return pessoaFisica;
+//	}
+//	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+//		this.pessoaFisica = pessoaFisica;
+//	}
 	public String getModalidade() {
 		return modalidade;
 	}

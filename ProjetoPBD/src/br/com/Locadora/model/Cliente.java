@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-
-@Table(name = "cliente")
 abstract class Cliente {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
