@@ -50,6 +50,7 @@ public class TelaCadastroVeiculo extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroVeiculo() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 641, 406);
 		contentPane = new JPanel();

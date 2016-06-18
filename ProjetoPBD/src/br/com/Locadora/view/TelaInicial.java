@@ -13,6 +13,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaInicial extends JFrame {
 
@@ -64,6 +66,11 @@ public class TelaInicial extends JFrame {
 		menuBar.add(menuCadastros);
 		
 			mnitemClientes = new JMenuItem("Clientes");
+			mnitemClientes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					new TelaCadastroCliente().setVisible(true);
+				}
+			});
 			mnitemEmpresas = new JMenuItem("Empresas (Matriz e Filiais)");
 			mnitemVeiculos = new JMenuItem("Ve\u00EDculos");
 
