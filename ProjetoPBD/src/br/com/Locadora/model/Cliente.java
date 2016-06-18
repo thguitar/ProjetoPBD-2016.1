@@ -1,13 +1,31 @@
 package br.com.Locadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 abstract class Cliente {
+	@Id
+	@GeneratedValue
+	private int id;
+	@Column
+	private int numeroEndereco;
+	@Column
+	private String nome;
+	@Column
+	private String rua;
+	@Column
+	private String bairro;
+	@Column
+	private String cidade;
+	@Column
+	private String estado;
 	
-	private int id, numeroEndereco;
-	private String nome, rua, bairro, cidade, estado;
-	
-	public Cliente(int id, int numeroEndereco, String nome, String rua, String bairro,
+	public Cliente(int numeroEndereco, String nome, String rua, String bairro,
 			String cidade, String estado) {
-		this.id = id;
+//		this.id = id;
 		this.numeroEndereco = numeroEndereco;
 		this.nome = nome;
 		this.rua = rua;

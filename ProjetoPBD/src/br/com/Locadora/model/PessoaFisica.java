@@ -2,17 +2,30 @@ package br.com.Locadora.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+@Entity
 public class PessoaFisica extends Cliente{
-	
+	@Column
 	private char sexo;
+	@Column
 	private int numeroHabilitacao;
-	private Date dataVencimentoHailitacao, dataNascimento;
+	@Column
+	private Date dataVencimentoHailitacao;
+	@Column
+	private Date dataNascimento;
+	@Column
 	private String cpf;
 
-	public PessoaFisica(int id, int numeroEndereco, String nome, String rua,
+	public PessoaFisica(int numeroEndereco, String nome, String rua,
+			String bairro, String cidade, String estado) {
+		super(numeroEndereco, nome, rua, bairro, cidade, estado);
+	}
+
+	public PessoaFisica(int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado, char sexo,
 			int numeroHabilitacao, Date dataVencimentoHailitacao, Date dataNascimento, String cpf) {
-		super(id, numeroEndereco, nome, rua, bairro, cidade, estado);
+		super(numeroEndereco, nome, rua, bairro, cidade, estado);
 		this.sexo = sexo;
 		this.numeroHabilitacao = numeroHabilitacao;
 		this.dataVencimentoHailitacao = dataVencimentoHailitacao;
