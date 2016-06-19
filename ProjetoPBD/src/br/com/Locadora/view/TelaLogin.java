@@ -9,10 +9,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+
 import java.awt.Font;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.Toolkit;
 
@@ -62,7 +64,7 @@ public class TelaLogin extends JFrame{
 		contentPane.add(passwordField);
 		contentPane.add(buttonEntrar);
 		contentPane.add(labelBackground);
-
+		
 		setVisible(true);
 	}
 

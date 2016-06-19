@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/jandex-2.0.0.CR1.jar"/>
 	<classpathentry kind="lib" path="lib/javassist-3.18.1-GA.jar"/>
 	<classpathentry kind="lib" path="lib/jboss-logging-3.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-entitymanager-5.0.3.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
