@@ -4,49 +4,48 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import br.com.Locadora.model.Usuario;
 
 public class UsuarioController {
-	EntityManagerFactory emf;
-	EntityManager em;
+	EntityManagerFactory factory;
+	EntityManager manager;
 	
 	public UsuarioController(){
-		emf = Persistence.createEntityManagerFactory("Brito");
-		em = emf.createEntityManager();
+		factory = HibernateSingleton.getInstance("HibMysql");
+		manager = factory.createEntityManager();
 	}
 	
 	public Usuario consultaId(int id){
-		em.getTransaction().begin();
-		Usuario usuario = em.find(Usuario.class, id);
-		em.getTransaction().commit();
-		em.close();
+		manager.getTransaction().begin();
+		Usuario usuario = manager.find(Usuario.class, id);
+		manager.getTransaction().commit();
+		manager.close();
 		return usuario;
 	}
 	
 	public void salvar(Usuario u){
-		em.getTransaction().begin();
-		em.merge(u);
-		em.getTransaction().commit();
-		em.close();
+		manager.getTransaction().begin();
+		manager.merge(u);
+		manager.getTransaction().commit();
+		manager.close();
 	}
 	
 	public void remover(Usuario u){
-		em.getTransaction().begin();
-		em.remove(u);
-		em.getTransaction().commit();
-		em.close();
+		manager.getTransaction().begin();
+		manager.remove(u);
+		manager.getTransaction().commit();
+		manager.close();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listarTodos(){
-		em.getTransaction().begin();
-		Query consulta = em.createQuery("select usuario from Usuario usuario");
+		manager.getTransaction().begin();
+		Query consulta = manager.createQuery("select usuario from Usuario usuario");
 		List<Usuario> usuarios = consulta.getResultList();
-		em.getTransaction().commit();
-		em.close();
+		manager.getTransaction().commit();
+		manager.close();
 		return usuarios;
 	}
 }
