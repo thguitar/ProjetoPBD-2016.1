@@ -74,14 +74,17 @@ public class LoginController implements ActionListener{
 		query.setParameter("param", usuario.getLogin());
 		List<Usuario> list = query.getResultList(); 
 		managedEntity.getTransaction().commit();
-		
-		if (usuario.getLogin().equalsIgnoreCase(list.get(0).getLogin())&&usuario.getSenha().equals(list.get(0).getSenha())) {
-			closeManaged();
-			return true;
-		}else {
-			JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);
-			return false;
+		if(!list.isEmpty()){ 
+			if (usuario.getLogin().equalsIgnoreCase(list.get(0).getLogin())&&usuario.getSenha().equals(list.get(0).getSenha())) {
+				closeManaged();
+				return true;
+			}else {
+				JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
 		}
+		JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);
+		return false;
 	}
 
 	@Override
@@ -94,7 +97,7 @@ public class LoginController implements ActionListener{
 			}
 		}
 	}
-	
+
 	public void closeManaged(){
 		managedEntity.close();
 	}
