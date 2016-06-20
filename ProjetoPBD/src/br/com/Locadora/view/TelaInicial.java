@@ -38,6 +38,7 @@ public class TelaInicial extends JFrame {
 	private JMenuItem mnitemVeiculos;
 	private JMenuItem mnitemClientes;
 	private JMenuItem mnitemEmpresas;
+	private JMenuItem mnitemUsuarios;
 	private JMenuItem mnitemConfiguracoes;
 	private JMenuItem mnitemSair;
 	private JLabel labelInformacoes;
@@ -95,6 +96,16 @@ public class TelaInicial extends JFrame {
 			menuCadastros.add(mnitemClientes);
 			menuCadastros.add(mnitemEmpresas);
 			menuCadastros.add(mnitemVeiculos);
+			
+			mnitemUsuarios = new JMenuItem("Usu\u00E1rios");
+			mnitemUsuarios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					TelaCadastroUsuario cadastroUsuario = new TelaCadastroUsuario();
+					cadastroUsuario.setVisible(true);
+					desktopPane.add(cadastroUsuario);
+				}
+			});
+			menuCadastros.add(mnitemUsuarios);
 		
 		menuReservas = new JMenu("Reservas");
 		menuBar.add(menuReservas);

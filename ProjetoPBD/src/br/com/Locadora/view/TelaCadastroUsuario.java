@@ -2,7 +2,6 @@ package br.com.Locadora.view;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -15,6 +14,7 @@ import java.awt.Color;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
 
-public class TelaCadastroUsuario extends JFrame {
+public class TelaCadastroUsuario extends JInternalFrame {
 
 	private static final long serialVersionUID = -7442135931771402780L;
 
@@ -69,8 +69,8 @@ public class TelaCadastroUsuario extends JFrame {
 
 	@SuppressWarnings("rawtypes")
 	public TelaCadastroUsuario() {
+		setClosable(true);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 514, 342);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
