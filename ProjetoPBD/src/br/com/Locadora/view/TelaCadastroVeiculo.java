@@ -2,7 +2,6 @@ package br.com.Locadora.view;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
@@ -14,6 +13,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -23,8 +23,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import com.toedter.calendar.JYearChooser;
+import javax.swing.border.TitledBorder;
 
-public class TelaCadastroVeiculo extends JFrame {
+public class TelaCadastroVeiculo extends JInternalFrame {
 
 	
 	private static final long serialVersionUID = 3675788004973562001L;
@@ -82,8 +83,9 @@ public class TelaCadastroVeiculo extends JFrame {
 
 	@SuppressWarnings("rawtypes")
 	public TelaCadastroVeiculo() {
+		setClosable(true);
+		setTitle("Cadastro de Ve\u00EDculos");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 641, 406);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 102));

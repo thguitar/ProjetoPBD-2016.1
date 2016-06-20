@@ -10,6 +10,7 @@ public class Main {
 		TelaLogin telaLogin = new TelaLogin();
 		LoginController controller = new LoginController(telaLogin);
 		controller.controll();
+		
 	}	
 
 }

@@ -2,7 +2,6 @@ package br.com.Locadora.view;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
@@ -16,6 +15,7 @@ import java.awt.Font;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
@@ -25,9 +25,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
+
 import com.toedter.calendar.JDateChooser;
 
-public class TelaCadastroCliente extends JFrame {
+public class TelaCadastroCliente extends JInternalFrame {
 
 	private static final long serialVersionUID = 4083438630101664605L;
 
@@ -93,9 +94,10 @@ public class TelaCadastroCliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("rawtypes")
 	public TelaCadastroCliente() {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Cadastro de Clientes");
+		setClosable(true);
 		setBounds(100, 100, 672, 465);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

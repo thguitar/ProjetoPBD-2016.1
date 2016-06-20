@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JDesktopPane;
 
 public class TelaInicial extends JFrame {
 
@@ -22,6 +23,7 @@ public class TelaInicial extends JFrame {
 	
 	private JPanel contentPane;
 	private JPanel panelInformacoes;
+	private JDesktopPane desktopPane;
 	private JMenuBar menuBar;
 	private JMenu menuArquivo;
 	private JMenu menuCadastros;
@@ -38,10 +40,7 @@ public class TelaInicial extends JFrame {
 	private JMenuItem mnitemEmpresas;
 	private JMenuItem mnitemConfiguracoes;
 	private JMenuItem mnitemSair;
-	private JLabel labelEmpresa;
-	private JLabel labelData;
-	private JLabel labelData2;
-	private JLabel labelUsuario;
+	private JLabel labelInformacoes;
 	private DateFormat format;
 	
 	public TelaInicial() {
@@ -49,6 +48,16 @@ public class TelaInicial extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setExtendedState(MAXIMIZED_BOTH);
+		
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		desktopPane = new JDesktopPane();
+		desktopPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		desktopPane.setBounds(1, 0, 1365, 663);
+		contentPane.add(desktopPane);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -68,11 +77,20 @@ public class TelaInicial extends JFrame {
 			mnitemClientes = new JMenuItem("Clientes");
 			mnitemClientes.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					new TelaCadastroCliente().setVisible(true);
+					TelaCadastroCliente cadastroCliente = new TelaCadastroCliente();
+					cadastroCliente.setVisible(true);
+					desktopPane.add(cadastroCliente);
 				}
 			});
 			mnitemEmpresas = new JMenuItem("Empresas (Matriz e Filiais)");
 			mnitemVeiculos = new JMenuItem("Ve\u00EDculos");
+			mnitemVeiculos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					TelaCadastroVeiculo cadastroVeiculo = new TelaCadastroVeiculo();
+					cadastroVeiculo.setVisible(true);
+					desktopPane.add(cadastroVeiculo);
+				}
+			});
 
 			menuCadastros.add(mnitemClientes);
 			menuCadastros.add(mnitemEmpresas);
@@ -100,33 +118,17 @@ public class TelaInicial extends JFrame {
 		menuSobre = new JMenu("Sobre");
 		menuBar.add(menuSobre);
 		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
 		panelInformacoes = new JPanel();
 		panelInformacoes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelInformacoes.setBounds(0, 662, 1370, 23);
 		contentPane.add(panelInformacoes);
 		panelInformacoes.setLayout(null);
 		
-		labelUsuario = new JLabel("Usu\u00E1rio: TESTANDO");
-		labelUsuario.setBounds(3, 3, 150, 16);
-		panelInformacoes.add(labelUsuario);
-		
-		labelEmpresa = new JLabel("Empresa: LOCADORA DE CARROS LTDA");
-		labelEmpresa.setBounds(170, 3, 270, 16);
-		panelInformacoes.add(labelEmpresa);
-		
-		labelData = new JLabel("Data:");
-		labelData.setBounds(455, 3, 45, 16);
-		panelInformacoes.add(labelData);
-		
 		format = new SimpleDateFormat("dd/MM/YYYY");
-		labelData2 = new JLabel(format.format(new Date()));
-		labelData2.setBounds(500, 3, 80, 16);
-		panelInformacoes.add(labelData2);
+		labelInformacoes = new JLabel("Usu\u00E1rio: TESTANDO    Empresa: LOCADORA DE CARROS LTDA    Data: "+format.format(new Date()));
+		labelInformacoes.setBounds(3, 4, 558, 14);
+		panelInformacoes.add(labelInformacoes);
+		
 	}
 
 	public JMenuItem getMenuitemVeiculos() {
