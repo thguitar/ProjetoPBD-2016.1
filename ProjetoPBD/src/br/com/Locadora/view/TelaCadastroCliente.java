@@ -1,11 +1,11 @@
 package br.com.Locadora.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import java.awt.SystemColor;
 
@@ -15,27 +15,65 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
 
 public class TelaCadastroCliente extends JFrame {
 
+	private static final long serialVersionUID = 4083438630101664605L;
+
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JPanel panelTitulo;
+	private JPanel panelRodape;
+	private JPanel panelEndereco;
+	private JPanel panelDadosPrincipais;
+	private JLabel labelTitulos;
+	private JLabel labelNome;
+	private JLabel labelEstado;
+	private JLabel labelEndereco;
+	private JLabel labelCidade;
+	private JLabel labelBairro;
+    private	JLabel labelRua;
+    private JLabel labelNumero;
+	private JLabel labelCPF;
+	private JLabel labelCNPJ;
+	private JLabel labelHabilitacao;
+	private JLabel labelDataNascimento;
+	private JLabel labelVencHabilitacao;
+	private JLabel labelSexo;
+	private JLabel labelInscEstadual;
+	private JLabel labelDadosPrincipais;
+	private JLabel labelPessoa;
+	private JTextField fieldNome;
+	private JTextField fieldCidade;
+	private JTextField fieldBairro;
+	private JTextField fieldRua;
+	private JTextField fieldNumero;
+	private JFormattedTextField fieldCPF;
+	private JFormattedTextField fieldHabilitacao;
+	private JFormattedTextField fieldCNPJ;
+	private JFormattedTextField fieldInscEstadual;
+	private JButton buttonCadastrar;
+	private JButton buttonCancelar;
+	private JRadioButton radiobuttonPFisica;
+	private JRadioButton radiobuttonPJurdica;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBox;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxSexo;
 	private ButtonGroup grupo;
+	private JDateChooser dateChooserNascimento;
+    private JDateChooser dateChooserCNH;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -56,273 +94,252 @@ public class TelaCadastroCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroCliente() {
-		setResizable(false);
-		grupo = new ButtonGroup();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 672, 455);
+		setBounds(100, 100, 672, 465);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.inactiveCaption);
-		panel.setBounds(0, 0, 656, 71);
-		contentPane.add(panel);
+		panelTitulo = new JPanel();
+		panelTitulo.setBackground(SystemColor.inactiveCaption);
+		panelTitulo.setBounds(0, 0, 656, 71);
+		contentPane.add(panelTitulo);
 		
-		JLabel lblCadastroDeClientes = new JLabel("Cadastro de Clientes");
-		lblCadastroDeClientes.setFont(new Font("SansSerif", Font.BOLD, 32));
-		lblCadastroDeClientes.setForeground(new Color(0, 0, 102));
-		panel.add(lblCadastroDeClientes);
+		labelTitulos = new JLabel("Cadastro de Clientes");
+		labelTitulos.setFont(new Font("SansSerif", Font.BOLD, 32));
+		labelTitulos.setForeground(new Color(0, 0, 102));
+		panelTitulo.add(labelTitulos);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(SystemColor.inactiveCaption);
-		panel_1.setBounds(0, 400, 656, 16);
-		contentPane.add(panel_1);
+		panelRodape = new JPanel();
+		panelRodape.setBackground(SystemColor.inactiveCaption);
+		panelRodape.setBounds(0, 410, 656, 16);
+		contentPane.add(panelRodape);
 		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblNome.setBounds(10, 82, 46, 14);
-		contentPane.add(lblNome);
+		radiobuttonPFisica = new JRadioButton("F\u00EDsica", true);
+		radiobuttonPFisica.setFont(new Font("SansSerif", Font.BOLD, 12));
+		radiobuttonPFisica.setBounds(10, 89, 58, 24);
+		contentPane.add(radiobuttonPFisica);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 107, 209, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		radiobuttonPJurdica = new JRadioButton("Jur\u00EDdica");
+		radiobuttonPJurdica.setFont(new Font("SansSerif", Font.BOLD, 12));
+		radiobuttonPJurdica.setBounds(77, 89, 71, 24);
+		contentPane.add(radiobuttonPJurdica);
 		
-		JRadioButton rdbtnPessoaFisica = new JRadioButton("Pessoa Fisica", true);
-		rdbtnPessoaFisica.setFont(new Font("SansSerif", Font.BOLD, 12));
-		rdbtnPessoaFisica.setBounds(297, 92, 109, 23);
-		contentPane.add(rdbtnPessoaFisica);
+		grupo = new ButtonGroup();		
+		grupo.add(radiobuttonPFisica);
+		grupo.add(radiobuttonPJurdica);
 		
-		JRadioButton rdbtnPessoaJurdica = new JRadioButton("Pessoa Jur\u00EDdica");
-		rdbtnPessoaJurdica.setFont(new Font("SansSerif", Font.BOLD, 12));
-		rdbtnPessoaJurdica.setBounds(444, 92, 109, 23);
-		contentPane.add(rdbtnPessoaJurdica);
+		panelDadosPrincipais = new JPanel();
+		panelDadosPrincipais.setBackground(new Color(204, 204, 204));
+		panelDadosPrincipais.setBounds(10, 118, 634, 165);
+		panelDadosPrincipais.setVisible(true);
 		
-		grupo.add(rdbtnPessoaFisica);
-		grupo.add(rdbtnPessoaJurdica);
+		panelEndereco = new JPanel();
+		panelEndereco.setBounds(10, 288, 634, 116);
+		contentPane.add(panelEndereco);
+		panelEndereco.setBackground(new Color(204, 204, 204));
+		panelEndereco.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(204, 204, 204));
-		panel_2.setBounds(10, 138, 209, 256);
-		contentPane.add(panel_2);
-		panel_2.setLayout(null);
+		labelEstado = new JLabel("Estado:");
+		labelEstado.setBounds(4, 73, 42, 16);
+		labelEstado.setFont(new Font("SansSerif", Font.BOLD, 12));
+		panelEndereco.add(labelEstado);
 		
-		JLabel lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(10, 31, 47, 16);
-		lblEstado.setFont(new Font("SansSerif", Font.BOLD, 12));
-		panel_2.add(lblEstado);
+		labelEndereco = new JLabel("Endere\u00E7o");
+		labelEndereco.setBounds(4, 0, 54, 16);
+		labelEndereco.setForeground(new Color(0, 0, 102));
+		labelEndereco.setFont(new Font("SansSerif", Font.BOLD, 12));
+		panelEndereco.add(labelEndereco);
 		
-		JLabel lblEndereo = new JLabel("Endere\u00E7o");
-		lblEndereo.setBounds(74, 0, 54, 16);
-		lblEndereo.setForeground(new Color(0, 0, 102));
-		lblEndereo.setFont(new Font("SansSerif", Font.BOLD, 12));
-		panel_2.add(lblEndereo);
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ACRE (AC)", "ALAGOAS (AL)", "AMAP\u00C1 (AP)", "AMAZONAS (AM)", "BAHIA (BA)", "CEAR\u00C1 (CE)", "DISTRITO FEDERAL (DF)", "ESP\u00CDRITO SANTO (ES)", "GOI\u00C1S (GO)", "MARANH\u00C3O (MA)", "MATO GROSSO (MT)", "MATO GROSSO DO SUL (MS)", "MINAS GERAIS (MG)", "PAR\u00C1(PA) ", "PARA\u00CDBA (PB)", "PARAN\u00C1 (PR)", "PERNAMBUCO (PE)", "PIAU\u00CD (PI)", "RIO DE JANEIRO (RJ)", "RIO GRANDE DO NORTE (RN)", "RIO GRANDE DO SUL (RS)", "ROND\u00D4NIA (RO)", "RORAIMA (RR)", "SANTA CATARINA (SC)", "S\u00C3O PAULO (SP)", "SERGIPE (SE)", "TOCANTINS (TO)"}));
+		comboBox.setBounds(49, 71, 189, 20);
+		panelEndereco.add(comboBox);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Acre (AC)", "Alagoas (AL)", "Amap\u00E1 (AP)", "Amazonas (AM)", "Bahia (BA)", "Cear\u00E1 (CE)", "Distrito Federal (DF)", "Esp\u00EDrito Santo (ES)", "Goi\u00E1s (GO)", "Maranh\u00E3o (MA)", "Mato Grosso (MT)", "Mato Grosso do Sul (MS)", "Minas Gerais (MG)", "Par\u00E1 (PA) ", "Para\u00EDba (PB)", "Paran\u00E1 (PR)", "Pernambuco (PE)", "Piau\u00ED (PI)", "Rio de Janeiro (RJ)", "Rio Grande do Norte (RN)", "Rio Grande do Sul (RS)", "Rond\u00F4nia (RO)", "Roraima (RR)", "Santa Catarina (SC)", "S\u00E3o Paulo (SP)", "Sergipe (SE)", "Tocantins (TO)"}));
-		comboBox.setBounds(67, 30, 132, 20);
-		panel_2.add(comboBox);
+		labelCidade = new JLabel("Cidade:");
+		labelCidade.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelCidade.setBounds(262, 49, 42, 16);
+		panelEndereco.add(labelCidade);
 		
-		JLabel lblCidade = new JLabel("Cidade:");
-		lblCidade.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblCidade.setBounds(10, 64, 47, 16);
-		panel_2.add(lblCidade);
+		fieldCidade = new JTextField();
+		fieldCidade.setBounds(307, 47, 180, 20);
+		panelEndereco.add(fieldCidade);
+		fieldCidade.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(67, 58, 132, 20);
-		panel_2.add(textField_1);
-		textField_1.setColumns(10);
+		labelBairro = new JLabel("Bairro:");
+		labelBairro.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelBairro.setBounds(8, 49, 38, 16);
+		panelEndereco.add(labelBairro);
 		
-		JLabel lblBairro = new JLabel("Bairro:");
-		lblBairro.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblBairro.setBounds(10, 95, 47, 16);
-		panel_2.add(lblBairro);
+		fieldBairro = new JTextField();
+		fieldBairro.setBounds(49, 47, 202, 20);
+		panelEndereco.add(fieldBairro);
+		fieldBairro.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(67, 91, 132, 20);
-		panel_2.add(textField_2);
-		textField_2.setColumns(10);
+		fieldRua = new JTextField();
+		fieldRua.setColumns(10);
+		fieldRua.setBounds(49, 23, 345, 20);
+		panelEndereco.add(fieldRua);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(67, 122, 132, 20);
-		panel_2.add(textField_3);
+		labelRua = new JLabel("Rua:");
+		labelRua.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelRua.setBounds(21, 25, 25, 16);
+		panelEndereco.add(labelRua);
 		
-		JLabel lblRua = new JLabel("Rua:");
-		lblRua.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblRua.setBounds(10, 126, 47, 16);
-		panel_2.add(lblRua);
+		fieldNumero = new JTextField();
+		fieldNumero.setColumns(10);
+		fieldNumero.setBounds(307, 71, 71, 20);
+		panelEndereco.add(fieldNumero);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(67, 153, 71, 20);
-		panel_2.add(textField_4);
+		labelNumero = new JLabel("N\u00FAmero:");
+		labelNumero.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelNumero.setBounds(256, 73, 48, 16);
+		panelEndereco.add(labelNumero);
+		contentPane.add(panelDadosPrincipais);
+		panelDadosPrincipais.setLayout(null);
 		
-		JLabel lblNmero = new JLabel("N\u00FAmero:");
-		lblNmero.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblNmero.setBounds(10, 157, 60, 16);
-		panel_2.add(lblNmero);
+		labelCPF = new JLabel("CPF:");
+		labelCPF.setBounds(21, 47, 25, 20);
+		labelCPF.setFont(new Font("SansSerif", Font.BOLD, 12));
+		panelDadosPrincipais.add(labelCPF);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(204, 204, 204));
-		panel_3.setBounds(229, 138, 417, 168);
-		panel_3.setVisible(true);
-		contentPane.add(panel_3);
-		panel_3.setLayout(null);
+		fieldCPF = new JFormattedTextField(Mascara("###.###.###-##"));
+		fieldCPF.setBounds(49, 47, 95, 20);
+		panelDadosPrincipais.add(fieldCPF);
+		fieldCPF.setColumns(10);
 		
-		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(51, 11, 31, 16);
-		lblCpf.setFont(new Font("SansSerif", Font.BOLD, 12));
-		panel_3.add(lblCpf);
+		fieldHabilitacao = new JFormattedTextField(Mascara("###########"));
+		fieldHabilitacao.setColumns(10);
+		fieldHabilitacao.setBounds(250, 73, 85, 20);
+		panelDadosPrincipais.add(fieldHabilitacao);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(10, 38, 115, 20);
-		panel_3.add(textField_5);
-		textField_5.setColumns(10);
+		labelHabilitacao = new JLabel("N\u00FAmero da CNH:");
+		labelHabilitacao.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelHabilitacao.setBounds(154, 73, 92, 20);
+		panelDadosPrincipais.add(labelHabilitacao);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(240, 38, 115, 20);
-		panel_3.add(textField_6);
+		labelDataNascimento = new JLabel("Data de Nascimento:");
+		labelDataNascimento.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelDataNascimento.setBounds(14, 100, 122, 16);
+		panelDadosPrincipais.add(labelDataNascimento);
 		
-		JLabel lblNmeroDaHabilitao = new JLabel("N\u00FAmero da Habilita\u00E7\u00E3o");
-		lblNmeroDaHabilitao.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblNmeroDaHabilitao.setBounds(230, 11, 128, 16);
-		panel_3.add(lblNmeroDaHabilitao);
+		labelVencHabilitacao = new JLabel("Vencimento da CNH:");
+		labelVencHabilitacao.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelVencHabilitacao.setBounds(343, 75, 122, 16);
+		panelDadosPrincipais.add(labelVencHabilitacao);
 		
-		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
-		lblDataDeNascimento.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblDataDeNascimento.setBounds(10, 85, 122, 16);
-		panel_3.add(lblDataDeNascimento);
+		labelSexo = new JLabel("Sexo:");
+		labelSexo.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelSexo.setBounds(14, 73, 32, 20);
+		panelDadosPrincipais.add(labelSexo);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
-		comboBox_1.setBounds(132, 84, 37, 20);
-		panel_3.add(comboBox_1);
+		comboBoxSexo = new JComboBox();
+		comboBoxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
+		comboBoxSexo.setBounds(49, 73, 95, 20);
+		panelDadosPrincipais.add(comboBoxSexo);
 		
-		JLabel label_1 = new JLabel("/");
-		label_1.setFont(new Font("SansSerif", Font.BOLD, 12));
-		label_1.setBounds(171, 88, 10, 16);
-		panel_3.add(label_1);
+		labelInscEstadual = new JLabel("Insc. Estadual:");
+		labelInscEstadual.setBounds(320, 47, 82, 20);
+		panelDadosPrincipais.add(labelInscEstadual);
+		labelInscEstadual.setFont(new Font("SansSerif", Font.BOLD, 12));
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
-		comboBox_2.setBounds(181, 85, 37, 20);
-		panel_3.add(comboBox_2);
+		labelCNPJ = new JLabel("CNPJ:");
+		labelCNPJ.setBounds(154, 47, 34, 20);
+		panelDadosPrincipais.add(labelCNPJ);
+		labelCNPJ.setFont(new Font("SansSerif", Font.BOLD, 12));
 		
-		JLabel label = new JLabel("/");
-		label.setFont(new Font("SansSerif", Font.BOLD, 12));
-		label.setBounds(224, 88, 10, 16);
-		panel_3.add(label);
+		fieldCNPJ = new JFormattedTextField(Mascara("##.###.###/####-##"));
+		fieldCNPJ.setEditable(false);
+		fieldCNPJ.setBounds(190, 47, 117, 20);
+		panelDadosPrincipais.add(fieldCNPJ);
+		fieldCNPJ.setColumns(10);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(230, 85, 53, 20);
-		for (int i = 1916; i<2017; i++){
-			comboBox_3.addItem(i);
-		}
-		panel_3.add(comboBox_3);
+		fieldInscEstadual = new JFormattedTextField(Mascara("############"));
+		fieldInscEstadual.setEditable(false);
+		fieldInscEstadual.setBounds(404, 47, 125, 20);
+		panelDadosPrincipais.add(fieldInscEstadual);
+		fieldInscEstadual.setColumns(10);
 		
-		JLabel lblVencimentoDaHab = new JLabel("Vencimento da Hab.");
-		lblVencimentoDaHab.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblVencimentoDaHab.setBounds(10, 127, 122, 16);
-		panel_3.add(lblVencimentoDaHab);
+		labelNome = new JLabel("Nome:");
+		labelNome.setBounds(10, 22, 36, 20);
+		panelDadosPrincipais.add(labelNome);
+		labelNome.setFont(new Font("SansSerif", Font.BOLD, 12));
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
-		comboBox_4.setBounds(132, 126, 37, 20);
-		panel_3.add(comboBox_4);
+		fieldNome = new JTextField();
+		fieldNome.setBounds(49, 22, 345, 20);
+		panelDadosPrincipais.add(fieldNome);
+		fieldNome.setColumns(10);
 		
-		JLabel label_2 = new JLabel("/");
-		label_2.setFont(new Font("SansSerif", Font.BOLD, 12));
-		label_2.setBounds(171, 130, 10, 16);
-		panel_3.add(label_2);
+		labelDadosPrincipais = new JLabel("Dados Principais");
+		labelDadosPrincipais.setForeground(new Color(0, 0, 102));
+		labelDadosPrincipais.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelDadosPrincipais.setBounds(4, 0, 96, 16);
+		panelDadosPrincipais.add(labelDadosPrincipais);
 		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
-		comboBox_5.setBounds(181, 127, 37, 20);
-		panel_3.add(comboBox_5);
+		dateChooserNascimento = new JDateChooser();
+		dateChooserNascimento.setBounds(136, 98, 92, 20);
+		panelDadosPrincipais.add(dateChooserNascimento);
 		
-		JLabel label_3 = new JLabel("/");
-		label_3.setFont(new Font("SansSerif", Font.BOLD, 12));
-		label_3.setBounds(224, 130, 10, 16);
-		panel_3.add(label_3);
+		dateChooserCNH = new JDateChooser();
+		dateChooserCNH.setBounds(463, 73, 92, 20);
+		panelDadosPrincipais.add(dateChooserCNH);
 		
-		JComboBox comboBox_6 = new JComboBox();
-		comboBox_6.setBounds(230, 127, 53, 20);
-		for (int i = 2016; i<2022; i++){
-			comboBox_6.addItem(i);
-		}
-		panel_3.add(comboBox_6);
+		buttonCadastrar = new JButton("Cadastrar");
+		buttonCadastrar.setBackground(new Color(204, 255, 255));
+		buttonCadastrar.setForeground(new Color(0, 102, 0));
+		buttonCadastrar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonCadastrar.setBounds(259, 80, 105, 23);
+		contentPane.add(buttonCadastrar);
 		
-		JLabel lblSexo = new JLabel("Sexo");
-		lblSexo.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblSexo.setBounds(132, 13, 31, 16);
-		panel_3.add(lblSexo);
+		buttonCancelar = new JButton("Cancelar");
+		buttonCancelar.setForeground(new Color(255, 0, 0));
+		buttonCancelar.setBackground(new Color(255, 204, 255));
+		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonCancelar.setBounds(409, 79, 105, 23);
+		contentPane.add(buttonCancelar);
 		
-		JComboBox comboBox_7 = new JComboBox();
-		comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
-		comboBox_7.setBounds(135, 38, 71, 20);
-		panel_3.add(comboBox_7);
+		labelPessoa = new JLabel("Pessoa");
+		labelPessoa.setForeground(new Color(0, 0, 102));
+		labelPessoa.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelPessoa.setBounds(14, 74, 43, 16);
+		contentPane.add(labelPessoa);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(204, 204, 204));
-		panel_4.setBounds(229, 133, 417, 78);
-		contentPane.add(panel_4);
-		panel_4.setVisible(false);
-		panel_4.setLayout(null);
-		
-		JLabel lblInscrioEstadual = new JLabel("Inscri\u00E7\u00E3o Estadual:");
-		lblInscrioEstadual.setBounds(10, 11, 117, 16);
-		lblInscrioEstadual.setFont(new Font("SansSerif", Font.BOLD, 12));
-		panel_4.add(lblInscrioEstadual);
-		
-		JLabel lblCnpj = new JLabel("CNPJ:");
-		lblCnpj.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblCnpj.setBounds(10, 38, 40, 16);
-		panel_4.add(lblCnpj);
-		
-		textField_7 = new JTextField();
-		textField_7.setBounds(60, 38, 117, 20);
-		panel_4.add(textField_7);
-		textField_7.setColumns(10);
-		
-		textField_8 = new JTextField();
-		textField_8.setBounds(137, 10, 196, 20);
-		panel_4.add(textField_8);
-		textField_8.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Cadastrar");
-		btnNewButton.setBackground(new Color(204, 255, 255));
-		btnNewButton.setForeground(new Color(0, 102, 0));
-		btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton.setBounds(301, 349, 105, 23);
-		contentPane.add(btnNewButton);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setForeground(new Color(255, 0, 0));
-		btnCancelar.setBackground(new Color(255, 204, 255));
-		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnCancelar.setBounds(448, 350, 105, 23);
-		contentPane.add(btnCancelar);
-		
-		rdbtnPessoaFisica.addActionListener(new ActionListener() {
+		radiobuttonPFisica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (rdbtnPessoaFisica.isSelected()){
-					panel_3.setVisible(true);
-					panel_4.setVisible(false);
+				if (radiobuttonPFisica.isSelected()){
+					fieldCPF.setEditable(true);
+					fieldHabilitacao.setEditable(true);
+					comboBoxSexo.setEnabled(true);
+					fieldCNPJ.setEditable(false);
+					fieldInscEstadual.setEditable(false);
 				}
 			}
 		});
 
-		rdbtnPessoaJurdica.addActionListener(new ActionListener() {
+		radiobuttonPJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (rdbtnPessoaJurdica.isSelected()){
-					panel_4.setVisible(true);
-					panel_3.setVisible(false);
+				if (radiobuttonPJurdica.isSelected()){
+					fieldCPF.setEditable(false);
+					fieldHabilitacao.setEditable(false);
+					comboBoxSexo.setEnabled(false);
+					fieldCNPJ.setEditable(true);
+					fieldInscEstadual.setEditable(true);
 				}
 			}
 		});
+	}
+	
+	private MaskFormatter Mascara(String mascara){
+		
+		@SuppressWarnings("unused")
+		MaskFormatter maskFormatter;
+		
+		try {
+			return maskFormatter = new MaskFormatter(mascara);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
