@@ -1,35 +1,69 @@
 package br.com.Locadora.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.Color;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+
+import com.toedter.calendar.JYearChooser;
 
 public class TelaCadastroVeiculo extends JFrame {
 
+	
+	private static final long serialVersionUID = 3675788004973562001L;
+	
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField txtEdc;
-	private JTextField textField_5;
-	private JTextField textField_4;
-	private JTextField txtEx;
-
+	private JPanel panelRodape;
+	private JPanel panelTitulo;
+	private JLabel labelTitulo;
+	private JLabel labelChassi;
+	private JLabel labelCapacidade;
+	private JLabel labelAnoModelo;
+	private JLabel labelAnoFabricacao;
+	private JLabel labelPlaca;
+	private JLabel labelCor;
+	private JLabel labelNumPortas;
+	private JLabel labelNumMotor;
+	private JLabel labelCombustivel;
+	private JLabel labelQuilometragem;
+	private JLabel labelTorqueMotor;
+	private JLabel labelCategoria;
+	private JTextField fieldChassi;
+	private JTextField fieldCor;
+	private JTextField fieldNumMotor;
+	private JFormattedTextField formattedTextFieldPlaca;
+	private JFormattedTextField formattedTextFieldTorque;
+	private JFormattedTextField formattedTextFieldKms;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxNumPortas;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxCategoria;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxPassageiros;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxCombustivel;
+	private JButton buttonCadastrar;
+	private JButton buttonCancelar;
+	private JYearChooser yearChooserModelo;
+	private JYearChooser yearChooserFabricacao;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,193 +80,189 @@ public class TelaCadastroVeiculo extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	@SuppressWarnings("rawtypes")
 	public TelaCadastroVeiculo() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 641, 406);
 		contentPane = new JPanel();
-		contentPane.setToolTipText("");
 		contentPane.setForeground(new Color(0, 0, 102));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		this.setResizable(false);
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(204, 204, 255));
-		panel.setBounds(0, 0, 637, 66);
-		contentPane.add(panel);
 		
-		JLabel lblCadastroDeVeiculos = new JLabel("Cadastro de Ve\u00EDculos");
-		lblCadastroDeVeiculos.setForeground(new Color(0, 0, 102));
-		lblCadastroDeVeiculos.setFont(new Font("SansSerif", Font.BOLD, 32));
-		panel.add(lblCadastroDeVeiculos);
+		panelTitulo = new JPanel();
+		panelTitulo.setBackground(new Color(204, 204, 255));
+		panelTitulo.setBounds(0, 0, 637, 66);
+		contentPane.add(panelTitulo);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(204, 204, 255));
-		panel_1.setBounds(0, 360, 637, 18);
-		contentPane.add(panel_1);
+		labelTitulo = new JLabel("Cadastro de Ve\u00EDculos");
+		labelTitulo.setForeground(new Color(0, 0, 102));
+		labelTitulo.setFont(new Font("SansSerif", Font.BOLD, 32));
+		panelTitulo.add(labelTitulo);
 		
-		JLabel lblNewLabel = new JLabel("N\u00BA do chassi");
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblNewLabel.setBounds(38, 88, 73, 14);
-		contentPane.add(lblNewLabel);
+		panelRodape = new JPanel();
+		panelRodape.setBackground(new Color(204, 204, 255));
+		panelRodape.setBounds(0, 360, 637, 18);
+		contentPane.add(panelRodape);
 		
-		JLabel lblCombustvel = new JLabel("Cappacidade de Passageiros");
-		lblCombustvel.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblCombustvel.setBounds(353, 139, 169, 14);
-		contentPane.add(lblCombustvel);
+		labelChassi = new JLabel("N\u00BA do Chassi:");
+		labelChassi.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelChassi.setBounds(10, 79, 74, 16);
+		contentPane.add(labelChassi);
 		
-		JLabel lblAnoDoModelo = new JLabel("Ano do modelo");
-		lblAnoDoModelo.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblAnoDoModelo.setBounds(134, 88, 87, 14);
-		contentPane.add(lblAnoDoModelo);
+		labelCapacidade = new JLabel("Capacidade de Passageiros:");
+		labelCapacidade.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelCapacidade.setBounds(380, 153, 162, 16);
+		contentPane.add(labelCapacidade);
 		
-		JLabel lblAnoDeFaricao = new JLabel("Ano de Farica\u00E7\u00E3o");
-		lblAnoDeFaricao.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblAnoDeFaricao.setBounds(244, 88, 101, 14);
-		contentPane.add(lblAnoDeFaricao);
+		labelAnoModelo = new JLabel("Ano do Modelo:");
+		labelAnoModelo.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelAnoModelo.setBounds(163, 105, 86, 16);
+		contentPane.add(labelAnoModelo);
 		
-		JLabel lblPlaca = new JLabel("Placa:");
-		lblPlaca.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblPlaca.setBounds(365, 88, 35, 14);
-		contentPane.add(lblPlaca);
+		labelAnoFabricacao = new JLabel("Ano de Farica\u00E7\u00E3o:");
+		labelAnoFabricacao.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelAnoFabricacao.setBounds(323, 105, 101, 16);
+		contentPane.add(labelAnoFabricacao);
 		
-		JLabel lblCor = new JLabel("Cor");
-		lblCor.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblCor.setBounds(294, 139, 23, 14);
-		contentPane.add(lblCor);
+		labelPlaca = new JLabel("Placa:");
+		labelPlaca.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelPlaca.setBounds(49, 104, 35, 16);
+		contentPane.add(labelPlaca);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 108, 120, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		labelCor = new JLabel("Cor:");
+		labelCor.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelCor.setBounds(59, 129, 23, 16);
+		contentPane.add(labelCor);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(273, 163, 77, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		fieldChassi = new JTextField();
+		fieldChassi.setBounds(89, 77, 120, 20);
+		contentPane.add(fieldChassi);
+		fieldChassi.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(101, 163, 92, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		fieldCor = new JTextField();
+		fieldCor.setBounds(89, 127, 120, 20);
+		contentPane.add(fieldCor);
+		fieldCor.setColumns(10);
 		
-		txtEdc = new JTextField();
-		txtEdc.setBounds(353, 108, 55, 20);
-		contentPane.add(txtEdc);
-		txtEdc.setColumns(10);
+		fieldNumMotor = new JTextField();
+		fieldNumMotor.setBounds(300, 77, 92, 20);
+		contentPane.add(fieldNumMotor);
+		fieldNumMotor.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(10, 163, 86, 20);
-		contentPane.add(textField_5);
-		textField_5.setColumns(10);
+		formattedTextFieldPlaca = new JFormattedTextField(Mascara("UUU-####"));
+		formattedTextFieldPlaca.setBounds(89, 102, 55, 20);
+		contentPane.add(formattedTextFieldPlaca);
+		formattedTextFieldPlaca.setColumns(10);
 		
-		JLabel lblNDePortas = new JLabel("N\u00BA de portas");
-		lblNDePortas.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblNDePortas.setBounds(197, 139, 73, 14);
-		contentPane.add(lblNDePortas);
+		labelNumPortas = new JLabel("N\u00BA de portas:");
+		labelNumPortas.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelNumPortas.setBounds(205, 153, 72, 16);
+		contentPane.add(labelNumPortas);
 		
-		JLabel lblNDoMotor = new JLabel("N\u00BA do motor");
-		lblNDoMotor.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblNDoMotor.setBounds(114, 139, 73, 14);
-		contentPane.add(lblNDoMotor);
+		labelNumMotor = new JLabel("N\u00BA do Motor:");
+		labelNumMotor.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelNumMotor.setBounds(227, 79, 68, 16);
+		contentPane.add(labelNumMotor);
 		
-		JLabel lblCombustvel_1 = new JLabel("Combust\u00EDvel");
-		lblCombustvel_1.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblCombustvel_1.setBounds(20, 139, 73, 14);
-		contentPane.add(lblCombustvel_1);
+		labelCombustivel = new JLabel("Combust\u00EDvel:");
+		labelCombustivel.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelCombustivel.setBounds(229, 129, 73, 16);
+		contentPane.add(labelCombustivel);
 		
-		JLabel lblQuilometragem = new JLabel("Quilometragem");
-		lblQuilometragem.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblQuilometragem.setBounds(410, 88, 92, 14);
-		contentPane.add(lblQuilometragem);
+		labelQuilometragem = new JLabel("Quilometragem:");
+		labelQuilometragem.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelQuilometragem.setBounds(426, 129, 91, 16);
+		contentPane.add(labelQuilometragem);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1 porta", "2 portas", "3 portas", "4 portas"}));
-		comboBox.setBounds(197, 163, 73, 20);
-		contentPane.add(comboBox);
+		comboBoxNumPortas = new JComboBox();
+		comboBoxNumPortas.setModel(new DefaultComboBoxModel(new String[] {"1 porta", "2 portas", "3 portas", "4 portas"}));
+		comboBoxNumPortas.setBounds(282, 151, 73, 20);
+		contentPane.add(comboBoxNumPortas);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(410, 108, 92, 20);
-		contentPane.add(textField_4);
+		formattedTextFieldKms = new JFormattedTextField(Mascara("#########"));
+		formattedTextFieldKms.setColumns(10);
+		formattedTextFieldKms.setBounds(522, 127, 92, 20);
+		contentPane.add(formattedTextFieldKms);
 		
-		JLabel lblTorqueDoMotor = new JLabel("Torque do Motor");
-		lblTorqueDoMotor.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblTorqueDoMotor.setBounds(10, 194, 101, 14);
-		contentPane.add(lblTorqueDoMotor);
+		labelTorqueMotor = new JLabel("Torque do Motor:");
+		labelTorqueMotor.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelTorqueMotor.setBounds(410, 79, 96, 16);
+		contentPane.add(labelTorqueMotor);
 		
-		txtEx = new JTextField();
-		txtEx.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				txtEx.setText("");
-			}
-		});
-		txtEx.setText("Ex: 2.5");
-		txtEx.setToolTipText("");
-		txtEx.setForeground(new Color(0, 153, 255));
-		txtEx.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		txtEx.setColumns(10);
-		txtEx.setBounds(20, 219, 63, 20);
-		contentPane.add(txtEx);
+		formattedTextFieldTorque = new JFormattedTextField(Mascara("#.#"));
+		formattedTextFieldTorque.setColumns(10);
+		formattedTextFieldTorque.setBounds(511, 78, 23, 20);
+		contentPane.add(formattedTextFieldTorque);
 		
-		JLabel lblCategoria = new JLabel("Categoria");
-		lblCategoria.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblCategoria.setBounds(116, 194, 58, 14);
-		contentPane.add(lblCategoria);
+		labelCategoria = new JLabel("Categoria:");
+		labelCategoria.setFont(new Font("SansSerif", Font.BOLD, 12));
+		labelCategoria.setBounds(26, 153, 58, 16);
+		contentPane.add(labelCategoria);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Pequena", "M\u00E9dia", "Grande"}));
-		comboBox_1.setBounds(116, 219, 73, 20);
-		contentPane.add(comboBox_1);
+		comboBoxCategoria = new JComboBox();
+		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {"Pequena", "M\u00E9dia", "Grande"}));
+		comboBoxCategoria.setBounds(89, 151, 91, 20);
+		contentPane.add(comboBoxCategoria);
 		
-		JButton btnAsd = new JButton("Cadastrar");
-		btnAsd.addActionListener(new ActionListener() {
+		buttonCadastrar = new JButton("Cadastrar");
+		buttonCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnAsd.setForeground(new Color(0, 102, 0));
-		btnAsd.setBackground(new Color(204, 255, 255));
-		btnAsd.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnAsd.setBounds(162, 287, 120, 23);
-		contentPane.add(btnAsd);
+		buttonCadastrar.setForeground(new Color(0, 102, 0));
+		buttonCadastrar.setBackground(new Color(204, 255, 255));
+		buttonCadastrar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		buttonCadastrar.setBounds(162, 287, 120, 23);
+		contentPane.add(buttonCadastrar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		buttonCancelar = new JButton("Cancelar");
+		buttonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCancelar.setForeground(new Color(255, 0, 0));
-		btnCancelar.setBackground(new Color(255, 204, 255));
-		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnCancelar.setBounds(319, 287, 120, 23);
-		contentPane.add(btnCancelar);
+		buttonCancelar.setForeground(new Color(255, 0, 0));
+		buttonCancelar.setBackground(new Color(255, 204, 255));
+		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		buttonCancelar.setBounds(319, 287, 120, 23);
+		contentPane.add(buttonCancelar);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		for (int i = 2017; i>1981; i-- ){
-			comboBox_2.addItem(i);
+		comboBoxPassageiros = new JComboBox();
+		for (int i = 1; i<=50; i++ ){
+			comboBoxPassageiros.addItem(i);
 		}
-		comboBox_2.setBounds(144, 108, 63, 20);
-		contentPane.add(comboBox_2);
+		comboBoxPassageiros.setBounds(548, 151, 63, 20);
+		contentPane.add(comboBoxPassageiros);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		for (int i = 2016; i>1981; i-- ){
-			comboBox_3.addItem(i);
-		}
-		comboBox_3.setBounds(265, 108, 63, 20);
-		contentPane.add(comboBox_3);
+		yearChooserModelo = new JYearChooser();
+		yearChooserModelo.getSpinner().setLocation(0, 103);
+		yearChooserModelo.getSpinner().setSize(48, 20);
+		yearChooserModelo.setBounds(254, 103, 48, 20);
+		contentPane.add(yearChooserModelo);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		for (int i = 1; i<48; i++ ){
-			comboBox_4.addItem(i);
-		}
-		comboBox_4.setBounds(399, 164, 63, 20);
-		contentPane.add(comboBox_4);
+		yearChooserFabricacao = new JYearChooser();
+		yearChooserFabricacao.setBounds(429, 103, 48, 20);
+		contentPane.add(yearChooserFabricacao);
+		
+		comboBoxCombustivel = new JComboBox();
+		comboBoxCombustivel.setModel(new DefaultComboBoxModel(new String[] {"Biodiesel", "Diesel", "Etanol", "Flex", "Gasolina", "G\u00E1s Natural", "Hidrog\u00EAnio"}));
+		comboBoxCombustivel.setBounds(306, 127, 100, 20);
+		contentPane.add(comboBoxCombustivel);
 		
 		setVisible(true);
+		
+	}
+	
+	private MaskFormatter Mascara(String mascara){
+		MaskFormatter formatter;
+		
+		try {
+			formatter = new MaskFormatter();
+			formatter.setMask(mascara);
+			return formatter;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
