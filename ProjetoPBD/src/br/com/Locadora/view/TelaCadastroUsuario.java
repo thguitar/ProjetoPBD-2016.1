@@ -171,9 +171,10 @@ public class TelaCadastroUsuario extends JFrame {
 				if (validarFields()) {
 					Usuario u = new Usuario();
 					u.setNome(fieldNome.getText());
-					u.setSenha(fieldLogin.getText());
+					u.setLogin(fieldLogin.getText());
 					u.setEmail(fieldEmail.getText());
 					u.setAdmin(chckbxAdmin.isSelected());
+					u.setSenha(new String(passFieldSenha.getPassword()));
 					new UsuarioController().salvar(u);
 				}
 			}	

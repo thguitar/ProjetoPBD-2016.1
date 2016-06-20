@@ -179,13 +179,14 @@ public class TelaConsultaUsuarios extends JFrame {
 		barraRolagem = new JScrollPane(tabela);
 		JPanel painelFundo = new JPanel();
 		painelFundo.setLayout(new BorderLayout());
-		painelFundo.add(BorderLayout.CENTER, barraRolagem);
+//		painelFundo.add(BorderLayout.CENTER, barraRolagem);
 		painelBotoes.add(btInserir);
 		painelBotoes.add(btEditar);
 		painelBotoes.add(btExcluir);
 		painelFundo.add(BorderLayout.SOUTH, painelBotoes);
 		painelFundo.setSize(120, 350);
-		painelTabela.add(painelFundo);
+		painelTabela.add(BorderLayout.CENTER,barraRolagem);
+//		painelTabela.add(painelFundo);
 //		btInserir.addActionListener(new BtInserirListener());
 //		btEditar.addActionListener(new BtEditarListener());
 //		btExcluir.addActionListener(new BtExcluirListener());
