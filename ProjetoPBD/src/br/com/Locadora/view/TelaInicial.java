@@ -13,8 +13,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyVetoException;
+
 import javax.swing.JDesktopPane;
 
 public class TelaInicial extends JFrame {
@@ -81,6 +84,11 @@ public class TelaInicial extends JFrame {
 					TelaCadastroCliente cadastroCliente = new TelaCadastroCliente();
 					cadastroCliente.setVisible(true);
 					desktopPane.add(cadastroCliente);
+					try {
+						cadastroCliente.setSelected(true);
+					} catch (PropertyVetoException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 			mnitemEmpresas = new JMenuItem("Empresas (Matriz e Filiais)");
@@ -90,6 +98,11 @@ public class TelaInicial extends JFrame {
 					TelaCadastroVeiculo cadastroVeiculo = new TelaCadastroVeiculo();
 					cadastroVeiculo.setVisible(true);
 					desktopPane.add(cadastroVeiculo);
+					try {
+						cadastroVeiculo.setSelected(true);
+					} catch (PropertyVetoException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 
@@ -103,6 +116,11 @@ public class TelaInicial extends JFrame {
 					TelaCadastroUsuario cadastroUsuario = new TelaCadastroUsuario();
 					cadastroUsuario.setVisible(true);
 					desktopPane.add(cadastroUsuario);
+					try {
+						cadastroUsuario.setSelected(true);
+					} catch (PropertyVetoException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 			menuCadastros.add(mnitemUsuarios);
