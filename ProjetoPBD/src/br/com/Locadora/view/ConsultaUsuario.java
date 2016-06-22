@@ -52,6 +52,7 @@ public class ConsultaUsuario extends JDialog {
 		setResizable(false);
 		setTitle("Consulta Usu\u00E1rios");
 		setType(Type.POPUP);
+		setModal(true);
 		setAlwaysOnTop(true);
 		setBounds(100, 100, 600, 315);
 		getContentPane().setLayout(null);
