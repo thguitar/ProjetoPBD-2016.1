@@ -3,6 +3,7 @@ package br.com.Locadora.model;
 
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,10 +20,10 @@ abstract class Categoria {
 	private int id;
 	@Column(name = "HRS_RESERVADAS_INICIO")
 	@Temporal(TemporalType.TIME)
-	private Calendar horasReservadasInicio;
+	private Date horasReservadasInicio;
 	@Column(name = "HRS_RESERVADAS_FIM")
 	@Temporal(TemporalType.TIME)
-	private Calendar horasReservadasFim;
+	private Date horasReservadasFim;
 	@Column(name = "DT_RESERVA")
 	@Temporal(TemporalType.DATE)
 	private Calendar dataReservada;
@@ -49,19 +50,19 @@ abstract class Categoria {
 		this.kmParaRevisao = kmParaRevisao;
 	}
 
-	public Calendar getHorasReservadasInicio() {
+	public Date getHorasReservadasInicio() {
 		return horasReservadasInicio;
 	}
 
-	public void setHorasReservadasInicio(Calendar horasReservadasInicio) {
+	public void setHorasReservadasInicio(Date horasReservadasInicio) {
 		this.horasReservadasInicio = horasReservadasInicio;
 	}
 
-	public Calendar getHorasReservadasFim() {
+	public Date getHorasReservadasFim() {
 		return horasReservadasFim;
 	}
 
-	public void setHorasReservadasFim(Calendar horasReservadasFim) {
+	public void setHorasReservadasFim(Date horasReservadasFim) {
 		this.horasReservadasFim = horasReservadasFim;
 	}
 
