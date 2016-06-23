@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
+import br.com.Locadora.model.Empresa;
 import br.com.Locadora.model.Usuario;
 
 public class UsuarioController {
@@ -47,5 +48,14 @@ public class UsuarioController {
 		manager.getTransaction().commit();
 		manager.close();
 		return usuarios;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> consultaEmpresas(){
+		manager.getTransaction().begin();
+		Query query = manager.createQuery("select u from Empresa u");
+		List<Empresa>empresas = query.getResultList(); 
+		manager.getTransaction().commit();
+		return empresas;
 	}
 }

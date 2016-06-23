@@ -19,10 +19,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.com.Locadora.controller.UsuarioController;
+import br.com.Locadora.model.Empresa;
 import br.com.Locadora.model.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
@@ -53,6 +55,8 @@ public class TelaCadastroUsuario extends JInternalFrame {
 	private JButton buttonCadastrar;
 	private JButton buttonCancelar;
 
+	private UsuarioController controller;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -67,7 +71,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 	}
 
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaCadastroUsuario() {
 		setClosable(true);
 		setResizable(false);
@@ -108,7 +112,13 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		panelCentro.add(labelEmpresa);
 		labelEmpresa.setFont(new Font("SansSerif", Font.BOLD, 12));
 
+		controller = new UsuarioController();
+		List<Empresa> empresas = controller.consultaEmpresas();
+		
 		comboBoxEmpresa = new JComboBox();
+		for(int i=0; i <empresas.size(); i++) {
+			comboBoxEmpresa.addItem(empresas.get(i).getId()+" - "+empresas.get(i).getNome());
+		}
 		comboBoxEmpresa.setBounds(109, 104, 138, 20);
 		panelCentro.add(comboBoxEmpresa);
 
@@ -175,6 +185,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 					u.setEmail(fieldEmail.getText());
 					u.setAdmin(chckbxAdmin.isSelected());
 					u.setSenha(new String(passFieldSenha.getPassword()));
+					u.setEmpresa(Integer.parseInt(String.valueOf(comboBoxEmpresa.getSelectedIndex()).substring(0, 1)));
 					new UsuarioController().salvar(u);
 				}
 			}	

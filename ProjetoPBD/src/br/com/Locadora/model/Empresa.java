@@ -31,6 +31,10 @@ public class Empresa {
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Reserva> reservas;
 	
+	public Empresa(){
+		
+	}
+	
 	public Empresa(boolean filial, String nome, String endRua,
 			String endBairro, String endNumero, String endCidade,
 			String endEstado) {
