@@ -20,6 +20,8 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JDesktopPane;
 
+import br.com.Locadora.model.Usuario;
+
 public class TelaInicial extends JFrame {
 
 	private static final long serialVersionUID = -2773811355479248366L;
@@ -47,7 +49,10 @@ public class TelaInicial extends JFrame {
 	private JLabel labelInformacoes;
 	private DateFormat format;
 	
-	public TelaInicial() {
+	@SuppressWarnings("unused")
+	private Usuario usuarioLogado;
+	
+	public TelaInicial(Usuario usuarioLogado) {
 		setTitle("NOME DO SISTEMA");		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -153,8 +158,9 @@ public class TelaInicial extends JFrame {
 		contentPane.add(panelInformacoes);
 		panelInformacoes.setLayout(null);
 		
+		this.usuarioLogado = usuarioLogado;
 		format = new SimpleDateFormat("dd/MM/YYYY");
-		labelInformacoes = new JLabel("Usu\u00E1rio: TESTANDO    Empresa: LOCADORA DE CARROS LTDA    Data: "+format.format(new Date()));
+		labelInformacoes = new JLabel("Usu\u00E1rio: "+usuarioLogado.getLogin().toUpperCase()+"    Empresa: LOCADORA DE CARROS LTDA    Data: "+format.format(new Date()));
 		labelInformacoes.setBounds(3, 4, 558, 14);
 		panelInformacoes.add(labelInformacoes);
 		
@@ -187,4 +193,5 @@ public class TelaInicial extends JFrame {
 	public JMenu getMenuRReserva() {
 		return menuRReserva;
 	}
+	
 }

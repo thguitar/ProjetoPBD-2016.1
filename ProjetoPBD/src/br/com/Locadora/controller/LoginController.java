@@ -17,7 +17,7 @@ import br.com.Locadora.view.TelaLogin;
 
 public class LoginController implements ActionListener{
 
-	//private Login login;
+	List<Usuario> listUser;
 	private TelaLogin telalogin;
 	private EntityManager managedEntity;
 
@@ -35,8 +35,8 @@ public class LoginController implements ActionListener{
 					if (validaFields()) {
 						if (logar(new Usuario(telalogin.getFieldUser().getText(), new String(telalogin.getPasswordField().getPassword())))) {
 							telalogin.dispose();
+							new TelaInicial(listUser.get(0)).setVisible(true);
 							telalogin = null;
-							new TelaInicial().setVisible(true);
 						}
 					}
 				}
@@ -49,8 +49,8 @@ public class LoginController implements ActionListener{
 					if (validaFields()) {
 						if (logar(new Usuario(telalogin.getFieldUser().getText(), new String(telalogin.getPasswordField().getPassword())))) {
 							telalogin.dispose();
+							new TelaInicial(listUser.get(0)).setVisible(true);
 							telalogin = null;
-							new TelaInicial().setVisible(true);
 						}
 					}
 				}
@@ -72,10 +72,10 @@ public class LoginController implements ActionListener{
 		managedEntity.getTransaction().begin();
 		Query query = managedEntity.createQuery("select u from Usuario u where u.login = :param");
 		query.setParameter("param", usuario.getLogin());
-		List<Usuario> list = query.getResultList(); 
+		listUser = query.getResultList(); 
 		managedEntity.getTransaction().commit();
-		if(!list.isEmpty()){ 
-			if (usuario.getLogin().equalsIgnoreCase(list.get(0).getLogin())&&usuario.getSenha().equals(list.get(0).getSenha())) {
+		if(!listUser.isEmpty()){ 
+			if (usuario.getLogin().equalsIgnoreCase(listUser.get(0).getLogin())&&usuario.getSenha().equals(listUser.get(0).getSenha())) {
 				closeManaged();
 				return true;
 			}else {
@@ -92,8 +92,8 @@ public class LoginController implements ActionListener{
 		if (validaFields()) {
 			if (logar(new Usuario(telalogin.getFieldUser().getText(), new String(telalogin.getPasswordField().getPassword())))) {
 				telalogin.dispose();
+				new TelaInicial(listUser.get(0)).setVisible(true);
 				telalogin = null;
-				new TelaInicial().setVisible(true);
 			}
 		}
 	}
