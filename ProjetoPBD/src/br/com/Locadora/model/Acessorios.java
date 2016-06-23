@@ -11,20 +11,21 @@ public class Acessorios {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column
-	private String TipoDeCambio;
-	@Column
-	private boolean dvd;
-	@Column
-	private boolean radio;
-	@Column
+	@Column(name = "AR_CONDICIONADO")
 	private boolean arCondicionado;
-	@Column
+	@Column(name = "RADIO")
+	private boolean radio;
+	@Column(name = "DVD")
+	private boolean dvd;
+	@Column(name = "DIRECAO_HIDRAULICA")
 	private boolean direcaoHidraulica;
-	@Column
+	@Column(name = "MP3")
 	private boolean mp3;
-	@Column
+	@Column(name = "CAMERA_RE")
 	private boolean cameraDeRe;
+	@Column(name = "TIPO_CAMBIO")
+	private String TipoDeCambio;
+
 	public Acessorios() {
 		
 	}

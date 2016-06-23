@@ -24,7 +24,6 @@ public class Usuario {
 	@Column
 	private int empresa;
 	
-	
 	public Usuario() {
 		
 	}

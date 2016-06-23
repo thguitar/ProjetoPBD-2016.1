@@ -20,13 +20,13 @@ public class PessoaFisica extends Cliente{
 
 	public PessoaFisica(int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado) {
-		super(numeroEndereco, nome, rua, bairro, cidade, estado);
+		super(nome, rua, bairro, numeroEndereco, cidade, estado);
 	}
 
 	public PessoaFisica(int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado, char sexo,
 			int numeroHabilitacao, Date dataVencimentoHailitacao, Date dataNascimento, String cpf) {
-		super(numeroEndereco, nome, rua, bairro, cidade, estado);
+		super(nome, rua, bairro, numeroEndereco, cidade, estado);
 		this.sexo = sexo;
 		this.numeroHabilitacao = numeroHabilitacao;
 		this.dataVencimentoHailitacao = dataVencimentoHailitacao;

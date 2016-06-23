@@ -2,7 +2,7 @@ package br.com.Locadora.model;
 
 
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,20 +10,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 abstract class Categoria {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column
+	@Column(name = "HRS_RESERVADAS_INICIO")
+	@Temporal(TemporalType.TIME)
+	private Calendar horasReservadasInicio;
+	@Column(name = "HRS_RESERVADAS_FIM")
+	@Temporal(TemporalType.TIME)
+	private Calendar horasReservadasFim;
+	@Column(name = "DT_RESERVA")
+	@Temporal(TemporalType.DATE)
+	private Calendar dataReservada;
+	@Column(name = "KM_P_REVISAO")
 	private int kmParaRevisao;
-	@Column
-	private Date horasReservadasInicio;
-	@Column
-	private Date horasReservadasFim;
-	@Column
-	private Date dataReservada;
-	
+
 	public Categoria(int kmParaRevisao) {
 		this.kmParaRevisao = kmParaRevisao;
 	}
@@ -44,30 +49,28 @@ abstract class Categoria {
 		this.kmParaRevisao = kmParaRevisao;
 	}
 
-	public Date getHorasReservadasInicio() {
+	public Calendar getHorasReservadasInicio() {
 		return horasReservadasInicio;
 	}
 
-	public void setHorasReservadasInicio(Date horasReservadasInicio) {
+	public void setHorasReservadasInicio(Calendar horasReservadasInicio) {
 		this.horasReservadasInicio = horasReservadasInicio;
 	}
 
-	public Date getHorasReservadasFim() {
+	public Calendar getHorasReservadasFim() {
 		return horasReservadasFim;
 	}
 
-	public void setHorasReservadasFim(Date horasReservadasFim) {
+	public void setHorasReservadasFim(Calendar horasReservadasFim) {
 		this.horasReservadasFim = horasReservadasFim;
 	}
 
-	public Date getDataReservada() {
+	public Calendar getDataReservada() {
 		return dataReservada;
 	}
 
-	public void setDataReservada(Date dataReservada) {
+	public void setDataReservada(Calendar dataReservada) {
 		this.dataReservada = dataReservada;
 	}
-	
-	
 	
 }

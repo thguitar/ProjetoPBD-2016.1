@@ -13,23 +13,24 @@ public class Empresa {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column
-	private boolean filial;
-	@Column
+	@Column(name = "NOME")
 	private String nome;
-	@Column
+	@Column(name = "FILIAL")
+	private boolean filial;
+	@Column(name = "RUA")
 	private String endRua;
-	@Column
+	@Column(name = "BAIRRO")
 	private String endBairro;
-	@Column
+	@Column(name = "NUMERO")
 	private String endNumero;
-	@Column
+	@Column(name = "CIDADE")
 	private String endCidade;
-	@Column
+	@Column(name = "ESTADO")
 	private String endEstado;
-	
+
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Reserva> reservas;
+	
 	public Empresa(boolean filial, String nome, String endRua,
 			String endBairro, String endNumero, String endCidade,
 			String endEstado) {
@@ -41,6 +42,7 @@ public class Empresa {
 		this.endCidade = endCidade;
 		this.endEstado = endEstado;
 	}
+	
 	public int getId() {
 		return id;
 	}

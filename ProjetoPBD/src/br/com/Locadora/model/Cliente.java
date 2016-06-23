@@ -12,30 +12,40 @@ abstract class Cliente {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column
-	private int numeroEndereco;
-	@Column
+	@Column(name = "NOME")
 	private String nome;
-	@Column
+	@Column(name = "RUA")
 	private String rua;
-	@Column
+	@Column(name = "BAIRRO")
 	private String bairro;
-	@Column
+	@Column(name = "NUMERO")
+	private int numero;
+	@Column(name = "CIDADE")
 	private String cidade;
-	@Column
+	@Column(name = "ESTADO")
 	private String estado;
-	
-	public Cliente(int numeroEndereco, String nome, String rua, String bairro,
+
+	public Cliente(int id, String nome, String rua, String bairro, int numero, 
 			String cidade, String estado) {
-//		this.id = id;
-		this.numeroEndereco = numeroEndereco;
+		this.id = id;
+		this.numero = numero;
 		this.nome = nome;
 		this.rua = rua;
 		this.bairro = bairro;
 		this.cidade = cidade;
 		this.estado = estado;
 	}
-
+	
+	public Cliente(String nome, String rua, String bairro, int numero, 
+			String cidade, String estado) {
+		this.numero = numero;
+		this.nome = nome;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -45,11 +55,11 @@ abstract class Cliente {
 	}
 
 	public int getnumeroEndereco() {
-		return numeroEndereco;
+		return numero;
 	}
 
 	public void setnumeroEndereco(int numeroEndereco) {
-		this.numeroEndereco = numeroEndereco;
+		this.numero = numeroEndereco;
 	}
 
 	public String getNome() {
@@ -91,7 +101,5 @@ abstract class Cliente {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
 
 }

@@ -6,30 +6,29 @@ import javax.persistence.Table;
 
 @Entity
 public class GrandePorte extends Categoria{
-	@Column
+	@Column(name = "CAP_DE_CARGA")
 	private int capacidadeDeCarga;
-	@Column
+	@Column(name = "DIST_ENTRE_EIXOS")
 	private int distanciaEntreEixos;
-	@Column
-	private int desempenhoDoVeiculo;
-	@Column
-	private int volumeDeAbastecimento;
-	@Column
+	@Column(name = "ACION_EMBREAGEM")
 	private String acionamentoEmbreagem;
-	@Column
+	@Column(name = "DESEMP_VEICULO")
+	private int desempenhoDoVeiculo;
+	@Column(name = "POTENCIA_MOTOR")
 	private Double potenciaMotor;
-	
+	@Column(name = "VOL_ABASTECIMENTO")
+	private int volumeDeAbastecimento;
+
 	public GrandePorte(int id, int kmParaRevisao, int capacidadeDeCarga,
 			int distanciaEntreEixos, int desempenhoDoVeiculo,
-			int volumeDeAbastecimento, String acionamentoEmbreagem,
-			Double potenciaMotor) {
+			String acionamentoEmbreagem, Double potenciaMotor, int volumeDeAbastecimento) {
 		super(kmParaRevisao);
 		this.capacidadeDeCarga = capacidadeDeCarga;
 		this.distanciaEntreEixos = distanciaEntreEixos;
 		this.desempenhoDoVeiculo = desempenhoDoVeiculo;
-		this.volumeDeAbastecimento = volumeDeAbastecimento;
 		this.acionamentoEmbreagem = acionamentoEmbreagem;
 		this.potenciaMotor = potenciaMotor;
+		this.volumeDeAbastecimento = volumeDeAbastecimento;
 	}
 	public int getCapacidadeDeCarga() {
 		return capacidadeDeCarga;
@@ -49,12 +48,6 @@ public class GrandePorte extends Categoria{
 	public void setDesempenhoDoVeiculo(int desempenhoDoVeiculo) {
 		this.desempenhoDoVeiculo = desempenhoDoVeiculo;
 	}
-	public int getVolumeDeAbastecimento() {
-		return volumeDeAbastecimento;
-	}
-	public void setVolumeDeAbastecimento(int volumeDeAbastecimento) {
-		this.volumeDeAbastecimento = volumeDeAbastecimento;
-	}
 	public String getAcionamentoEmbreagem() {
 		return acionamentoEmbreagem;
 	}
@@ -66,6 +59,12 @@ public class GrandePorte extends Categoria{
 	}
 	public void setPotenciaMotor(Double potenciaMotor) {
 		this.potenciaMotor = potenciaMotor;
+	}
+	public int getVolumeDeAbastecimento() {
+		return volumeDeAbastecimento;
+	}
+	public void setVolumeDeAbastecimento(int volumeDeAbastecimento) {
+		this.volumeDeAbastecimento = volumeDeAbastecimento;
 	}
 	
 }
