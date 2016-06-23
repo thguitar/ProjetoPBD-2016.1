@@ -1,23 +1,31 @@
 package br.com.Locadora.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-@Entity
-public class PessoaFisica extends Cliente{
-	@Column
-	private char sexo;
-	@Column
-	private int numeroHabilitacao;
-	@Column
-	private Date dataVencimentoHailitacao;
-	@Column
-	private Date dataNascimento;
-	@Column
-	private String cpf;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+@PrimaryKeyJoinColumn(name="IDCLIENTE")
+public class PessoaFisica extends Cliente{
+	
+	@Column(name = "CPF")
+	private String cpf;	
+	@Column(name = "NUM_HAB")
+	private int numeroHabilitacao;
+	@Column(name = "DT_VENC_HAB")
+	@Temporal(TemporalType.DATE)
+	private Date dataVencimentoHailitacao;
+	@Column(name = "DT_NASCI")
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
+	@Column(name = "SEXO")
+	private char sexo;
+	
 	public PessoaFisica(int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado) {
 		super(nome, rua, bairro, numeroEndereco, cidade, estado);

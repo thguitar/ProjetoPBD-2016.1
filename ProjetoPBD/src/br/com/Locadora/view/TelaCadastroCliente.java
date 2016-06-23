@@ -28,6 +28,10 @@ import java.util.Date;
 
 import javax.swing.JButton;
 
+import br.com.Locadora.controller.ClienteController;
+import br.com.Locadora.model.PessoaFisica;
+import br.com.Locadora.model.PessoaJuridica;
+
 import com.toedter.calendar.JDateChooser;
 
 public class TelaCadastroCliente extends JInternalFrame {
@@ -61,10 +65,10 @@ public class TelaCadastroCliente extends JInternalFrame {
 	private JTextField fieldBairro;
 	private JTextField fieldRua;
 	private JTextField fieldNumero;
+	private JTextField fieldInscEstadual;
 	private JFormattedTextField fieldCPF;
 	private JFormattedTextField fieldHabilitacao;
 	private JFormattedTextField fieldCNPJ;
-	private JFormattedTextField fieldInscEstadual;
 	private JButton buttonCadastrar;
 	private JButton buttonCancelar;
 	private JRadioButton radiobuttonPFisica;
@@ -260,7 +264,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelDadosPrincipais.add(fieldCNPJ);
 		fieldCNPJ.setColumns(10);
 
-		fieldInscEstadual = new JFormattedTextField(Mascara("############"));
+		fieldInscEstadual = new JTextField();
 		fieldInscEstadual.setEditable(false);
 		fieldInscEstadual.setBounds(404, 47, 125, 20);
 		panelDadosPrincipais.add(fieldInscEstadual);
@@ -295,7 +299,19 @@ public class TelaCadastroCliente extends JInternalFrame {
 		buttonCadastrar = new JButton("Cadastrar");
 		buttonCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				validaFields();
+				if (validaFields()) {
+					if(radiobuttonPFisica.isSelected()){
+						String s = (String) comboBoxSexo.getSelectedItem();
+						char sexo = s.charAt(0);
+						new ClienteController().salvar(new PessoaFisica(Integer.parseInt(fieldNumero.getText()), fieldNome.getText(), 
+								fieldRua.getText(), fieldBairro.getText(), fieldCidade.getText(), (String) comboBox.getSelectedItem(), sexo, 1231231, dateChooserCNH.getDate(), dateChooserNascimento.getDate(), "123"));
+					}else {
+						new ClienteController().salvar(new PessoaJuridica(Integer.parseInt(fieldNumero.getText()), fieldNome.getText(), 
+								fieldRua.getText(), fieldBairro.getText(), fieldCidade.getText(), (String) comboBox.getSelectedItem(), fieldInscEstadual.getText(),"123"));
+					}					
+
+				}
+
 			}
 		});
 		buttonCadastrar.setBackground(new Color(204, 255, 255));
@@ -371,7 +387,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, "Existem Campos Vazios",null , JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
-			
+
 			return true;
 		}
 	}

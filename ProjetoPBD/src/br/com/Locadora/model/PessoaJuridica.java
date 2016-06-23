@@ -2,14 +2,17 @@ package br.com.Locadora.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
+@PrimaryKeyJoinColumn(name="ID_CLIENTE")
 public class PessoaJuridica extends Cliente{
-	@Column
-	private String inscricaoEstadual;
-	@Column
+	
+	@Column(name = "CNPJ")
 	private String cnpj;
+	@Column(name = "INSC_ESTADUAL")
+	private String inscricaoEstadual;
 
 	public PessoaJuridica(int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado,
