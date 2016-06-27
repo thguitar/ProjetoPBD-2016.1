@@ -17,6 +17,7 @@ import br.com.Locadora.model.Empresa;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 
 public class ConsultaEmpresa extends JDialog {
@@ -126,17 +127,25 @@ public class ConsultaEmpresa extends JDialog {
 	}
 
 	public void pesquisar() {
+		EmpresaController empresaController = new EmpresaController();
+		
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
-			//faz a consulta de todos as empresas cadastrados
+			modelTalble.setNumRows(0);
+			List<Empresa> empresas = empresaController.consultaEmpresas();
+			for (int i = 0; i < empresas.size(); i++) {
+				modelTalble.addRow(new Object[]{empresas.get(i).getId(),empresas.get(i).getNome()});
+			}
 		}else if (!fieldNome.getText().isEmpty()) {
-			//faz a consulta pelo nome digitado
+			modelTalble.setNumRows(0);
+			List<Empresa> empresas = empresaController.consultaNome(fieldNome.getText());
+			for (int i = 0; i < empresas.size(); i++) {
+				modelTalble.addRow(new Object[]{empresas.get(i).getId(),empresas.get(i).getNome()});
+			}
 		}else {
-			//faz a consulta pelo código digitado
+			modelTalble.setNumRows(0);
+			Empresa empresa = empresaController.consultaId(Integer.parseInt(fieldID.getText()));
+			modelTalble.addRow(new Object[]{empresa.getId(),empresa.getNome()});
 		}
 
-		modelTalble.setNumRows(0);
-		EmpresaController empresaController = new EmpresaController();
-		Empresa empresa = empresaController.consultaId(Integer.parseInt(fieldID.getText()));
-		modelTalble.addRow(new Object[]{empresa.getId(),empresa.getNome()});
 	}
 }

@@ -40,6 +40,16 @@ public class EmpresaController {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Empresa> consultaNome(String Nome){
+		manager.getTransaction().begin();
+		Query query = manager.createQuery("select e from Empresa e where e.nome like :param");
+		query.setParameter("param", "%"+Nome+"%");
+		List<Empresa> empresas = query.getResultList(); 
+		manager.getTransaction().commit();
+		return empresas;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Empresa> consultaEmpresas(){
 		manager.getTransaction().begin();
 		Query query = manager.createQuery("select e from Empresa e");
