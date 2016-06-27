@@ -97,6 +97,17 @@ public class TelaInicial extends JFrame {
 				}
 			});
 			mnitemEmpresas = new JMenuItem("Empresas (Matriz e Filiais)");
+			mnitemEmpresas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa();
+					desktopPane.add(cadastroEmpresa);
+					try {
+						cadastroEmpresa.setSelected(true);
+					} catch (PropertyVetoException e) {
+						e.printStackTrace();
+					}
+				}
+			});
 			mnitemVeiculos = new JMenuItem("Ve\u00EDculos");
 			mnitemVeiculos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
