@@ -41,6 +41,17 @@ public class UsuarioController {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Usuario> consultaNome(String Nome){
+		manager.getTransaction().begin();
+		Query query = manager.createQuery("select u from Usuario u where u.nome like :param");
+		query.setParameter("param", "%"+Nome+"%");
+		List<Usuario> usuarios = query.getResultList();
+		manager.getTransaction().commit();
+		manager.close();
+		return usuarios;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> listarTodos(){
 		manager.getTransaction().begin();
 		Query consulta = manager.createQuery("select usuario from Usuario usuario");

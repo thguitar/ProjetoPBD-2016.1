@@ -17,6 +17,7 @@ import br.com.Locadora.model.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 
 public class ConsultaUsuario extends JDialog {
@@ -35,6 +36,8 @@ public class ConsultaUsuario extends JDialog {
 	private JSeparator separator;
 	private JScrollPane scrollPaneTable;
 	private DefaultTableModel modelTalble; 
+	
+	private UsuarioController controller;
 
 
 	public static void main(String[] args) {
@@ -127,17 +130,25 @@ public class ConsultaUsuario extends JDialog {
 	}
 
 	public void pesquisar() {
+		controller = new UsuarioController();
+		
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
-			//faz a consulta de todos os usuarios cadastrados
+			modelTalble.setNumRows(0);
+			List<Usuario> usuarios = controller.listarTodos();
+			for (int i = 0; i < usuarios.size(); i++) {
+				modelTalble.addRow(new Object[]{usuarios.get(i).getId(), usuarios.get(i).getLogin(),usuarios.get(i).getNome()});
+			}
 		}else if (!fieldNome.getText().isEmpty()) {
-			//faz a consulta pelo nome digitado
+			modelTalble.setNumRows(0);
+			List<Usuario> usuarios = controller.consultaNome(fieldNome.getText());
+			for (int i = 0; i < usuarios.size(); i++) {
+				modelTalble.addRow(new Object[]{usuarios.get(i).getId(), usuarios.get(i).getLogin(),usuarios.get(i).getNome()});
+			}
 		}else {
-			//faz a consulta pelo código digitado
+			modelTalble.setNumRows(0);
+			Usuario usuario = controller.consultaId(Integer.parseInt(fieldID.getText()));
+			modelTalble.addRow(new Object[]{usuario.getId(),usuario.getNome()});
 		}
 
-		modelTalble.setNumRows(0);
-		UsuarioController usuarioController = new UsuarioController();
-		Usuario usuario = usuarioController.consultaId(Integer.parseInt(fieldID.getText()));
-		modelTalble.addRow(new Object[]{usuario.getId(),usuario.getNome(),usuario.getEmail()});
 	}
 }
