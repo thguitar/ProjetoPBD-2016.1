@@ -2,38 +2,68 @@ package br.com.Locadora.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 @Entity
 public class Veiculo {
+	//@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Column(name = "ID")
+	//private int id;
 	@Id
+	@Column(name = "NUM_CHASSI", unique = true, nullable = false)
 	private String numeroChassi;
-	@Column
+	@Column(name = "COR", nullable = false)
 	private String cor;
-	@Column
+	@Column(name = "COMBUSTIVEL", nullable = false)
 	private String combustivel;
-	@Column
+	@Column(name = "PLACA", unique = true, nullable = false)
 	private String placa;
-	@Column
+	@Column(name = "ANO_MODELO", nullable = false)
 	private String anoModelo;
-	@Column
+	@Column(name = "ANO_FABRICACAO", nullable = false)
 	private String anoFabricacao;
-	@Column
+	@Column(name = "NUM_PORTAS", nullable = false)
 	private int numeroPortas;
-	@Column
+	@Column(name = "NUM_MOTOR", unique = true, nullable = false)
 	private int numeroMotor;
-	@Column
+	@Column(name = "QUILOMETRAGEM", nullable = false)
 	private Double quilometragem;
-	@Column
+	@Column(name = "CAPACIDADE", nullable = false)
 	private Double capacidadePassageiroos;
-	@Column
+	@Column(name = "TORQUE_MOTOR", nullable = false)
 	private Double torqueDoMotor;
-	
-//	private Categoria categoria;
-	
+	@OneToOne
+	@JoinColumn(name="categoria_id")
+	private Categoria categoria;
+
 	public Veiculo() {
-		
+
 	}
+	
+	public Veiculo(String numeroChassi, String cor, String combustivel,
+			String placa, String anoModelo, String anoFabricacao,
+			int numeroPortas, int numeroMotor, Double quilometragem,
+			Double capacidadePassageiroos, Double torqueDoMotor,
+			Categoria categoria) {
+		this.numeroChassi = numeroChassi;
+		this.cor = cor;
+		this.combustivel = combustivel;
+		this.placa = placa;
+		this.anoModelo = anoModelo;
+		this.anoFabricacao = anoFabricacao;
+		this.numeroPortas = numeroPortas;
+		this.numeroMotor = numeroMotor;
+		this.quilometragem = quilometragem;
+		this.capacidadePassageiroos = capacidadePassageiroos;
+		this.torqueDoMotor = torqueDoMotor;
+		this.categoria = categoria;
+	}
+
 	public String getNumeroChassi() {
 		return numeroChassi;
 	}
@@ -100,11 +130,10 @@ public class Veiculo {
 	public void setTorqueDoMotor(Double torqueDoMotor) {
 		this.torqueDoMotor = torqueDoMotor;
 	}
-//	public Categoria getCategoria() {
-//		return categoria;
-//	}
-//	public void setCategoria(Categoria categoria) {
-//		this.categoria = categoria;
-//	}
-	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 }
