@@ -29,6 +29,10 @@ public abstract class Cliente {
 	@Column(name = "ESTADO")
 	private String estado;
 
+	public Cliente(){
+		
+	}
+	
 	public Cliente(int id, String nome, String rua, String bairro, int numero, 
 			String cidade, String estado) {
 		this.id = id;
