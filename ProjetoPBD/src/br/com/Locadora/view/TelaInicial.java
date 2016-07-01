@@ -133,6 +133,7 @@ public class TelaInicial extends JFrame {
 					cadastroUsuario.setVisible(true);
 					desktopPane.add(cadastroUsuario);
 					try {
+						cadastroUsuario.setPosicao();
 						cadastroUsuario.setSelected(true);
 					} catch (PropertyVetoException e) {
 						e.printStackTrace();

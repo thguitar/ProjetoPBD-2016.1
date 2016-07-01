@@ -57,7 +57,8 @@ public class ConsultaUsuario extends JDialog {
 		setType(Type.POPUP);
 		setModal(true);
 		setAlwaysOnTop(true);
-		setBounds(100, 100, 600, 315);
+		setLocationRelativeTo(telaCadastroUsuario);
+		setSize(600, 315);
 		getContentPane().setLayout(null);
 
 		contentPane = new JPanel();
@@ -93,6 +94,12 @@ public class ConsultaUsuario extends JDialog {
 		contentPane.add(buttonResearch);
 
 		buttonSelect = new JButton("Selecionar");
+		buttonSelect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaCadastroUsuario.setFields((int) (tableUsuarios.getValueAt(tableUsuarios.getSelectedRow(), 0)));
+				dispose();
+			}
+		});
 		buttonSelect.setBounds(484, 11, 98, 23);
 		contentPane.add(buttonSelect);
 

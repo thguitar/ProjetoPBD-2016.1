@@ -1,6 +1,5 @@
 package br.com.Locadora.view;
 
-import java.awt.EventQueue;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +8,7 @@ import java.awt.SystemColor;
 
 import javax.swing.JLabel;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 
@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroUsuario extends JInternalFrame {
 
@@ -52,27 +53,19 @@ public class TelaCadastroUsuario extends JInternalFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxEmpresa;
 	private JCheckBox chckbxAdmin;
-	private JButton buttonCadastrar;
+	private JButton buttonSalvar;
 	private JButton buttonCancelar;
+	private JButton buttonExcluir;
 
 	private UsuarioController controller;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroUsuario frame = new TelaCadastroUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JButton buttonLocalizar;
+	private JButton buttonNovo;
 
+	private boolean saveupdate;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaCadastroUsuario() {
+		setTitle("Cadastro de Usu\u00E1rios                                                                                                            ");
 		setClosable(true);
 		setResizable(false);
 		setBounds(100, 100, 514, 342);
@@ -92,7 +85,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		panelTitulo.add(labelTitulo);
 
 		panelCentro = new JPanel();
-		panelCentro.setBounds(33, 69, 441, 190);
+		panelCentro.setBounds(31, 94, 441, 190);
 		panelCentro.setBackground(SystemColor.inactiveCaption);
 		contentPane.add(panelCentro);
 		panelCentro.setLayout(null);
@@ -114,16 +107,18 @@ public class TelaCadastroUsuario extends JInternalFrame {
 
 		controller = new UsuarioController();
 		List<Empresa> empresas = controller.consultaEmpresas();
-		
+
 		comboBoxEmpresa = new JComboBox();
 		for(int i=0; i <empresas.size(); i++) {
 			comboBoxEmpresa.addItem(empresas.get(i).getId()+" - "+empresas.get(i).getNome());
 		}
-		comboBoxEmpresa.setBounds(109, 104, 138, 20);
+		comboBoxEmpresa.setBounds(109, 104, 167, 20);
+		comboBoxEmpresa.setEnabled(false);
 		panelCentro.add(comboBoxEmpresa);
 
 		fieldLogin = new JTextField();
 		fieldLogin.setBounds(109, 56, 114, 20);
+		fieldLogin.setEditable(false);
 		panelCentro.add(fieldLogin);
 		fieldLogin.setColumns(10);
 
@@ -137,20 +132,24 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		labelNome.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		fieldNome = new JTextField();
+		fieldNome.setEditable(false);
 		fieldNome.setBounds(109, 32, 306, 20);
 		panelCentro.add(fieldNome);
 		fieldNome.setColumns(10);
 
 		fieldEmail = new JTextField();
 		fieldEmail.setBounds(109, 80, 250, 20);
+		fieldEmail.setEditable(false);
 		panelCentro.add(fieldEmail);
 		fieldEmail.setColumns(10);
 
 		passFieldSenha = new JPasswordField();
+		passFieldSenha.setEditable(false);
 		passFieldSenha.setBounds(301, 56, 114, 20);
 		panelCentro.add(passFieldSenha);
 
 		chckbxAdmin = new JCheckBox("Administrador");
+		chckbxAdmin.setEnabled(false);
 		chckbxAdmin.setBounds(304, 102, 112, 24);
 		panelCentro.add(chckbxAdmin);
 
@@ -169,39 +168,129 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		panelRodape.setBounds(0, 292, 507, 17);
 		contentPane.add(panelRodape);
 
+		buttonSalvar = new JButton();
+		buttonSalvar.setEnabled(false);
+		buttonSalvar.setToolTipText("Gravar");
+		buttonSalvar.setBounds(152, 62, 50, 26);
+		contentPane.add(buttonSalvar);
+		buttonSalvar.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\save-disk (2).png"));
+		buttonSalvar.setForeground(Color.BLACK);
+		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonSalvar.setBackground(SystemColor.inactiveCaption);
 
-		buttonCadastrar = new JButton("Cadastrar");
-		buttonCadastrar.setForeground(new Color(0, 102, 0));
-		buttonCadastrar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		buttonCadastrar.setBackground(new Color(204, 255, 255));
-		buttonCadastrar.setBounds(93, 269, 105, 23);
-		contentPane.add(buttonCadastrar);
-		buttonCadastrar.addActionListener(new ActionListener() {
+		buttonExcluir = new JButton();
+		buttonExcluir.setToolTipText("Excluir");
+		buttonExcluir.setEnabled(false);
+		buttonExcluir.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\cross-symbol.png"));
+		buttonExcluir.setForeground(Color.BLACK);
+		buttonExcluir.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonExcluir.setBackground(SystemColor.inactiveCaption);
+		buttonExcluir.setBounds(214, 62, 50, 26);
+		contentPane.add(buttonExcluir);
+
+		buttonCancelar = new JButton();
+		buttonCancelar.setToolTipText("Desfazer");
+		buttonCancelar.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\undo-button.png"));
+		buttonCancelar.setForeground(Color.BLACK);
+		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonCancelar.setBackground(SystemColor.inactiveCaption);
+		buttonCancelar.setBounds(276, 62, 50, 26);
+		contentPane.add(buttonCancelar);
+
+		buttonLocalizar = new JButton();
+		buttonLocalizar.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\search.png"));
+		buttonLocalizar.setToolTipText("Localizar");
+		buttonLocalizar.setForeground(Color.BLACK);
+		buttonLocalizar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonLocalizar.setBackground(SystemColor.inactiveCaption);
+		buttonLocalizar.setBounds(338, 62, 50, 26);
+		contentPane.add(buttonLocalizar);
+
+		buttonNovo = new JButton();
+		buttonNovo.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\addition-sign.png"));
+		buttonNovo.setToolTipText("Novo");
+		buttonNovo.setForeground(Color.BLACK);
+		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonNovo.setBackground(SystemColor.inactiveCaption);
+		buttonNovo.setBounds(90, 62, 50, 26);
+		contentPane.add(buttonNovo);
+
+		buttonSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (validarFields()) {
 					Usuario u = new Usuario();
+					u.setId(Integer.parseInt(fieldCodigo.getText()));
+					u.setNome(fieldNome.getText());
+					u.setLogin(fieldLogin.getText());
+					u.setEmail(fieldEmail.getText());
+					u.setAdmin(chckbxAdmin.isSelected());
+					u.setSenha(new String(passFieldSenha.getPassword()));
+					u.setEmpresa(Integer.parseInt(String.valueOf(comboBoxEmpresa.getSelectedItem()).substring(0, 1)));
+					
+					if(saveupdate){ 
+						controller.insert(u); 
+					}else {
+						controller.update(u);
+					}
+					
+					cleanFields();
+					buttonNovo.setEnabled(true);
+					buttonSalvar.setEnabled(false);
+					buttonLocalizar.setEnabled(true);
+					buttonExcluir.setEnabled(false);
+				}
+			}	
+		});
+
+		buttonExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
+					Usuario u = new Usuario();
+					u.setId(Integer.parseInt(fieldCodigo.getText()));
 					u.setNome(fieldNome.getText());
 					u.setLogin(fieldLogin.getText());
 					u.setEmail(fieldEmail.getText());
 					u.setAdmin(chckbxAdmin.isSelected());
 					u.setSenha(new String(passFieldSenha.getPassword()));
 					u.setEmpresa(Integer.parseInt(String.valueOf(comboBoxEmpresa.getSelectedIndex()).substring(0, 1)));
-					new UsuarioController().salvar(u);
+					controller.delete(u);
+					cleanFields();
+					buttonNovo.setEnabled(true);
+					buttonExcluir.setEnabled(false);
+					buttonSalvar.setEnabled(false);
 				}
-			}	
-		});
 
-		buttonCancelar = new JButton("Cancelar");
-		buttonCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
 			}
 		});
-		buttonCancelar.setForeground(Color.RED);
-		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		buttonCancelar.setBackground(new Color(255, 204, 255));
-		buttonCancelar.setBounds(275, 269, 105, 23);
-		contentPane.add(buttonCancelar);
+
+		buttonCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cleanFields();
+				buttonSalvar.setEnabled(false);
+				buttonNovo.setEnabled(true);
+				buttonExcluir.setEnabled(false);
+				buttonLocalizar.setEnabled(true);
+			}
+		});
+
+		buttonLocalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ConsultaUsuario(getTela()).setVisible(true);
+			}
+		});
+
+		buttonNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cleanFields();
+				buttonSalvar.setEnabled(true);
+				buttonExcluir.setEnabled(false);
+				buttonLocalizar.setEnabled(false);
+				buttonNovo.setEnabled(false);
+				enableFields();
+				saveupdate = true;
+			}
+		});
+
 	}
 
 	@SuppressWarnings("deprecation")
@@ -213,4 +302,57 @@ public class TelaCadastroUsuario extends JInternalFrame {
 
 		return true;
 	}
-}
+
+	private void cleanFields(){
+		fieldCodigo.setText(null);
+		fieldNome.setText(null);
+		fieldEmail.setText(null);
+		fieldLogin.setText(null);
+		passFieldSenha.setText(null);
+		comboBoxEmpresa.setSelectedIndex(0);
+		chckbxAdmin.setSelected(false);
+		disableFields();
+	}
+
+	public void enableFields(){
+		fieldNome.setEditable(true);
+		fieldEmail.setEditable(true);
+		fieldLogin.setEditable(true);
+		passFieldSenha.setEditable(true);
+		comboBoxEmpresa.setEnabled(true);
+		chckbxAdmin.setEnabled(true);
+	}
+
+	public void disableFields(){
+		fieldNome.setEditable(false);
+		fieldEmail.setEditable(false);
+		fieldLogin.setEditable(false);
+		passFieldSenha.setEditable(false);
+		comboBoxEmpresa.setEnabled(false);
+		chckbxAdmin.setEnabled(false);
+	}
+
+	public TelaCadastroUsuario getTela(){
+		return this;
+	}
+
+	public void setFields(int codigo) {
+		Usuario u = controller.consultaId(codigo);
+		fieldCodigo.setText(String.valueOf(u.getId()));
+		fieldNome.setText(u.getNome());
+		fieldLogin.setText(u.getLogin());
+		fieldEmail.setText(u.getEmail());
+		passFieldSenha.setText(u.getSenha());
+		chckbxAdmin.setSelected(u.isAdmin());
+		comboBoxEmpresa.setSelectedItem(u.getEmpresa());
+		buttonExcluir.setEnabled(true);
+		buttonSalvar.setEnabled(true);
+		buttonNovo.setEnabled(false);
+		enableFields();
+		saveupdate = false;
+	}
+	
+	public void setPosicao() {
+	    Dimension d = this.getDesktopPane().getSize();
+	    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); }
+	}

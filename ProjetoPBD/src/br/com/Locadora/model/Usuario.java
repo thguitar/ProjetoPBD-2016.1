@@ -12,17 +12,17 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column
+	@Column(name = "LOGIN", unique = true, nullable = false)
 	private String login;
-	@Column
+	@Column(name = "SENHA", nullable = false)
 	private String senha;
-	@Column
-	private boolean admin;
-	@Column
-	private String email;
-	@Column
+	@Column(name = "NOME", unique = false, nullable = false)
 	private String nome;
-	@Column
+	@Column(name = "ADMIN")
+	private boolean admin;
+	@Column(name = "EMAIL")
+	private String email;
+	@Column(name = "EMPRESA", nullable = false)
 	private int empresa;
 	
 	public Usuario() {
