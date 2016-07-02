@@ -173,7 +173,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		buttonSalvar.setToolTipText("Gravar");
 		buttonSalvar.setBounds(152, 62, 50, 26);
 		contentPane.add(buttonSalvar);
-		buttonSalvar.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\save-disk (2).png"));
+		buttonSalvar.setIcon(new ImageIcon("imagens/saveButton.png"));
 		buttonSalvar.setForeground(Color.BLACK);
 		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonSalvar.setBackground(SystemColor.inactiveCaption);
@@ -181,7 +181,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		buttonExcluir = new JButton();
 		buttonExcluir.setToolTipText("Excluir");
 		buttonExcluir.setEnabled(false);
-		buttonExcluir.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\cross-symbol.png"));
+		buttonExcluir.setIcon(new ImageIcon("imagens/deleteButton.png"));
 		buttonExcluir.setForeground(Color.BLACK);
 		buttonExcluir.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonExcluir.setBackground(SystemColor.inactiveCaption);
@@ -190,7 +190,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 
 		buttonCancelar = new JButton();
 		buttonCancelar.setToolTipText("Desfazer");
-		buttonCancelar.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\undo-button.png"));
+		buttonCancelar.setIcon(new ImageIcon("imagens/undoButton.png"));
 		buttonCancelar.setForeground(Color.BLACK);
 		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonCancelar.setBackground(SystemColor.inactiveCaption);
@@ -198,7 +198,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		contentPane.add(buttonCancelar);
 
 		buttonLocalizar = new JButton();
-		buttonLocalizar.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\search.png"));
+		buttonLocalizar.setIcon(new ImageIcon("imagens/searchButton.png"));
 		buttonLocalizar.setToolTipText("Localizar");
 		buttonLocalizar.setForeground(Color.BLACK);
 		buttonLocalizar.setFont(new Font("SansSerif", Font.BOLD, 13));
@@ -207,7 +207,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		contentPane.add(buttonLocalizar);
 
 		buttonNovo = new JButton();
-		buttonNovo.setIcon(new ImageIcon("C:\\Users\\balcao\\Desktop\\addition-sign.png"));
+		buttonNovo.setIcon(new ImageIcon("imagens/additionButton.png"));
 		buttonNovo.setToolTipText("Novo");
 		buttonNovo.setForeground(Color.BLACK);
 		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
