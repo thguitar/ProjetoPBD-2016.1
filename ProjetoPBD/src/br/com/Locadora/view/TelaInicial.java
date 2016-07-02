@@ -86,6 +86,22 @@ public class TelaInicial extends JFrame {
 		menuBar.add(menuArquivo);
 		
 			mnitemConfiguracoes = new JMenuItem("Configura\u00E7\u00F5es");
+			mnitemConfiguracoes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (TelaInicial.this.usuarioLogado.isAdmin()) {
+						TelaConfiguracoes telaConfiguracoes = new TelaConfiguracoes();
+						desktopPane.add(telaConfiguracoes);
+						try {
+							telaConfiguracoes.setPosicao();
+							telaConfiguracoes.setSelected(true);
+						} catch (PropertyVetoException e2) {
+							e2.printStackTrace();
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Usuário sem Permissão", "Aviso de Permissão", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			});
 			mnitemSair = new JMenuItem("Sair");
 			mnitemSair.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
