@@ -219,7 +219,6 @@ public class TelaCadastroUsuario extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (validarFields()) {
 					Usuario u = new Usuario();
-					u.setId(Integer.parseInt(fieldCodigo.getText()));
 					u.setNome(fieldNome.getText());
 					u.setLogin(fieldLogin.getText());
 					u.setEmail(fieldEmail.getText());
@@ -230,6 +229,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 					if(saveupdate){ 
 						controller.insert(u); 
 					}else {
+						u.setId(Integer.parseInt(fieldCodigo.getText()));
 						controller.update(u);
 					}
 					
