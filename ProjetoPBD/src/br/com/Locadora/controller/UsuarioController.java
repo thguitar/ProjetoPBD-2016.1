@@ -96,6 +96,7 @@ public class UsuarioController {
 	public List<Usuario> consultaNome(String Nome){
 
 		try {
+			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			Query query = manager.createQuery("select u from Usuario u where u.nome like :param");
 			query.setParameter("param", "%"+Nome+"%");
@@ -115,6 +116,7 @@ public class UsuarioController {
 	public List<Usuario> listarTodos(){
 
 		try {
+			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			Query consulta = manager.createQuery("select usuario from Usuario usuario");
 			List<Usuario> usuarios = consulta.getResultList();
@@ -131,10 +133,19 @@ public class UsuarioController {
 
 	@SuppressWarnings("unchecked")
 	public List<Empresa> consultaEmpresas(){
+		manager = factory.createEntityManager();
 		manager.getTransaction().begin();
 		Query query = manager.createQuery("select u from Empresa u");
 		List<Empresa>empresas = query.getResultList(); 
 		manager.getTransaction().commit();
 		return empresas;
+	}
+	
+	public Empresa consultaEmpresa(int id){
+		manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		Empresa empresa = manager.find(Empresa.class, id);
+		manager.getTransaction().commit();
+		return empresa;
 	}
 }

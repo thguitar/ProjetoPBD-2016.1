@@ -344,7 +344,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		fieldEmail.setText(u.getEmail());
 		passFieldSenha.setText(u.getSenha());
 		chckbxAdmin.setSelected(u.isAdmin());
-		comboBoxEmpresa.setSelectedItem(u.getEmpresa());
+		comboBoxEmpresa.setSelectedItem(u.getEmpresa()+" - "+controller.consultaEmpresa(u.getEmpresa()).getNome());
 		buttonExcluir.setEnabled(true);
 		buttonSalvar.setEnabled(true);
 		buttonNovo.setEnabled(false);
