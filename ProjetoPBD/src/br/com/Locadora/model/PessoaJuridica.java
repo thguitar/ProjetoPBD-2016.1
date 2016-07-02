@@ -8,9 +8,9 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name="ID_CLIENTE")
 public class PessoaJuridica extends Cliente{
 	
-	@Column(name = "CNPJ")
+	@Column(name = "CNPJ", length = 14, nullable = false, unique = true)
 	private String cnpj;
-	@Column(name = "INSC_ESTADUAL")
+	@Column(name = "INSC_ESTADUAL", length = 20, nullable = false, unique = true)
 	private String inscricaoEstadual;
 
 	public PessoaJuridica(){

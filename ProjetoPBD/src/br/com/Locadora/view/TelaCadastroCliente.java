@@ -11,9 +11,11 @@ import java.awt.SystemColor;
 import javax.swing.JLabel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -69,8 +71,11 @@ public class TelaCadastroCliente extends JInternalFrame {
 	private JFormattedTextField fieldCPF;
 	private JFormattedTextField fieldHabilitacao;
 	private JFormattedTextField fieldCNPJ;
-	private JButton buttonCadastrar;
+	private JButton buttonSalvar;
 	private JButton buttonCancelar;
+	private JButton buttonExcluir;
+	private JButton buttonLocalizar;
+	private JButton buttonNovo;
 	private JRadioButton radiobuttonPFisica;
 	private JRadioButton radiobuttonPJurdica;
 	@SuppressWarnings("rawtypes")
@@ -81,6 +86,12 @@ public class TelaCadastroCliente extends JInternalFrame {
 	private JDateChooser dateChooserNascimento;
 	private JDateChooser dateChooserCNH;
 
+	private ClienteController clienteController;
+	
+	private boolean saveupdate;
+	private JLabel labelCodigo;
+	private JTextField fieldCodigo;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -97,10 +108,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaCadastroCliente() {
 		setTitle("Cadastro de Clientes");
 		setClosable(true);
@@ -110,6 +118,8 @@ public class TelaCadastroCliente extends JInternalFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		clienteController = new ClienteController();
+		
 		panelTitulo = new JPanel();
 		panelTitulo.setBackground(SystemColor.inactiveCaption);
 		panelTitulo.setBounds(0, 0, 656, 71);
@@ -127,11 +137,13 @@ public class TelaCadastroCliente extends JInternalFrame {
 
 		radiobuttonPFisica = new JRadioButton("F\u00EDsica", true);
 		radiobuttonPFisica.setFont(new Font("SansSerif", Font.BOLD, 12));
+		radiobuttonPFisica.setEnabled(false);
 		radiobuttonPFisica.setBounds(10, 89, 58, 24);
 		contentPane.add(radiobuttonPFisica);
 
 		radiobuttonPJurdica = new JRadioButton("Jur\u00EDdica");
 		radiobuttonPJurdica.setFont(new Font("SansSerif", Font.BOLD, 12));
+		radiobuttonPJurdica.setEnabled(false);
 		radiobuttonPJurdica.setBounds(77, 89, 71, 24);
 		contentPane.add(radiobuttonPJurdica);
 
@@ -162,7 +174,8 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelEndereco.add(labelEndereco);
 
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ACRE (AC)", "ALAGOAS (AL)", "AMAP\u00C1 (AP)", "AMAZONAS (AM)", "BAHIA (BA)", "CEAR\u00C1 (CE)", "DISTRITO FEDERAL (DF)", "ESP\u00CDRITO SANTO (ES)", "GOI\u00C1S (GO)", "MARANH\u00C3O (MA)", "MATO GROSSO (MT)", "MATO GROSSO DO SUL (MS)", "MINAS GERAIS (MG)", "PAR\u00C1(PA) ", "PARA\u00CDBA (PB)", "PARAN\u00C1 (PR)", "PERNAMBUCO (PE)", "PIAU\u00CD (PI)", "RIO DE JANEIRO (RJ)", "RIO GRANDE DO NORTE (RN)", "RIO GRANDE DO SUL (RS)", "ROND\u00D4NIA (RO)", "RORAIMA (RR)", "SANTA CATARINA (SC)", "S\u00C3O PAULO (SP)", "SERGIPE (SE)", "TOCANTINS (TO)"}));
+		comboBox.setEnabled(false);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ACRE", "ALAGOAS", "AMAP\u00C1", "AMAZONAS", "BAHIA", "CEAR\u00C1", "DISTRITO FEDERAL", "ESP\u00CDRITO SANTO", "GOI\u00C1S", "MARANH\u00C3O", "MATO GROSSO", "MATO GROSSO DO SUL", "MINAS GERAIS", "PAR\u00C1", "PARA\u00CDBA", "PARAN\u00C1", "PERNAMBUCO", "PIAU\u00CD", "RIO DE JANEIRO", "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "ROND\u00D4NIA", "RORAIMA", "SANTA CATARINA", "S\u00C3O PAULO", "SERGIPE", "TOCANTINS"}));
 		comboBox.setBounds(49, 71, 189, 20);
 		panelEndereco.add(comboBox);
 
@@ -172,6 +185,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelEndereco.add(labelCidade);
 
 		fieldCidade = new JTextField();
+		fieldCidade.setEditable(false);
 		fieldCidade.setBounds(307, 47, 180, 20);
 		panelEndereco.add(fieldCidade);
 		fieldCidade.setColumns(10);
@@ -182,11 +196,13 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelEndereco.add(labelBairro);
 
 		fieldBairro = new JTextField();
+		fieldBairro.setEditable(false);
 		fieldBairro.setBounds(49, 47, 202, 20);
 		panelEndereco.add(fieldBairro);
 		fieldBairro.setColumns(10);
 
 		fieldRua = new JTextField();
+		fieldRua.setEditable(false);
 		fieldRua.setColumns(10);
 		fieldRua.setBounds(49, 23, 345, 20);
 		panelEndereco.add(fieldRua);
@@ -197,6 +213,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelEndereco.add(labelRua);
 
 		fieldNumero = new JTextField();
+		fieldNumero.setEditable(false);
 		fieldNumero.setColumns(10);
 		fieldNumero.setBounds(307, 71, 71, 20);
 		panelEndereco.add(fieldNumero);
@@ -209,74 +226,79 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelDadosPrincipais.setLayout(null);
 
 		labelCPF = new JLabel("CPF:");
-		labelCPF.setBounds(21, 47, 25, 20);
+		labelCPF.setBounds(25, 63, 25, 20);
 		labelCPF.setFont(new Font("SansSerif", Font.BOLD, 12));
 		panelDadosPrincipais.add(labelCPF);
 
 		fieldCPF = new JFormattedTextField(Mascara("###.###.###-##"));
-		fieldCPF.setBounds(49, 47, 95, 20);
+		fieldCPF.setEditable(false);
+		fieldCPF.setBounds(53, 63, 95, 20);
 		panelDadosPrincipais.add(fieldCPF);
 		fieldCPF.setColumns(10);
 
 		fieldHabilitacao = new JFormattedTextField(Mascara("###########"));
+		fieldHabilitacao.setEditable(false);
 		fieldHabilitacao.setColumns(10);
-		fieldHabilitacao.setBounds(250, 73, 85, 20);
+		fieldHabilitacao.setBounds(254, 89, 85, 20);
 		panelDadosPrincipais.add(fieldHabilitacao);
 
 		labelHabilitacao = new JLabel("N\u00FAmero da CNH:");
 		labelHabilitacao.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelHabilitacao.setBounds(154, 73, 92, 20);
+		labelHabilitacao.setBounds(158, 89, 92, 20);
 		panelDadosPrincipais.add(labelHabilitacao);
 
 		labelDataNascimento = new JLabel("Data de Nascimento:");
 		labelDataNascimento.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelDataNascimento.setBounds(14, 100, 122, 16);
+		labelDataNascimento.setBounds(18, 116, 122, 16);
 		panelDadosPrincipais.add(labelDataNascimento);
 
 		labelVencHabilitacao = new JLabel("Vencimento da CNH:");
 		labelVencHabilitacao.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelVencHabilitacao.setBounds(343, 75, 122, 16);
+		labelVencHabilitacao.setBounds(347, 91, 122, 16);
 		panelDadosPrincipais.add(labelVencHabilitacao);
 
 		labelSexo = new JLabel("Sexo:");
 		labelSexo.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelSexo.setBounds(14, 73, 32, 20);
+		labelSexo.setBounds(18, 89, 32, 20);
 		panelDadosPrincipais.add(labelSexo);
 
 		comboBoxSexo = new JComboBox();
+		comboBoxSexo.setEnabled(false);
 		comboBoxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
-		comboBoxSexo.setBounds(49, 73, 95, 20);
+		comboBoxSexo.setBounds(53, 89, 95, 20);
 		panelDadosPrincipais.add(comboBoxSexo);
 
 		labelInscEstadual = new JLabel("Insc. Estadual:");
-		labelInscEstadual.setBounds(320, 47, 82, 20);
+		labelInscEstadual.setBounds(324, 63, 82, 20);
 		panelDadosPrincipais.add(labelInscEstadual);
 		labelInscEstadual.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelCNPJ = new JLabel("CNPJ:");
-		labelCNPJ.setBounds(154, 47, 34, 20);
+		labelCNPJ.setBounds(158, 63, 34, 20);
 		panelDadosPrincipais.add(labelCNPJ);
 		labelCNPJ.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		fieldCNPJ = new JFormattedTextField(Mascara("##.###.###/####-##"));
 		fieldCNPJ.setEditable(false);
-		fieldCNPJ.setBounds(190, 47, 117, 20);
+		fieldCNPJ.setBounds(194, 63, 117, 20);
 		panelDadosPrincipais.add(fieldCNPJ);
 		fieldCNPJ.setColumns(10);
 
 		fieldInscEstadual = new JTextField();
+		fieldInscEstadual.setText("ISENTO");
 		fieldInscEstadual.setEditable(false);
-		fieldInscEstadual.setBounds(404, 47, 125, 20);
+		fieldInscEstadual.setBounds(408, 63, 125, 20);
 		panelDadosPrincipais.add(fieldInscEstadual);
 		fieldInscEstadual.setColumns(10);
 
 		labelNome = new JLabel("Nome:");
-		labelNome.setBounds(10, 22, 36, 20);
+		labelNome.setBounds(14, 38, 36, 20);
 		panelDadosPrincipais.add(labelNome);
 		labelNome.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		fieldNome = new JTextField();
-		fieldNome.setBounds(49, 22, 345, 20);
+		fieldNome.setEditable(false);
+		fieldNome.setBounds(53, 38, 345, 20);
 		panelDadosPrincipais.add(fieldNome);
 		fieldNome.setColumns(10);
 
@@ -287,60 +309,84 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelDadosPrincipais.add(labelDadosPrincipais);
 
 		dateChooserNascimento = new JDateChooser();
+		dateChooserNascimento.setEnabled(false);
 		dateChooserNascimento.setDate(new Date());
-		dateChooserNascimento.setBounds(136, 98, 92, 20);
+		dateChooserNascimento.setBounds(140, 114, 92, 20);
 		panelDadosPrincipais.add(dateChooserNascimento);
 
 		dateChooserCNH = new JDateChooser();
+		dateChooserCNH.setEnabled(false);
 		dateChooserCNH.setDate(new Date());
-		dateChooserCNH.setBounds(463, 73, 92, 20);
+		dateChooserCNH.setBounds(467, 89, 92, 20);
 		panelDadosPrincipais.add(dateChooserCNH);
+		
+		labelCodigo = new JLabel("C\u00F3digo:");
+		labelCodigo.setBounds(8, 18, 42, 16);
+		panelDadosPrincipais.add(labelCodigo);
+		
+		fieldCodigo = new JTextField();
+		fieldCodigo.setEditable(false);
+		fieldCodigo.setBounds(53, 16, 47, 20);
+		panelDadosPrincipais.add(fieldCodigo);
+		fieldCodigo.setColumns(10);
 
-		buttonCadastrar = new JButton("Cadastrar");
-		buttonCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (validaFields()) {
-					if(radiobuttonPFisica.isSelected()){
-						String s = (String) comboBoxSexo.getSelectedItem();
-						char sexo = s.charAt(0);
-						new ClienteController().salvar(new PessoaFisica(Integer.parseInt(fieldNumero.getText()), fieldNome.getText(), 
-								fieldRua.getText(), fieldBairro.getText(), fieldCidade.getText(), (String) comboBox.getSelectedItem(), sexo, 1231231, dateChooserCNH.getDate(), dateChooserNascimento.getDate(), "123"));
-					}else {
-						new ClienteController().salvar(new PessoaJuridica(Integer.parseInt(fieldNumero.getText()), fieldNome.getText(), 
-								fieldRua.getText(), fieldBairro.getText(), fieldCidade.getText(), (String) comboBox.getSelectedItem(), fieldInscEstadual.getText(),"123"));
-					}					
+		buttonNovo = new JButton();
+		buttonNovo.setIcon(new ImageIcon("imagens/additionButton.png"));
+		buttonNovo.setToolTipText("Novo");
+		buttonNovo.setForeground(Color.BLACK);
+		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonNovo.setBackground(SystemColor.inactiveCaption);
+		buttonNovo.setBounds(182, 80, 50, 26);
+		contentPane.add(buttonNovo);
 
-				}
-
-			}
-		});
-		buttonCadastrar.setBackground(new Color(204, 255, 255));
-		buttonCadastrar.setForeground(new Color(0, 102, 0));
-		buttonCadastrar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		buttonCadastrar.setBounds(259, 80, 105, 23);
-		contentPane.add(buttonCadastrar);
-
-		buttonCancelar = new JButton("Cancelar");
-		buttonCancelar.setForeground(new Color(255, 0, 0));
-		buttonCancelar.setBackground(new Color(255, 204, 255));
+		buttonSalvar = new JButton();
+		buttonSalvar.setToolTipText("Gravar");
+		buttonSalvar.setIcon(new ImageIcon("imagens/saveButton.png"));
+		buttonSalvar.setForeground(Color.BLACK);
+		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonSalvar.setEnabled(false);
+		buttonSalvar.setBackground(SystemColor.inactiveCaption);
+		buttonSalvar.setBounds(244, 81, 50, 26);
+		contentPane.add(buttonSalvar);
+		
+		buttonExcluir = new JButton();
+		buttonExcluir.setToolTipText("Excluir");
+		buttonExcluir.setIcon(new ImageIcon("imagens/deleteButton.png"));
+		buttonExcluir.setForeground(Color.BLACK);
+		buttonExcluir.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonExcluir.setEnabled(false);
+		buttonExcluir.setBackground(SystemColor.inactiveCaption);
+		buttonExcluir.setBounds(306, 81, 50, 26);
+		contentPane.add(buttonExcluir);
+		
+		buttonCancelar = new JButton();
+		buttonCancelar.setToolTipText("Desfazer");
+		buttonCancelar.setIcon(new ImageIcon("imagens/undoButton.png"));
+		buttonCancelar.setForeground(Color.BLACK);
 		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		buttonCancelar.setBounds(409, 79, 105, 23);
+		buttonCancelar.setBackground(SystemColor.inactiveCaption);
+		buttonCancelar.setBounds(368, 81, 50, 26);
 		contentPane.add(buttonCancelar);
+		
+		buttonLocalizar = new JButton();
+		buttonLocalizar.setToolTipText("Localizar");
+		buttonLocalizar.setIcon(new ImageIcon("imagens/searchButton.png"));
+		buttonLocalizar.setForeground(Color.BLACK);
+		buttonLocalizar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonLocalizar.setBackground(SystemColor.inactiveCaption);
+		buttonLocalizar.setBounds(430, 81, 50, 26);
+		contentPane.add(buttonLocalizar);
 
 		labelPessoa = new JLabel("Pessoa");
 		labelPessoa.setForeground(new Color(0, 0, 102));
 		labelPessoa.setFont(new Font("SansSerif", Font.BOLD, 12));
 		labelPessoa.setBounds(14, 74, 43, 16);
 		contentPane.add(labelPessoa);
-
+		
 		radiobuttonPFisica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (radiobuttonPFisica.isSelected()){
-					fieldCPF.setEditable(true);
-					fieldHabilitacao.setEditable(true);
-					comboBoxSexo.setEnabled(true);
-					fieldCNPJ.setEditable(false);
-					fieldInscEstadual.setEditable(false);
+					enableFieldsPF();
 				}
 			}
 		});
@@ -348,12 +394,145 @@ public class TelaCadastroCliente extends JInternalFrame {
 		radiobuttonPJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (radiobuttonPJurdica.isSelected()){
-					fieldCPF.setEditable(false);
-					fieldHabilitacao.setEditable(false);
-					comboBoxSexo.setEnabled(false);
-					fieldCNPJ.setEditable(true);
-					fieldInscEstadual.setEditable(true);
+					enableFieldsPJ();
 				}
+			}
+		});
+		
+		buttonNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cleanFields();
+				buttonSalvar.setEnabled(true);
+				buttonExcluir.setEnabled(false);
+				buttonLocalizar.setEnabled(false);
+				buttonNovo.setEnabled(false);
+				radiobuttonPFisica.setEnabled(true);
+				radiobuttonPJurdica.setEnabled(true);
+				if (radiobuttonPFisica.isSelected()) {
+					enableFieldsPF();
+				}else {
+					enableFieldsPJ();
+				}
+				enableFieldsEnd();
+				saveupdate = true;
+			}
+		});
+		
+		buttonSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (validaFields()) {
+					if(radiobuttonPFisica.isSelected()){
+						String s = (String) comboBoxSexo.getSelectedItem();
+						char sexo = s.charAt(0);
+						PessoaFisica pf = new PessoaFisica();
+						pf.setNome(fieldNome.getText());
+						pf.setCpf(fieldCPF.getText().replaceAll("[.-]", ""));
+						pf.setNumeroHabilitacao(fieldHabilitacao.getText());
+						pf.setBairro(fieldBairro.getText());
+						pf.setRua(fieldRua.getText());
+						pf.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
+						pf.setCidade(fieldCidade.getText());
+						pf.setEstado((String) comboBox.getSelectedItem());
+						pf.setSexo(sexo);
+						pf.setDataNascimento(dateChooserNascimento.getDate());
+						pf.setDataVencimentoHailitacao(dateChooserCNH.getDate());
+						
+						if(saveupdate) 
+							clienteController.insert(pf);
+						else 
+						    clienteController.updatePF(pf);
+						
+					}else {
+						PessoaJuridica pj = new PessoaJuridica();
+						pj.setNome(fieldNome.getText());
+						pj.setCnpj(fieldCNPJ.getText().replaceAll("\\D", ""));
+						pj.setInscricaoEstadual(fieldInscEstadual.getText());
+						pj.setBairro(fieldBairro.getText());
+						pj.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
+						pj.setRua(fieldRua.getText());
+						pj.setCidade(fieldCidade.getText());
+						pj.setEstado((String) comboBox.getSelectedItem());
+						
+						if(saveupdate) 
+							clienteController.insert(pj);
+						else 
+						    clienteController.updatePJ(pj);
+
+					}
+					
+					cleanFields();
+					disableFields();
+					buttonNovo.setEnabled(true);
+					buttonSalvar.setEnabled(false);
+					buttonLocalizar.setEnabled(true);
+					buttonExcluir.setEnabled(false);
+					radiobuttonPFisica.setEnabled(false);
+					radiobuttonPJurdica.setEnabled(false);
+
+				}
+
+			}
+		});
+		
+		buttonExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
+					if(radiobuttonPFisica.isSelected()){
+						String s = (String) comboBoxSexo.getSelectedItem();
+						char sexo = s.charAt(0);
+						PessoaFisica pf = new PessoaFisica();
+						pf.setId(Integer.parseInt(fieldCodigo.getText()));
+						pf.setNome(fieldNome.getText());
+						pf.setCpf(fieldCPF.getText().replaceAll("[.-]", ""));
+						pf.setNumeroHabilitacao(fieldHabilitacao.getText());
+						pf.setId(1);
+						pf.setBairro(fieldBairro.getText());
+						pf.setRua(fieldRua.getText());
+						pf.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
+						pf.setCidade(fieldCidade.getText());
+						pf.setEstado((String) comboBox.getSelectedItem());
+						pf.setSexo(sexo);
+						pf.setDataNascimento(dateChooserNascimento.getDate());
+						pf.setDataVencimentoHailitacao(dateChooserCNH.getDate());
+						clienteController.delete(pf);
+						
+					}else {
+						PessoaJuridica pj = new PessoaJuridica();
+						pj.setId(Integer.parseInt(fieldCodigo.getText()));
+						pj.setNome(fieldNome.getText());
+						pj.setCnpj(fieldCNPJ.getText().replaceAll("[.-/]", ""));
+						pj.setInscricaoEstadual(fieldInscEstadual.getText());
+						pj.setBairro(fieldBairro.getText());
+						pj.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
+						pj.setRua(fieldRua.getText());
+						pj.setCidade(fieldCidade.getText());
+						pj.setEstado((String) comboBox.getSelectedItem());
+						clienteController.delete(pj);
+					}				
+					cleanFields();
+					disableFields();
+					buttonNovo.setEnabled(true);
+					buttonExcluir.setEnabled(false);
+					buttonSalvar.setEnabled(false);
+				}
+
+			}
+		});
+
+		buttonCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cleanFields();
+				disableFields();
+				buttonSalvar.setEnabled(false);
+				buttonNovo.setEnabled(true);
+				buttonExcluir.setEnabled(false);
+				buttonLocalizar.setEnabled(true);
+			}
+		});
+
+		buttonLocalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ConsultaCliente(TelaCadastroCliente.this).setVisible(true);
 			}
 		});
 	}
@@ -391,5 +570,130 @@ public class TelaCadastroCliente extends JInternalFrame {
 			return true;
 		}
 	}
-
+	
+	public void cleanFields(){
+		fieldCPF.setText(null);
+		fieldHabilitacao.setText(null);
+		comboBoxSexo.setSelectedIndex(0);
+		fieldCNPJ.setText(null);
+		fieldInscEstadual.setText(null);
+		fieldBairro.setText(null);
+		fieldCidade.setText(null);
+		fieldNome.setText(null);
+		fieldNumero.setText(null);
+		fieldRua.setText(null);
+		comboBox.setSelectedIndex(0);
+	}
+	
+	public void disableFields(){
+		fieldCPF.setEditable(false);
+		fieldHabilitacao.setEditable(false);
+		comboBoxSexo.setEnabled(false);
+		fieldCNPJ.setEditable(false);
+		fieldInscEstadual.setEditable(false);
+		fieldBairro.setEditable(false);
+		fieldCidade.setEditable(false);
+		fieldNome.setEditable(false);
+		fieldNumero.setEditable(false);
+		fieldRua.setEditable(false);
+		comboBox.setEnabled(false);
+	}
+	
+	public void enableFieldsPF(){
+		fieldNome.setEditable(true);
+		fieldCPF.setEditable(true);
+		fieldHabilitacao.setEditable(true);
+		comboBoxSexo.setEnabled(true);
+		fieldCNPJ.setEditable(false);
+		fieldInscEstadual.setEditable(false);
+		fieldInscEstadual.setText("ISENTO");
+		dateChooserCNH.setEnabled(true);
+		dateChooserNascimento.setEnabled(true);
+	}
+	
+	public void disableFieldsPF(){
+		fieldCPF.setEditable(false);
+		fieldHabilitacao.setEditable(false);
+		comboBoxSexo.setEnabled(false);
+		dateChooserCNH.setEnabled(false);
+		dateChooserNascimento.setEnabled(false);
+	}
+	
+	public void enableFieldsPJ(){
+		fieldNome.setEditable(true);
+		fieldCPF.setEditable(false);
+		fieldHabilitacao.setEditable(false);
+		comboBoxSexo.setEnabled(false);
+		fieldCNPJ.setEditable(true);
+		fieldInscEstadual.setEditable(true);
+		fieldInscEstadual.setText(null);
+		dateChooserCNH.setEnabled(false);
+		dateChooserNascimento.setEnabled(false);
+	}
+	
+	public void disableFieldsPJ(){
+		fieldCNPJ.setEditable(false);
+		fieldInscEstadual.setEditable(false);
+	}
+	
+	public void enableFieldsEnd(){
+		fieldBairro.setEditable(true);
+		fieldCidade.setEditable(true);
+		fieldNumero.setEditable(true);
+		fieldRua.setEditable(true);
+		comboBox.setEnabled(true);
+	}
+	
+	public void setFieldsPF(int id){
+		PessoaFisica pf  = clienteController.consultaPFId(id);
+		fieldCodigo.setText(String.valueOf(pf.getId()));
+		fieldCPF.setText(pf.getCpf());
+		fieldHabilitacao.setText(pf.getNumeroHabilitacao());
+		comboBoxSexo.setSelectedItem(pf.getSexoCompleto());
+		fieldBairro.setText(pf.getBairro());
+		fieldCidade.setText(pf.getCidade());
+		fieldNome.setText(pf.getNome());
+		fieldNumero.setText(String.valueOf(pf.getnumeroEndereco()));
+		fieldRua.setText(pf.getRua());
+		comboBox.setSelectedItem(pf.getEstado());
+		radiobuttonPFisica.setSelected(true);
+		saveupdate = false;
+		disableFieldsPJ();
+		enableFieldsPF();
+		enableFieldsEnd();
+		buttonExcluir.setEnabled(true);
+		buttonSalvar.setEnabled(true);
+		buttonNovo.setEnabled(false);
+	}
+	
+	public void setFieldsPJ(int id){
+		PessoaJuridica pj = clienteController.consultaPJId(id);
+		fieldCodigo.setText(String.valueOf(pj.getId()));
+		fieldCNPJ.setText(pj.getCnpj());
+		fieldInscEstadual.setText(pj.getInscricaoEstadual());
+		fieldBairro.setText(pj.getBairro());
+		fieldCidade.setText(pj.getCidade());
+		fieldNome.setText(pj.getNome());
+		fieldNumero.setText(String.valueOf(pj.getnumeroEndereco()));
+		fieldRua.setText(pj.getRua());
+		comboBox.setSelectedItem(pj.getEstado());
+		radiobuttonPJurdica.setSelected(true);
+		saveupdate = false;
+		disableFieldsPF();
+		enableFieldsPJ();
+		enableFieldsEnd();
+		buttonExcluir.setEnabled(true);
+		buttonSalvar.setEnabled(true);
+		buttonNovo.setEnabled(false);
+	}
+	
+	public TelaCadastroCliente getTela(){
+		return this;
+	}
+	
+	public void setPosicao() {
+		Dimension d = this.getDesktopPane().getSize();
+		this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
+	}
 }
+

@@ -12,17 +12,17 @@ import javax.persistence.TemporalType;
 @PrimaryKeyJoinColumn(name="IDCLIENTE")
 public class PessoaFisica extends Cliente{
 	
-	@Column(name = "CPF")
+	@Column(name = "CPF", length = 11, nullable = false, unique = true)
 	private String cpf;	
-	@Column(name = "NUM_HAB")
-	private int numeroHabilitacao;
-	@Column(name = "DT_VENC_HAB")
+	@Column(name = "NUM_HAB", length = 11, nullable = false, unique = true)
+	private String numeroHabilitacao;
+	@Column(name = "DT_VENC_HAB", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimentoHailitacao;
-	@Column(name = "DT_NASCI")
+	@Column(name = "DT_NASCI", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
-	@Column(name = "SEXO")
+	@Column(name = "SEXO", nullable = false)
 	private char sexo;
 	
 	
@@ -37,7 +37,7 @@ public class PessoaFisica extends Cliente{
 
 	public PessoaFisica(int numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado, char sexo,
-			int numeroHabilitacao, Date dataVencimentoHailitacao, Date dataNascimento, String cpf) {
+			String numeroHabilitacao, Date dataVencimentoHailitacao, Date dataNascimento, String cpf) {
 		super(nome, rua, bairro, numeroEndereco, cidade, estado);
 		this.sexo = sexo;
 		this.numeroHabilitacao = numeroHabilitacao;
@@ -49,16 +49,23 @@ public class PessoaFisica extends Cliente{
 	public char getSexo() {
 		return sexo;
 	}
+	
+	public String getSexoCompleto() {
+		if (sexo == 'M') {
+			return "MASCULINO";
+		} 
+		return "FEMININO";
+	}
 
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
 
-	public int getNumeroHabilitacao() {
+	public String getNumeroHabilitacao() {
 		return numeroHabilitacao;
 	}
 
-	public void setNumeroHabilitacao(int numeroHabilitacao) {
+	public void setNumeroHabilitacao(String numeroHabilitacao) {
 		this.numeroHabilitacao = numeroHabilitacao;
 	}
 

@@ -52,7 +52,7 @@ public class ConsultaCliente extends JDialog {
 	}
 
 	@SuppressWarnings("serial")
-	public ConsultaCliente(TelaCadastroUsuario telaCadastroUsuario) {
+	public ConsultaCliente(TelaCadastroCliente telaCadastroCliente) {
 		setResizable(false);
 		setTitle("Consulta Clientes");
 		setType(Type.POPUP);
@@ -95,6 +95,18 @@ public class ConsultaCliente extends JDialog {
 
 		buttonSelect = new JButton("Selecionar");
 		buttonSelect.setBounds(484, 11, 98, 23);
+		buttonSelect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).equals("FÍSICA")) {
+					telaCadastroCliente.setFieldsPF((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
+				}else {
+					telaCadastroCliente.setFieldsPJ((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
+				}
+				
+				dispose();
+			}
+		});
 		contentPane.add(buttonSelect);
 
 		separator = new JSeparator();
