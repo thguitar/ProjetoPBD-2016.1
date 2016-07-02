@@ -17,4 +17,8 @@ public class HibernateSingleton {
 		
 		return instance;
 	}
+	
+	public static void closeFactory(){
+		instance.close();
+	}
 }

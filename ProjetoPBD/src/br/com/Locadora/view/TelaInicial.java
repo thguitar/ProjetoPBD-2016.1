@@ -12,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.EtchedBorder;
 
 import java.awt.event.ActionListener;
@@ -20,7 +21,9 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JDesktopPane;
 
+import br.com.Locadora.controller.HibernateSingleton;
 import br.com.Locadora.model.Usuario;
+import javax.swing.ImageIcon;
 
 public class TelaInicial extends JFrame {
 
@@ -46,14 +49,17 @@ public class TelaInicial extends JFrame {
 	private JMenuItem mnitemUsuarios;
 	private JMenuItem mnitemConfiguracoes;
 	private JMenuItem mnitemSair;
+	private JMenuItem mnitemAjuda;
+	private JMenuItem mnitemSobreOSistema;
+	private JLabel labelBackground;
 	private JLabel labelInformacoes;
 	private DateFormat format;
 	
-	@SuppressWarnings("unused")
 	private Usuario usuarioLogado;
 	
 	public TelaInicial(Usuario usuarioLogado) {
-		setTitle("NOME DO SISTEMA");		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens/iconCar.png"));
+		setTitle("NARVI - 1.0");		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setExtendedState(MAXIMIZED_BOTH);
@@ -68,6 +74,11 @@ public class TelaInicial extends JFrame {
 		desktopPane.setBounds(1, 0, 1365, 663);
 		contentPane.add(desktopPane);
 		
+		labelBackground = new JLabel();
+		labelBackground.setIcon(new ImageIcon("imagens/backgrounds/backgroundBlack.png"));
+		labelBackground.setBounds(0, 0, 1365, 660);
+		desktopPane.add(labelBackground);
+		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -76,6 +87,13 @@ public class TelaInicial extends JFrame {
 		
 			mnitemConfiguracoes = new JMenuItem("Configura\u00E7\u00F5es");
 			mnitemSair = new JMenuItem("Sair");
+			mnitemSair.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Sair ?", "Sair do Sistema", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0)
+						HibernateSingleton.closeFactory();
+						System.exit(0);
+				}
+			});
 		
 			menuArquivo.add(mnitemConfiguracoes);
 			menuArquivo.add(mnitemSair);
@@ -99,13 +117,18 @@ public class TelaInicial extends JFrame {
 			mnitemEmpresas = new JMenuItem("Empresas (Matriz e Filiais)");
 			mnitemEmpresas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa();
-					desktopPane.add(cadastroEmpresa);
-					try {
-						cadastroEmpresa.setSelected(true);
-					} catch (PropertyVetoException e) {
-						e.printStackTrace();
+					if (TelaInicial.this.usuarioLogado.isAdmin()) {
+						TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa();
+						desktopPane.add(cadastroEmpresa);
+						try {
+							cadastroEmpresa.setSelected(true);
+						} catch (PropertyVetoException e) {
+							e.printStackTrace();
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Usuário sem Permissão", "Aviso de Permissão", JOptionPane.WARNING_MESSAGE);
 					}
+					
 				}
 			});
 			mnitemVeiculos = new JMenuItem("Ve\u00EDculos");
@@ -125,18 +148,21 @@ public class TelaInicial extends JFrame {
 			menuCadastros.add(mnitemClientes);
 			menuCadastros.add(mnitemEmpresas);
 			menuCadastros.add(mnitemVeiculos);
-			
 			mnitemUsuarios = new JMenuItem("Usu\u00E1rios");
 			mnitemUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					TelaCadastroUsuario cadastroUsuario = new TelaCadastroUsuario();
-					cadastroUsuario.setVisible(true);
-					desktopPane.add(cadastroUsuario);
-					try {
-						cadastroUsuario.setPosicao();
-						cadastroUsuario.setSelected(true);
-					} catch (PropertyVetoException e) {
-						e.printStackTrace();
+					if (TelaInicial.this.usuarioLogado.isAdmin()) {
+						TelaCadastroUsuario cadastroUsuario = new TelaCadastroUsuario();
+						cadastroUsuario.setVisible(true);
+						desktopPane.add(cadastroUsuario);
+						try {
+							cadastroUsuario.setPosicao();
+							cadastroUsuario.setSelected(true);
+						} catch (PropertyVetoException e) {
+							e.printStackTrace();
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Usuário sem Permissão","Aviso de Permissão", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			});
@@ -163,6 +189,18 @@ public class TelaInicial extends JFrame {
 		
 		menuSobre = new JMenu("Sobre");
 		menuBar.add(menuSobre);
+		
+			mnitemAjuda = new JMenuItem("Ajuda");
+			menuSobre.add(mnitemAjuda);
+		
+			mnitemSobreOSistema = new JMenuItem("Sobre o Sistema");
+			mnitemSobreOSistema.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(null, "Narvi 1.0 \nUniversidade Federal Rural de Pernambuco - UFRPE\nUnidade Acadêmica de Serra Talhada - UAST"+
+							"\nProjeto Prático da Cadeira: Projeto de Banco de Dados 2016.1\nProfessor: Hidelberg Oliveira Albuquerque \nDesenvolvido por: Alan Limeira, Dhonatan Diego, Thiago Lucas");
+				}
+			});
+		menuSobre.add(mnitemSobreOSistema);
 		
 		panelInformacoes = new JPanel();
 		panelInformacoes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -205,5 +243,4 @@ public class TelaInicial extends JFrame {
 	public JMenu getMenuRReserva() {
 		return menuRReserva;
 	}
-	
 }
