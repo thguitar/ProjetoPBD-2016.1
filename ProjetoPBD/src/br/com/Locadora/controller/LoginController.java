@@ -24,6 +24,7 @@ public class LoginController implements ActionListener{
 	public LoginController(TelaLogin telalogin){
 		managedEntity = HibernateSingleton.getInstance("HibMysql").createEntityManager();
 		this.telalogin = telalogin;
+		this.telalogin.setVisible(true);
 	}
 
 	public void controll(){
