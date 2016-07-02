@@ -65,7 +65,7 @@ public class TelaLogin extends JFrame{
 		contentPane.add(buttonEntrar);
 		contentPane.add(labelBackground);
 		
-		setVisible(true);
+		//setVisible(true);
 	}
 
 	public JPasswordField getPasswordField() {

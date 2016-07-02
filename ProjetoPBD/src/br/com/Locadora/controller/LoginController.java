@@ -68,6 +68,7 @@ public class LoginController implements ActionListener{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Boolean logar(Usuario usuario){
 		managedEntity.getTransaction().begin();
 		Query query = managedEntity.createQuery("select u from Usuario u where u.login = :param");
