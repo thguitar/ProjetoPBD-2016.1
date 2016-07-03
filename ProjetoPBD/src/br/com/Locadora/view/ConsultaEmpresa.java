@@ -49,7 +49,7 @@ public class ConsultaEmpresa extends JDialog {
 	}
 
 	@SuppressWarnings("serial")
-	public ConsultaEmpresa(TelaCadastroUsuario telaCadastroUsuario) {
+	public ConsultaEmpresa(TelaCadastroEmpresa telaCadastroEmpresa) {
 		setResizable(false);
 		setTitle("Consulta Empresas");
 		setType(Type.POPUP);
@@ -92,6 +92,15 @@ public class ConsultaEmpresa extends JDialog {
 
 		buttonSelect = new JButton("Selecionar");
 		buttonSelect.setBounds(484, 11, 98, 23);
+		buttonSelect.setEnabled(false);
+		buttonSelect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				telaCadastroEmpresa.setFields((int) (tableEmpresas.getValueAt(tableEmpresas.getSelectedRow(), 0)));
+
+				dispose();
+			}
+		});
 		contentPane.add(buttonSelect);
 
 		separator = new JSeparator();
@@ -123,12 +132,12 @@ public class ConsultaEmpresa extends JDialog {
 		scrollPaneTable.setViewportView(tableEmpresas);
 		tableEmpresas.getColumnModel().getColumn(0).setPreferredWidth(70);
 		tableEmpresas.getColumnModel().getColumn(1).setPreferredWidth(499);
-		
+
 	}
 
 	public void pesquisar() {
 		EmpresaController empresaController = new EmpresaController();
-		
+
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Empresa> empresas = empresaController.consultaEmpresas();
@@ -146,6 +155,8 @@ public class ConsultaEmpresa extends JDialog {
 			Empresa empresa = empresaController.consultaId(Integer.parseInt(fieldID.getText()));
 			modelTalble.addRow(new Object[]{empresa.getId(),empresa.getNome()});
 		}
+		
+		buttonSelect.setEnabled(true);
 
 	}
 }

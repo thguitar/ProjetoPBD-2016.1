@@ -138,6 +138,7 @@ public class TelaInicial extends JFrame {
 						TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa();
 						desktopPane.add(cadastroEmpresa);
 						try {
+							cadastroEmpresa.setPosicao();
 							cadastroEmpresa.setSelected(true);
 						} catch (PropertyVetoException e) {
 							e.printStackTrace();

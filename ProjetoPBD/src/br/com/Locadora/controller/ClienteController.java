@@ -73,7 +73,6 @@ public class ClienteController {
 	}
 
 	public void deletePF(int id){
-		System.out.println("Código:"+id);
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();

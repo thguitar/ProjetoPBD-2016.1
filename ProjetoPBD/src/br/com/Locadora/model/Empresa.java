@@ -7,25 +7,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 @Entity
 public class Empresa {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	@Column(name = "NOME")
+	private int ID;
+	@Column(name = "NOME", nullable = false)
 	private String nome;
 	@Column(name = "FILIAL")
 	private boolean filial;
-	@Column(name = "RUA")
+	@Column(name = "RUA", length = 50, nullable = false)
 	private String endRua;
-	@Column(name = "BAIRRO")
+	@Column(name = "BAIRRO", length = 50, nullable = false)
 	private String endBairro;
-	@Column(name = "NUMERO")
+	@Column(name = "NUMERO", length = 14)
 	private String endNumero;
-	@Column(name = "CIDADE")
+	@Column(name = "CIDADE", length = 50, nullable = false)
 	private String endCidade;
-	@Column(name = "ESTADO")
+	@Column(name = "ESTADO", length = 50, nullable = false)
 	private String endEstado;
 
 	private ArrayList<Usuario> usuarios;
@@ -48,10 +47,10 @@ public class Empresa {
 	}
 	
 	public int getId() {
-		return id;
+		return ID;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.ID = id;
 	}
 	public boolean isFilial() {
 		return filial;

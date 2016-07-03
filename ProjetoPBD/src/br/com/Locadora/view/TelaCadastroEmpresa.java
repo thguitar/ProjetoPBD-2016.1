@@ -8,10 +8,12 @@ import java.awt.SystemColor;
 
 import javax.swing.JLabel;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -20,6 +22,7 @@ import javax.swing.JTextField;
 
 import br.com.Locadora.controller.EmpresaController;
 import br.com.Locadora.model.Empresa;
+import br.com.Locadora.model.FixedLengthJTextField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -47,14 +50,20 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 	private JTextField fieldNome;
 	private JTextField fieldBairro;
 	private JTextField fieldRua;
+	private JTextField fieldCidade;
+	private JTextField fieldNumero;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxEstado;
 	private JCheckBox chckbxFilial;
-	private JButton buttonCadastrar;
+	private JButton buttonSalvar;
 	private JButton buttonCancelar;
+	private JButton buttonExcluir;
+	private JButton buttonLocalizar;
+	private JButton buttonNovo;
 
-	private JTextField fieldCidade;
-	private JTextField fieldNumero;
+	private boolean saveupdate;
+	
+	private EmpresaController empresaController;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaCadastroEmpresa() {
@@ -67,6 +76,8 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		empresaController = new EmpresaController();
+		
 		panelTitulo = new JPanel();
 		panelTitulo.setBounds(0, 0, 507, 57);
 		panelTitulo.setBackground(SystemColor.inactiveCaption);
@@ -78,7 +89,7 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		panelTitulo.add(labelTitulo);
 
 		panelCentro = new JPanel();
-		panelCentro.setBounds(33, 69, 441, 190);
+		panelCentro.setBounds(33, 104, 441, 165);
 		panelCentro.setBackground(SystemColor.inactiveCaption);
 		contentPane.add(panelCentro);
 		panelCentro.setLayout(null);
@@ -99,7 +110,7 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		labelEmpresa.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		comboBoxEstado = new JComboBox();
-		comboBoxEstado.setModel(new DefaultComboBoxModel(new String[] {"ACRE (AC)", "ALAGOAS (AL)", "AMAP\u00C1 (AP)", "AMAZONAS (AM)", "BAHIA (BA)", "CEAR\u00C1 (CE)", "DISTRITO FEDERAL (DF)", "ESP\u00CDRITO SANTO (ES)", "GOI\u00C1S (GO)", "MARANH\u00C3O (MA)", "MATO GROSSO (MT)", "MATO GROSSO DO SUL (MS)", "MINAS GERAIS (MG)", "PAR\u00C1(PA) ", "PARA\u00CDBA (PB)", "PARAN\u00C1 (PR)", "PERNAMBUCO (PE)", "PIAU\u00CD (PI)", "RIO DE JANEIRO (RJ)", "RIO GRANDE DO NORTE (RN)", "RIO GRANDE DO SUL (RS)", "ROND\u00D4NIA (RO)", "RORAIMA (RR)", "SANTA CATARINA (SC)", "S\u00C3O PAULO (SP)", "SERGIPE (SE)", "TOCANTINS (TO)"}));
+		comboBoxEstado.setModel(new DefaultComboBoxModel(new String[] {"ACRE", "ALAGOAS", "AMAP\u00C1", "AMAZONAS", "BAHIA", "CEAR\u00C1", "DISTRITO FEDERAL", "ESP\u00CDRITO SANTO", "GOI\u00C1S", "MARANH\u00C3O", "MATO GROSSO", "MATO GROSSO DO SUL", "MINAS GERAIS", "PAR\u00C1 ", "PARA\u00CDBA", "PARAN\u00C1", "PERNAMBUCO", "PIAU\u00CD", "RIO DE JANEIRO", "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "ROND\u00D4NIA", "RORAIMA", "SANTA CATARINA", "S\u00C3O PAULO", "SERGIPE", "TOCANTINS"}));
 		comboBoxEstado.setBounds(58, 109, 147, 20);
 		panelCentro.add(comboBoxEstado);
 
@@ -151,6 +162,7 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		panelCentro.add(labelNumero);
 		
 		fieldNumero = new JTextField();
+		fieldNumero.setDocument(new FixedLengthJTextField(5));
 		fieldNumero.setBounds(270, 85, 51, 20);
 		panelCentro.add(fieldNumero);
 		fieldNumero.setColumns(10);
@@ -160,14 +172,66 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		panelRodape.setBounds(0, 292, 507, 17);
 		contentPane.add(panelRodape);
 
-
-		buttonCadastrar = new JButton("Cadastrar");
-		buttonCadastrar.setForeground(new Color(0, 102, 0));
-		buttonCadastrar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		buttonCadastrar.setBackground(new Color(204, 255, 255));
-		buttonCadastrar.setBounds(93, 269, 105, 23);
-		contentPane.add(buttonCadastrar);
-		buttonCadastrar.addActionListener(new ActionListener() {
+		buttonNovo = new JButton();
+		buttonNovo.setToolTipText("Novo");
+		buttonNovo.setIcon(new ImageIcon("imagens/additionButton.png"));
+		buttonNovo.setForeground(Color.BLACK);
+		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonNovo.setBackground(SystemColor.inactiveCaption);
+		buttonNovo.setBounds(101, 69, 50, 26);
+		contentPane.add(buttonNovo);
+		
+		buttonSalvar = new JButton();
+		buttonSalvar.setToolTipText("Gravar");
+		buttonSalvar.setIcon(new ImageIcon("imagens/saveButton.png"));
+		buttonSalvar.setForeground(Color.BLACK);
+		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonSalvar.setEnabled(false);
+		buttonSalvar.setBackground(SystemColor.inactiveCaption);
+		buttonSalvar.setBounds(163, 69, 50, 26);
+		contentPane.add(buttonSalvar);
+		
+		buttonExcluir = new JButton();
+		buttonExcluir.setToolTipText("Excluir");
+		buttonExcluir.setIcon(new ImageIcon("imagens/deleteButton.png"));
+		buttonExcluir.setForeground(Color.BLACK);
+		buttonExcluir.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonExcluir.setEnabled(false);
+		buttonExcluir.setBackground(SystemColor.inactiveCaption);
+		buttonExcluir.setBounds(225, 69, 50, 26);
+		contentPane.add(buttonExcluir);
+		
+		buttonCancelar = new JButton();
+		buttonCancelar.setToolTipText("Desfazer");
+		buttonCancelar.setIcon(new ImageIcon("imagens/undoButton.png"));
+		buttonCancelar.setForeground(Color.BLACK);
+		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonCancelar.setBackground(SystemColor.inactiveCaption);
+		buttonCancelar.setBounds(287, 69, 50, 26);
+		contentPane.add(buttonCancelar);
+		
+		buttonLocalizar = new JButton();
+		buttonLocalizar.setToolTipText("Localizar");
+		buttonLocalizar.setIcon(new ImageIcon("imagens/searchButton.png"));
+		buttonLocalizar.setForeground(Color.BLACK);
+		buttonLocalizar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonLocalizar.setBackground(SystemColor.inactiveCaption);
+		buttonLocalizar.setBounds(349, 69, 50, 26);
+		contentPane.add(buttonLocalizar);
+		
+		buttonNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cleanFields();
+				buttonSalvar.setEnabled(true);
+				buttonExcluir.setEnabled(false);
+				buttonLocalizar.setEnabled(false);
+				buttonNovo.setEnabled(false);
+				enableFields();
+				saveupdate = true;
+			}
+		});
+		
+		buttonSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (validarFields()) {
 					Empresa emp = new Empresa();
@@ -178,23 +242,54 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 					emp.setEndCidade(fieldCidade.getText());
 					emp.setEndNumero(fieldNumero.getText());
 					emp.setEndEstado((String) comboBoxEstado.getSelectedItem());
-					new EmpresaController().salvar(emp);
+					
+					if(saveupdate){ 
+						empresaController.insert(emp);
+					} else{ 
+						emp.setId(Integer.parseInt(fieldCodigo.getText()));
+						empresaController.update(emp);
+					}
+					
 					cleanFields();
+					disableFields();
+					buttonNovo.setEnabled(true);
+					buttonExcluir.setEnabled(false);
+					buttonSalvar.setEnabled(false);
+					buttonLocalizar.setEnabled(true);
 				}
 			}	
 		});
+		
+		buttonExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Empresa", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
+					empresaController.delete(Integer.parseInt(fieldCodigo.getText()));
+					cleanFields();
+					disableFields();
+					buttonNovo.setEnabled(true);
+					buttonExcluir.setEnabled(false);
+					buttonSalvar.setEnabled(false);
+				}
 
-		buttonCancelar = new JButton("Cancelar");
+			}
+		});
+
 		buttonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cleanFields();
+				disableFields();
+				buttonSalvar.setEnabled(false);
+				buttonNovo.setEnabled(true);
+				buttonExcluir.setEnabled(false);
+				buttonLocalizar.setEnabled(true);
 			}
 		});
-		buttonCancelar.setForeground(Color.RED);
-		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		buttonCancelar.setBackground(new Color(255, 204, 255));
-		buttonCancelar.setBounds(275, 269, 105, 23);
-		contentPane.add(buttonCancelar);
+
+		buttonLocalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ConsultaEmpresa(TelaCadastroEmpresa.this).setVisible(true);
+			}
+		});
 		
 		setVisible(true);
 	}
@@ -209,12 +304,55 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 	}
 	
 	public void cleanFields(){
-		fieldNome.setText("");
-		fieldBairro.setText("");
-		fieldRua.setText("");
+		fieldCodigo.setText(null);
+		fieldNome.setText(null);
+		fieldBairro.setText(null);
+		fieldRua.setText(null);
 		chckbxFilial.setSelected(false);
-		fieldCidade.setText("");
-		fieldNumero.setText("");
+		fieldCidade.setText(null);
+		fieldNumero.setText(null);
 		comboBoxEstado.setSelectedIndex(0);
+	}
+	
+	public void enableFields(){
+		fieldNome.setEditable(true);
+		fieldBairro.setEditable(true);
+		fieldRua.setEditable(true);
+		chckbxFilial.setEnabled(true);
+		fieldCidade.setEditable(true);
+		fieldNumero.setEditable(true);
+		comboBoxEstado.setEnabled(true);
+	}
+	
+	public void disableFields(){
+		fieldNome.setEditable(false);
+		fieldBairro.setEditable(false);
+		fieldRua.setEditable(false);
+		chckbxFilial.setEnabled(false);
+		fieldCidade.setEditable(false);
+		fieldNumero.setEditable(false);
+		comboBoxEstado.setEnabled(false);
+	}
+	
+	public void setFields(int id){
+		Empresa emp = empresaController.consultaId(id);
+		fieldCodigo.setText(String.valueOf(emp.getId()));
+		fieldNome.setText(emp.getNome());
+		fieldBairro.setText(emp.getEndBairro());
+		fieldRua.setText(emp.getEndRua());
+		chckbxFilial.setSelected(emp.isFilial());
+		fieldCidade.setText(emp.getEndCidade());
+		fieldNumero.setText(emp.getEndNumero());
+		comboBoxEstado.setSelectedItem(emp.getEndEstado());
+		buttonExcluir.setEnabled(true);
+		buttonSalvar.setEnabled(true);
+		buttonNovo.setEnabled(false);
+		saveupdate = false;
+		enableFields();
+	}
+	
+	public void setPosicao() {
+		Dimension d = this.getDesktopPane().getSize();
+		this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
 	}
 }
