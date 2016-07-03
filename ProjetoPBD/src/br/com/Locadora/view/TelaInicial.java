@@ -124,6 +124,7 @@ public class TelaInicial extends JFrame {
 					cadastroCliente.setVisible(true);
 					desktopPane.add(cadastroCliente);
 					try {
+						cadastroCliente.setPosicao();
 						cadastroCliente.setSelected(true);
 					} catch (PropertyVetoException e) {
 						e.printStackTrace();

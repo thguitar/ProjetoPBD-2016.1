@@ -15,27 +15,27 @@ import javax.persistence.Table;
 public abstract class Cliente {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private int ID;
 	@Column(name = "NOME")
 	private String nome;
-	@Column(name = "RUA")
+	@Column(name = "RUA", length = 50, nullable = false)
 	private String rua;
-	@Column(name = "BAIRRO")
+	@Column(name = "BAIRRO", length = 50, nullable = false)
 	private String bairro;
-	@Column(name = "NUMERO")
-	private int numero;
-	@Column(name = "CIDADE")
+	@Column(name = "NUMERO", length = 14)
+	private String numero;
+	@Column(name = "CIDADE", length = 50, nullable = false)
 	private String cidade;
-	@Column(name = "ESTADO")
+	@Column(name = "ESTADO", length = 20, nullable = false)
 	private String estado;
 
 	public Cliente(){
 		
 	}
 	
-	public Cliente(int id, String nome, String rua, String bairro, int numero, 
+	public Cliente(int ID, String nome, String rua, String bairro, String numero, 
 			String cidade, String estado) {
-		this.id = id;
+		this.ID = ID;
 		this.numero = numero;
 		this.nome = nome;
 		this.rua = rua;
@@ -44,7 +44,7 @@ public abstract class Cliente {
 		this.estado = estado;
 	}
 	
-	public Cliente(String nome, String rua, String bairro, int numero, 
+	public Cliente(String nome, String rua, String bairro, String numero, 
 			String cidade, String estado) {
 		this.numero = numero;
 		this.nome = nome;
@@ -55,18 +55,18 @@ public abstract class Cliente {
 	}
 	
 	public int getId() {
-		return id;
+		return ID;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int ID) {
+		this.ID = ID;
 	}
 
-	public int getnumeroEndereco() {
+	public String getnumeroEndereco() {
 		return numero;
 	}
 
-	public void setnumeroEndereco(int numeroEndereco) {
+	public void setnumeroEndereco(String numeroEndereco) {
 		this.numero = numeroEndereco;
 	}
 

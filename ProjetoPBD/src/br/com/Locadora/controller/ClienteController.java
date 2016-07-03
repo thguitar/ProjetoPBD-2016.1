@@ -27,11 +27,11 @@ public class ClienteController {
 			manager.getTransaction().begin();
 			manager.persist(cliente);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente", null, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
 		} finally{
 			manager.close();
 		}
@@ -45,11 +45,11 @@ public class ClienteController {
 			manager.getTransaction().begin();
 			manager.merge(pf);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", null, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			manager.close();
 		}
@@ -62,48 +62,48 @@ public class ClienteController {
 			manager.getTransaction().begin();
 			manager.merge(pj);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", null, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Atualização", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			manager.close();
 		}
 	}
 
-	public void delete(PessoaFisica pf){
-
+	public void deletePF(int id){
+		System.out.println("Código:"+id);
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			PessoaFisica fisica = manager.find(PessoaFisica.class, pf.getId());
+			PessoaFisica fisica = manager.find(PessoaFisica.class, id);
 			manager.remove(fisica);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Usuário Excluído com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Deletar Usuário", null, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Deletar Cliente", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			manager.close();
 		}
 
 	}
 	
-	public void delete(PessoaJuridica pj){
+	public void deletePJ(int id){
 
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			PessoaJuridica juridica = manager.find(PessoaJuridica.class, pj.getId());
+			PessoaJuridica juridica = manager.find(PessoaJuridica.class, id);
 			manager.remove(juridica);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Usuário Excluído com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Deletar Usuário", null, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Deletar Cliente", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			manager.close();
 		}

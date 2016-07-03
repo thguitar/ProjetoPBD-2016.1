@@ -30,12 +30,12 @@ public class PessoaFisica extends Cliente{
 
 	}
 	
-	public PessoaFisica(int numeroEndereco, String nome, String rua,
+	public PessoaFisica(String numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado) {
 		super(nome, rua, bairro, numeroEndereco, cidade, estado);
 	}
 
-	public PessoaFisica(int numeroEndereco, String nome, String rua,
+	public PessoaFisica(String numeroEndereco, String nome, String rua,
 			String bairro, String cidade, String estado, char sexo,
 			String numeroHabilitacao, Date dataVencimentoHailitacao, Date dataNascimento, String cpf) {
 		super(nome, rua, bairro, numeroEndereco, cidade, estado);

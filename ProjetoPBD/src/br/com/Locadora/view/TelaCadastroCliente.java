@@ -1,6 +1,5 @@
 package br.com.Locadora.view;
 
-import java.awt.EventQueue;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,6 +30,8 @@ import java.util.Date;
 import javax.swing.JButton;
 
 import br.com.Locadora.controller.ClienteController;
+import br.com.Locadora.model.FixedLengthJTextField;
+import br.com.Locadora.model.OnlyNumberField;
 import br.com.Locadora.model.PessoaFisica;
 import br.com.Locadora.model.PessoaJuridica;
 
@@ -45,6 +46,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 	private JPanel panelRodape;
 	private JPanel panelEndereco;
 	private JPanel panelDadosPrincipais;
+	private JLabel labelCodigo;
 	private JLabel labelTitulos;
 	private JLabel labelNome;
 	private JLabel labelEstado;
@@ -62,14 +64,15 @@ public class TelaCadastroCliente extends JInternalFrame {
 	private JLabel labelInscEstadual;
 	private JLabel labelDadosPrincipais;
 	private JLabel labelPessoa;
+	private JTextField fieldCodigo;
 	private JTextField fieldNome;
 	private JTextField fieldCidade;
 	private JTextField fieldBairro;
 	private JTextField fieldRua;
 	private JTextField fieldNumero;
+	private JTextField fieldHabilitacao;
 	private JTextField fieldInscEstadual;
 	private JFormattedTextField fieldCPF;
-	private JFormattedTextField fieldHabilitacao;
 	private JFormattedTextField fieldCNPJ;
 	private JButton buttonSalvar;
 	private JButton buttonCancelar;
@@ -89,28 +92,10 @@ public class TelaCadastroCliente extends JInternalFrame {
 	private ClienteController clienteController;
 	
 	private boolean saveupdate;
-	private JLabel labelCodigo;
-	private JTextField fieldCodigo;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroCliente frame = new TelaCadastroCliente();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaCadastroCliente() {
-		setTitle("Cadastro de Clientes");
+		setTitle("Cadastro de Clientes                                                                                                                                                                   ");
 		setClosable(true);
 		setBounds(100, 100, 672, 465);
 		contentPane = new JPanel();
@@ -122,7 +107,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 		
 		panelTitulo = new JPanel();
 		panelTitulo.setBackground(SystemColor.inactiveCaption);
-		panelTitulo.setBounds(0, 0, 656, 71);
+		panelTitulo.setBounds(0, 0, 662, 71);
 		contentPane.add(panelTitulo);
 
 		labelTitulos = new JLabel("Cadastro de Clientes");
@@ -132,7 +117,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 
 		panelRodape = new JPanel();
 		panelRodape.setBackground(SystemColor.inactiveCaption);
-		panelRodape.setBounds(0, 410, 656, 16);
+		panelRodape.setBounds(0, 410, 662, 16);
 		contentPane.add(panelRodape);
 
 		radiobuttonPFisica = new JRadioButton("F\u00EDsica", true);
@@ -153,11 +138,11 @@ public class TelaCadastroCliente extends JInternalFrame {
 
 		panelDadosPrincipais = new JPanel();
 		panelDadosPrincipais.setBackground(new Color(204, 204, 204));
-		panelDadosPrincipais.setBounds(10, 118, 634, 165);
+		panelDadosPrincipais.setBounds(10, 118, 640, 165);
 		panelDadosPrincipais.setVisible(true);
 
 		panelEndereco = new JPanel();
-		panelEndereco.setBounds(10, 288, 634, 116);
+		panelEndereco.setBounds(10, 288, 640, 116);
 		contentPane.add(panelEndereco);
 		panelEndereco.setBackground(new Color(204, 204, 204));
 		panelEndereco.setLayout(null);
@@ -214,6 +199,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 
 		fieldNumero = new JTextField();
 		fieldNumero.setEditable(false);
+		fieldNumero.setDocument(new FixedLengthJTextField(5));
 		fieldNumero.setColumns(10);
 		fieldNumero.setBounds(307, 71, 71, 20);
 		panelEndereco.add(fieldNumero);
@@ -226,79 +212,81 @@ public class TelaCadastroCliente extends JInternalFrame {
 		panelDadosPrincipais.setLayout(null);
 
 		labelCPF = new JLabel("CPF:");
-		labelCPF.setBounds(25, 63, 25, 20);
+		labelCPF.setBounds(25, 70, 25, 20);
 		labelCPF.setFont(new Font("SansSerif", Font.BOLD, 12));
 		panelDadosPrincipais.add(labelCPF);
 
 		fieldCPF = new JFormattedTextField(Mascara("###.###.###-##"));
 		fieldCPF.setEditable(false);
-		fieldCPF.setBounds(53, 63, 95, 20);
+		fieldCPF.setBounds(53, 70, 95, 20);
 		panelDadosPrincipais.add(fieldCPF);
 		fieldCPF.setColumns(10);
 
-		fieldHabilitacao = new JFormattedTextField(Mascara("###########"));
+		fieldHabilitacao = new JTextField();
+		fieldHabilitacao.setDocument(new OnlyNumberField(11));
 		fieldHabilitacao.setEditable(false);
 		fieldHabilitacao.setColumns(10);
-		fieldHabilitacao.setBounds(254, 89, 85, 20);
+		fieldHabilitacao.setBounds(254, 98, 85, 20);
 		panelDadosPrincipais.add(fieldHabilitacao);
 
 		labelHabilitacao = new JLabel("N\u00FAmero da CNH:");
 		labelHabilitacao.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelHabilitacao.setBounds(158, 89, 92, 20);
+		labelHabilitacao.setBounds(158, 98, 92, 20);
 		panelDadosPrincipais.add(labelHabilitacao);
 
 		labelDataNascimento = new JLabel("Data de Nascimento:");
 		labelDataNascimento.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelDataNascimento.setBounds(18, 116, 122, 16);
+		labelDataNascimento.setBounds(18, 127, 122, 16);
 		panelDadosPrincipais.add(labelDataNascimento);
 
 		labelVencHabilitacao = new JLabel("Vencimento da CNH:");
 		labelVencHabilitacao.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelVencHabilitacao.setBounds(347, 91, 122, 16);
+		labelVencHabilitacao.setBounds(347, 100, 122, 16);
 		panelDadosPrincipais.add(labelVencHabilitacao);
 
 		labelSexo = new JLabel("Sexo:");
 		labelSexo.setFont(new Font("SansSerif", Font.BOLD, 12));
-		labelSexo.setBounds(18, 89, 32, 20);
+		labelSexo.setBounds(18, 98, 32, 20);
 		panelDadosPrincipais.add(labelSexo);
 
 		comboBoxSexo = new JComboBox();
 		comboBoxSexo.setEnabled(false);
 		comboBoxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
-		comboBoxSexo.setBounds(53, 89, 95, 20);
+		comboBoxSexo.setBounds(53, 98, 95, 20);
 		panelDadosPrincipais.add(comboBoxSexo);
 
 		labelInscEstadual = new JLabel("Insc. Estadual:");
-		labelInscEstadual.setBounds(324, 63, 82, 20);
+		labelInscEstadual.setBounds(324, 70, 82, 20);
 		panelDadosPrincipais.add(labelInscEstadual);
 		labelInscEstadual.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelCNPJ = new JLabel("CNPJ:");
-		labelCNPJ.setBounds(158, 63, 34, 20);
+		labelCNPJ.setBounds(158, 70, 34, 20);
 		panelDadosPrincipais.add(labelCNPJ);
 		labelCNPJ.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		fieldCNPJ = new JFormattedTextField(Mascara("##.###.###/####-##"));
 		fieldCNPJ.setEditable(false);
-		fieldCNPJ.setBounds(194, 63, 117, 20);
+		fieldCNPJ.setBounds(194, 70, 117, 20);
 		panelDadosPrincipais.add(fieldCNPJ);
 		fieldCNPJ.setColumns(10);
 
 		fieldInscEstadual = new JTextField();
 		fieldInscEstadual.setText("ISENTO");
+		fieldInscEstadual.setDocument(new FixedLengthJTextField(20));
 		fieldInscEstadual.setEditable(false);
-		fieldInscEstadual.setBounds(408, 63, 125, 20);
+		fieldInscEstadual.setBounds(408, 70, 125, 20);
 		panelDadosPrincipais.add(fieldInscEstadual);
 		fieldInscEstadual.setColumns(10);
 
 		labelNome = new JLabel("Nome:");
-		labelNome.setBounds(14, 38, 36, 20);
+		labelNome.setBounds(14, 45, 36, 20);
 		panelDadosPrincipais.add(labelNome);
 		labelNome.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		fieldNome = new JTextField();
 		fieldNome.setEditable(false);
-		fieldNome.setBounds(53, 38, 345, 20);
+		fieldNome.setBounds(53, 45, 345, 20);
 		panelDadosPrincipais.add(fieldNome);
 		fieldNome.setColumns(10);
 
@@ -311,22 +299,22 @@ public class TelaCadastroCliente extends JInternalFrame {
 		dateChooserNascimento = new JDateChooser();
 		dateChooserNascimento.setEnabled(false);
 		dateChooserNascimento.setDate(new Date());
-		dateChooserNascimento.setBounds(140, 114, 92, 20);
+		dateChooserNascimento.setBounds(140, 125, 92, 20);
 		panelDadosPrincipais.add(dateChooserNascimento);
 
 		dateChooserCNH = new JDateChooser();
 		dateChooserCNH.setEnabled(false);
 		dateChooserCNH.setDate(new Date());
-		dateChooserCNH.setBounds(467, 89, 92, 20);
+		dateChooserCNH.setBounds(467, 98, 92, 20);
 		panelDadosPrincipais.add(dateChooserCNH);
 		
 		labelCodigo = new JLabel("C\u00F3digo:");
-		labelCodigo.setBounds(8, 18, 42, 16);
+		labelCodigo.setBounds(8, 21, 42, 16);
 		panelDadosPrincipais.add(labelCodigo);
 		
 		fieldCodigo = new JTextField();
 		fieldCodigo.setEditable(false);
-		fieldCodigo.setBounds(53, 16, 47, 20);
+		fieldCodigo.setBounds(53, 19, 47, 20);
 		panelDadosPrincipais.add(fieldCodigo);
 		fieldCodigo.setColumns(10);
 
@@ -336,7 +324,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 		buttonNovo.setForeground(Color.BLACK);
 		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonNovo.setBackground(SystemColor.inactiveCaption);
-		buttonNovo.setBounds(182, 80, 50, 26);
+		buttonNovo.setBounds(182, 81, 50, 26);
 		contentPane.add(buttonNovo);
 
 		buttonSalvar = new JButton();
@@ -430,17 +418,19 @@ public class TelaCadastroCliente extends JInternalFrame {
 						pf.setNumeroHabilitacao(fieldHabilitacao.getText());
 						pf.setBairro(fieldBairro.getText());
 						pf.setRua(fieldRua.getText());
-						pf.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
+						pf.setnumeroEndereco(fieldNumero.getText());
 						pf.setCidade(fieldCidade.getText());
 						pf.setEstado((String) comboBox.getSelectedItem());
 						pf.setSexo(sexo);
 						pf.setDataNascimento(dateChooserNascimento.getDate());
 						pf.setDataVencimentoHailitacao(dateChooserCNH.getDate());
 						
-						if(saveupdate) 
+						if(saveupdate){ 
 							clienteController.insert(pf);
-						else 
-						    clienteController.updatePF(pf);
+						} else{ 
+							pf.setId(Integer.parseInt(fieldCodigo.getText()));
+							clienteController.updatePF(pf);
+						}
 						
 					}else {
 						PessoaJuridica pj = new PessoaJuridica();
@@ -448,16 +438,17 @@ public class TelaCadastroCliente extends JInternalFrame {
 						pj.setCnpj(fieldCNPJ.getText().replaceAll("\\D", ""));
 						pj.setInscricaoEstadual(fieldInscEstadual.getText());
 						pj.setBairro(fieldBairro.getText());
-						pj.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
+						pj.setnumeroEndereco((fieldNumero.getText()));
 						pj.setRua(fieldRua.getText());
 						pj.setCidade(fieldCidade.getText());
 						pj.setEstado((String) comboBox.getSelectedItem());
-						
-						if(saveupdate) 
-							clienteController.insert(pj);
-						else 
-						    clienteController.updatePJ(pj);
 
+						if(saveupdate){ 
+							clienteController.insert(pj);
+						} else{ 
+							pj.setId(Integer.parseInt(fieldCodigo.getText()));
+							clienteController.updatePJ(pj);
+						}
 					}
 					
 					cleanFields();
@@ -478,36 +469,10 @@ public class TelaCadastroCliente extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
 					if(radiobuttonPFisica.isSelected()){
-						String s = (String) comboBoxSexo.getSelectedItem();
-						char sexo = s.charAt(0);
-						PessoaFisica pf = new PessoaFisica();
-						pf.setId(Integer.parseInt(fieldCodigo.getText()));
-						pf.setNome(fieldNome.getText());
-						pf.setCpf(fieldCPF.getText().replaceAll("[.-]", ""));
-						pf.setNumeroHabilitacao(fieldHabilitacao.getText());
-						pf.setId(1);
-						pf.setBairro(fieldBairro.getText());
-						pf.setRua(fieldRua.getText());
-						pf.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
-						pf.setCidade(fieldCidade.getText());
-						pf.setEstado((String) comboBox.getSelectedItem());
-						pf.setSexo(sexo);
-						pf.setDataNascimento(dateChooserNascimento.getDate());
-						pf.setDataVencimentoHailitacao(dateChooserCNH.getDate());
-						clienteController.delete(pf);
+						clienteController.deletePF(Integer.parseInt(fieldCodigo.getText()));
 						
 					}else {
-						PessoaJuridica pj = new PessoaJuridica();
-						pj.setId(Integer.parseInt(fieldCodigo.getText()));
-						pj.setNome(fieldNome.getText());
-						pj.setCnpj(fieldCNPJ.getText().replaceAll("[.-/]", ""));
-						pj.setInscricaoEstadual(fieldInscEstadual.getText());
-						pj.setBairro(fieldBairro.getText());
-						pj.setnumeroEndereco(Integer.parseInt(fieldNumero.getText()));
-						pj.setRua(fieldRua.getText());
-						pj.setCidade(fieldCidade.getText());
-						pj.setEstado((String) comboBox.getSelectedItem());
-						clienteController.delete(pj);
+						clienteController.deletePJ(Integer.parseInt(fieldCodigo.getText()));
 					}				
 					cleanFields();
 					disableFields();
@@ -523,6 +488,9 @@ public class TelaCadastroCliente extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				cleanFields();
 				disableFields();
+				radiobuttonPFisica.setSelected(true);
+				radiobuttonPFisica.setEnabled(false);
+				radiobuttonPJurdica.setEnabled(false);
 				buttonSalvar.setEnabled(false);
 				buttonNovo.setEnabled(true);
 				buttonExcluir.setEnabled(false);
@@ -572,10 +540,11 @@ public class TelaCadastroCliente extends JInternalFrame {
 	}
 	
 	public void cleanFields(){
-		fieldCPF.setText(null);
+		fieldCodigo.setText(null);
+		fieldCPF.setValue(null);
 		fieldHabilitacao.setText(null);
 		comboBoxSexo.setSelectedIndex(0);
-		fieldCNPJ.setText(null);
+		fieldCNPJ.setValue(null);
 		fieldInscEstadual.setText(null);
 		fieldBairro.setText(null);
 		fieldCidade.setText(null);
@@ -597,6 +566,8 @@ public class TelaCadastroCliente extends JInternalFrame {
 		fieldNumero.setEditable(false);
 		fieldRua.setEditable(false);
 		comboBox.setEnabled(false);
+		dateChooserCNH.setEnabled(false);
+		dateChooserNascimento.setEnabled(false);
 	}
 	
 	public void enableFieldsPF(){
@@ -626,7 +597,6 @@ public class TelaCadastroCliente extends JInternalFrame {
 		comboBoxSexo.setEnabled(false);
 		fieldCNPJ.setEditable(true);
 		fieldInscEstadual.setEditable(true);
-		fieldInscEstadual.setText(null);
 		dateChooserCNH.setEnabled(false);
 		dateChooserNascimento.setEnabled(false);
 	}
@@ -648,14 +618,17 @@ public class TelaCadastroCliente extends JInternalFrame {
 		PessoaFisica pf  = clienteController.consultaPFId(id);
 		fieldCodigo.setText(String.valueOf(pf.getId()));
 		fieldCPF.setText(pf.getCpf());
+		fieldInscEstadual.setText("ISENTO");
 		fieldHabilitacao.setText(pf.getNumeroHabilitacao());
 		comboBoxSexo.setSelectedItem(pf.getSexoCompleto());
 		fieldBairro.setText(pf.getBairro());
 		fieldCidade.setText(pf.getCidade());
 		fieldNome.setText(pf.getNome());
-		fieldNumero.setText(String.valueOf(pf.getnumeroEndereco()));
+		fieldNumero.setText(pf.getnumeroEndereco());
 		fieldRua.setText(pf.getRua());
 		comboBox.setSelectedItem(pf.getEstado());
+		dateChooserCNH.setDate(pf.getDataVencimentoHailitacao());
+		dateChooserNascimento.setDate(pf.getDataNascimento());
 		radiobuttonPFisica.setSelected(true);
 		saveupdate = false;
 		disableFieldsPJ();
@@ -674,7 +647,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 		fieldBairro.setText(pj.getBairro());
 		fieldCidade.setText(pj.getCidade());
 		fieldNome.setText(pj.getNome());
-		fieldNumero.setText(String.valueOf(pj.getnumeroEndereco()));
+		fieldNumero.setText(pj.getnumeroEndereco());
 		fieldRua.setText(pj.getRua());
 		comboBox.setSelectedItem(pj.getEstado());
 		radiobuttonPJurdica.setSelected(true);
