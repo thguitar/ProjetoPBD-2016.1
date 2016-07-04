@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -67,6 +68,12 @@ public class TelaInicial extends JFrame {
 	
 	private Usuario usuarioLogado;
 	
+	private TelaConfiguracoes telaConfiguracoes;
+	private TelaCadastroCliente cadastroCliente;
+	private TelaCadastroEmpresa cadastroEmpresa;
+	private TelaCadastroVeiculo cadastroVeiculo;
+	private TelaCadastroUsuario cadastroUsuario;
+	
 	private GerarRelatorio gerarRelatorio;
 	
 	public TelaInicial(Usuario usuarioLogado) {
@@ -101,14 +108,19 @@ public class TelaInicial extends JFrame {
 			mnitemConfiguracoes.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (TelaInicial.this.usuarioLogado.isAdmin()) {
-						TelaConfiguracoes telaConfiguracoes = new TelaConfiguracoes();
-						desktopPane.add(telaConfiguracoes);
-						try {
-							telaConfiguracoes.setPosicao();
-							telaConfiguracoes.setSelected(true);
-						} catch (PropertyVetoException e2) {
-							e2.printStackTrace();
+						if (isCreate(telaConfiguracoes)||telaConfiguracoes.isClosed()) {
+							telaConfiguracoes = null;
+							telaConfiguracoes = new TelaConfiguracoes();
+							desktopPane.add(telaConfiguracoes);
+							try {
+								telaConfiguracoes.setPosicao();
+								telaConfiguracoes.setSelected(true);
+							} catch (PropertyVetoException e2) {
+								e2.printStackTrace();
+							}
 						}
+						telaConfiguracoes.moveToFront();
+						
 					}else {
 						JOptionPane.showMessageDialog(null, "Usuário sem Permissão", "Aviso de Permissão", JOptionPane.WARNING_MESSAGE);
 					}
@@ -132,29 +144,38 @@ public class TelaInicial extends JFrame {
 			mnitemClientes = new JMenuItem("Clientes");
 			mnitemClientes.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					TelaCadastroCliente cadastroCliente = new TelaCadastroCliente();
-					cadastroCliente.setVisible(true);
-					desktopPane.add(cadastroCliente);
-					try {
-						cadastroCliente.setPosicao();
-						cadastroCliente.setSelected(true);
-					} catch (PropertyVetoException e) {
-						e.printStackTrace();
+					if (isCreate(cadastroCliente)||cadastroCliente.isClosed()) {
+						cadastroCliente = null;
+						cadastroCliente = new TelaCadastroCliente();
+						cadastroCliente.setVisible(true);
+						desktopPane.add(cadastroCliente);
+						try {
+							cadastroCliente.setPosicao();
+							cadastroCliente.setSelected(true);
+						} catch (PropertyVetoException e) {
+							e.printStackTrace();
+						}	
 					}
+					cadastroCliente.moveToFront();
 				}
 			});
 			mnitemEmpresas = new JMenuItem("Empresas (Matriz e Filiais)");
 			mnitemEmpresas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if (TelaInicial.this.usuarioLogado.isAdmin()) {
-						TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa();
-						desktopPane.add(cadastroEmpresa);
-						try {
-							cadastroEmpresa.setPosicao();
-							cadastroEmpresa.setSelected(true);
-						} catch (PropertyVetoException e) {
-							e.printStackTrace();
+						if(isCreate(cadastroEmpresa)||cadastroEmpresa.isClosed()){
+							cadastroEmpresa = null;
+							cadastroEmpresa = new TelaCadastroEmpresa();
+							desktopPane.add(cadastroEmpresa);
+							try {
+								cadastroEmpresa.setPosicao();
+								cadastroEmpresa.setSelected(true);
+							} catch (PropertyVetoException e) {
+								e.printStackTrace();
+							}
 						}
+						cadastroEmpresa.moveToFront();
+						
 					}else {
 						JOptionPane.showMessageDialog(null, "Usuário sem Permissão", "Aviso de Permissão", JOptionPane.WARNING_MESSAGE);
 					}
@@ -164,14 +185,18 @@ public class TelaInicial extends JFrame {
 			mnitemVeiculos = new JMenuItem("Ve\u00EDculos");
 			mnitemVeiculos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					TelaCadastroVeiculo cadastroVeiculo = new TelaCadastroVeiculo();
-					cadastroVeiculo.setVisible(true);
-					desktopPane.add(cadastroVeiculo);
-					try {
-						cadastroVeiculo.setSelected(true);
-					} catch (PropertyVetoException e) {
-						e.printStackTrace();
+					if (isCreate(cadastroVeiculo)||cadastroVeiculo.isClosed()) {
+						cadastroVeiculo = null;
+						cadastroVeiculo = new TelaCadastroVeiculo();
+						cadastroVeiculo.setVisible(true);
+						desktopPane.add(cadastroVeiculo);
+						try {
+							cadastroVeiculo.setSelected(true);
+						} catch (PropertyVetoException e) {
+							e.printStackTrace();
+						}
 					}
+					cadastroVeiculo.moveToFront();
 				}
 			});
 
@@ -182,15 +207,20 @@ public class TelaInicial extends JFrame {
 			mnitemUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if (TelaInicial.this.usuarioLogado.isAdmin()) {
-						TelaCadastroUsuario cadastroUsuario = new TelaCadastroUsuario();
-						cadastroUsuario.setVisible(true);
-						desktopPane.add(cadastroUsuario);
-						try {
-							cadastroUsuario.setPosicao();
-							cadastroUsuario.setSelected(true);
-						} catch (PropertyVetoException e) {
-							e.printStackTrace();
+						if (isCreate(cadastroUsuario)||cadastroVeiculo.isClosed()) {
+							cadastroUsuario = null;
+							cadastroUsuario = new TelaCadastroUsuario();
+							cadastroUsuario.setVisible(true);
+							desktopPane.add(cadastroUsuario);
+							try {
+								cadastroUsuario.setPosicao();
+								cadastroUsuario.setSelected(true);
+							} catch (PropertyVetoException e) {
+								e.printStackTrace();
+							}
 						}
+						cadastroUsuario.moveToFront();
+						
 					}else {
 						JOptionPane.showMessageDialog(null, "Usuário sem Permissão","Aviso de Permissão", JOptionPane.WARNING_MESSAGE);
 					}
@@ -376,5 +406,12 @@ public class TelaInicial extends JFrame {
 
 	public JMenu getMenuRReserva() {
 		return menuRReserva;
+	}
+	
+	public boolean isCreate(JInternalFrame object){
+		if(object == null)
+			return true;
+		else
+			return false;
 	}
 }
