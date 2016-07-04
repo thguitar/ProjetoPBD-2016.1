@@ -1,7 +1,6 @@
 package br.com.Locadora.view;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.Font;
@@ -31,22 +30,6 @@ public class TelaConfiguracoes extends JInternalFrame {
 	private JButton buttonCancelar;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxPlanoDeFundo;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaConfiguracoes frame = new TelaConfiguracoes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaConfiguracoes() {
@@ -98,7 +81,7 @@ public class TelaConfiguracoes extends JInternalFrame {
 		panelDadosPrincipais.add(labelDadosPrincipais);
 
 		buttonCancelar = new JButton();
-		buttonCancelar.setIcon(new ImageIcon("C:\\Users\\balcao\\git\\ProjetoPBD-2016.1\\ProjetoPBD\\imagens\\undoButton.png"));
+		buttonCancelar.setIcon(new ImageIcon("imagens/undoButton.png"));
 		buttonCancelar.setToolTipText("Gravar");
 		buttonCancelar.setForeground(Color.BLACK);
 		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
@@ -108,7 +91,7 @@ public class TelaConfiguracoes extends JInternalFrame {
 		contentPane.add(buttonCancelar);
 
 		buttonSalvar = new JButton();
-		buttonSalvar.setIcon(new ImageIcon("C:\\Users\\balcao\\git\\ProjetoPBD-2016.1\\ProjetoPBD\\imagens\\saveButton.png"));
+		buttonSalvar.setIcon(new ImageIcon("imagens/saveButton.png"));
 		buttonSalvar.setToolTipText("Novo");
 		buttonSalvar.setForeground(Color.BLACK);
 		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));

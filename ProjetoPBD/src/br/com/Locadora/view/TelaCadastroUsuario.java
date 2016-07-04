@@ -86,7 +86,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 
 		panelCentro = new JPanel();
 		panelCentro.setBounds(31, 94, 441, 190);
-		panelCentro.setBackground(SystemColor.inactiveCaption);
+		panelCentro.setBackground(new Color(204, 204, 204));
 		contentPane.add(panelCentro);
 		panelCentro.setLayout(null);
 

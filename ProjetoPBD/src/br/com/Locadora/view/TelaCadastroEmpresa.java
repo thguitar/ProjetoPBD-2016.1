@@ -90,7 +90,7 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 
 		panelCentro = new JPanel();
 		panelCentro.setBounds(33, 104, 441, 165);
-		panelCentro.setBackground(SystemColor.inactiveCaption);
+		panelCentro.setBackground(new Color(204, 204, 204));
 		contentPane.add(panelCentro);
 		panelCentro.setLayout(null);
 
@@ -110,11 +110,13 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		labelEmpresa.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		comboBoxEstado = new JComboBox();
+		comboBoxEstado.setEnabled(false);
 		comboBoxEstado.setModel(new DefaultComboBoxModel(new String[] {"ACRE", "ALAGOAS", "AMAP\u00C1", "AMAZONAS", "BAHIA", "CEAR\u00C1", "DISTRITO FEDERAL", "ESP\u00CDRITO SANTO", "GOI\u00C1S", "MARANH\u00C3O", "MATO GROSSO", "MATO GROSSO DO SUL", "MINAS GERAIS", "PAR\u00C1 ", "PARA\u00CDBA", "PARAN\u00C1", "PERNAMBUCO", "PIAU\u00CD", "RIO DE JANEIRO", "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "ROND\u00D4NIA", "RORAIMA", "SANTA CATARINA", "S\u00C3O PAULO", "SERGIPE", "TOCANTINS"}));
 		comboBoxEstado.setBounds(58, 109, 147, 20);
 		panelCentro.add(comboBoxEstado);
 
 		fieldRua = new JTextField();
+		fieldRua.setEditable(false);
 		fieldRua.setBounds(58, 61, 306, 20);
 		panelCentro.add(fieldRua);
 		fieldRua.setColumns(10);
@@ -129,16 +131,19 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		labelNome.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		fieldNome = new JTextField();
+		fieldNome.setEditable(false);
 		fieldNome.setBounds(58, 37, 306, 20);
 		panelCentro.add(fieldNome);
 		fieldNome.setColumns(10);
 
 		fieldBairro = new JTextField();
+		fieldBairro.setEditable(false);
 		fieldBairro.setBounds(58, 85, 147, 20);
 		panelCentro.add(fieldBairro);
 		fieldBairro.setColumns(10);
 
 		chckbxFilial = new JCheckBox("Filial");
+		chckbxFilial.setEnabled(false);
 		chckbxFilial.setBounds(314, 5, 50, 24);
 		panelCentro.add(chckbxFilial);
 
@@ -153,6 +158,7 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		fieldCodigo.setColumns(10);
 		
 		fieldCidade = new JTextField();
+		fieldCidade.setEditable(false);
 		fieldCidade.setBounds(270, 109, 161, 20);
 		panelCentro.add(fieldCidade);
 		fieldCidade.setColumns(10);
@@ -162,6 +168,7 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		panelCentro.add(labelNumero);
 		
 		fieldNumero = new JTextField();
+		fieldNumero.setEditable(false);
 		fieldNumero.setDocument(new FixedLengthJTextField(5));
 		fieldNumero.setBounds(270, 85, 51, 20);
 		panelCentro.add(fieldNumero);
