@@ -37,17 +37,6 @@ public class ConsultaEmpresa extends JDialog {
 	private JScrollPane scrollPaneTable;
 	private DefaultTableModel modelTalble; 
 
-
-	public static void main(String[] args) {
-		try {
-			ConsultaEmpresa dialog = new ConsultaEmpresa(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	@SuppressWarnings("serial")
 	public ConsultaEmpresa(TelaCadastroEmpresa telaCadastroEmpresa) {
 		setResizable(false);
@@ -55,7 +44,8 @@ public class ConsultaEmpresa extends JDialog {
 		setType(Type.POPUP);
 		setModal(true);
 		setAlwaysOnTop(true);
-		setBounds(100, 100, 600, 315);
+		setSize(600, 315);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
 		contentPane = new JPanel();

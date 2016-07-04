@@ -39,17 +39,6 @@ public class ConsultaUsuario extends JDialog {
 	
 	private UsuarioController controller;
 
-
-	public static void main(String[] args) {
-		try {
-			ConsultaUsuario dialog = new ConsultaUsuario(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	@SuppressWarnings("serial")
 	public ConsultaUsuario(TelaCadastroUsuario telaCadastroUsuario) {
 		setResizable(false);
@@ -57,8 +46,8 @@ public class ConsultaUsuario extends JDialog {
 		setType(Type.POPUP);
 		setModal(true);
 		setAlwaysOnTop(true);
-		setLocationRelativeTo(telaCadastroUsuario);
 		setSize(600, 315);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
 		contentPane = new JPanel();
@@ -94,6 +83,7 @@ public class ConsultaUsuario extends JDialog {
 		contentPane.add(buttonResearch);
 
 		buttonSelect = new JButton("Selecionar");
+		buttonSelect.setEnabled(false);
 		buttonSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telaCadastroUsuario.setFields((int) (tableUsuarios.getValueAt(tableUsuarios.getSelectedRow(), 0)));
@@ -156,6 +146,8 @@ public class ConsultaUsuario extends JDialog {
 			Usuario usuario = controller.consultaId(Integer.parseInt(fieldID.getText()));
 			modelTalble.addRow(new Object[]{usuario.getId(),usuario.getNome()});
 		}
-
+		
+		buttonSelect.setEnabled(true);
+		
 	}
 }

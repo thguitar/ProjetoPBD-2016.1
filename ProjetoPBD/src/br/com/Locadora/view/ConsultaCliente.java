@@ -58,7 +58,8 @@ public class ConsultaCliente extends JDialog {
 		setType(Type.POPUP);
 		setModal(true);
 		setAlwaysOnTop(true);
-		setBounds(100, 100, 600, 315);
+		setSize(600, 315);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
 		contentPane = new JPanel();
@@ -95,6 +96,7 @@ public class ConsultaCliente extends JDialog {
 
 		buttonSelect = new JButton("Selecionar");
 		buttonSelect.setBounds(484, 11, 98, 23);
+		buttonSelect.setEnabled(false);
 		buttonSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -174,5 +176,7 @@ public class ConsultaCliente extends JDialog {
 			modelTalble.addRow(new Object[]{cliente.getId(),cliente.getNome()});
 		}
 
+		buttonSelect.setEnabled(true);
+		
 	}
 }
