@@ -12,7 +12,7 @@ public class Empresa {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int ID;
-	@Column(name = "NOME", nullable = false)
+	@Column(name = "NOME", length = 50, nullable = false)
 	private String nome;
 	@Column(name = "FILIAL")
 	private boolean filial;

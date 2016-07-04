@@ -16,7 +16,7 @@ public abstract class Cliente {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int ID;
-	@Column(name = "NOME")
+	@Column(name = "NOME", length = 100, nullable = false)
 	private String nome;
 	@Column(name = "RUA", length = 50, nullable = false)
 	private String rua;
