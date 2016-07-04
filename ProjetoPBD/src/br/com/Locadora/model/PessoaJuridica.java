@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name="ID_CLIENTE")
+@PrimaryKeyJoinColumn(name="IDCLIENTE")
 public class PessoaJuridica extends Cliente{
 	
 	@Column(name = "CNPJ", length = 14, nullable = false, unique = true)
