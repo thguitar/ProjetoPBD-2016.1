@@ -19,22 +19,22 @@ public class Veiculo {
 	private String numeroChassi;
 	@Column(name = "COR", nullable = false)
 	private String cor;
-	@Column(name = "COMBUSTIVEL", nullable = false)
+	@Column(name = "COMBUSTIVEL", length = 11, nullable = false)
 	private String combustivel;
-	@Column(name = "PLACA", unique = true, nullable = false)
+	@Column(name = "PLACA", unique = true, length = 7, nullable = false)
 	private String placa;
 	@Column(name = "ANO_MODELO", nullable = false)
 	private String anoModelo;
 	@Column(name = "ANO_FABRICACAO", nullable = false)
 	private String anoFabricacao;
-	@Column(name = "NUM_PORTAS", nullable = false)
+	@Column(name = "NUM_PORTAS", length = 10, nullable = false)
 	private int numeroPortas;
 	@Column(name = "NUM_MOTOR", unique = true, nullable = false)
 	private int numeroMotor;
 	@Column(name = "QUILOMETRAGEM", nullable = false)
 	private Double quilometragem;
 	@Column(name = "CAPACIDADE", nullable = false)
-	private Double capacidadePassageiroos;
+	private int capacidadePassageiroos;
 	@Column(name = "TORQUE_MOTOR", nullable = false)
 	private Double torqueDoMotor;
 	@OneToOne
@@ -48,7 +48,7 @@ public class Veiculo {
 	public Veiculo(String numeroChassi, String cor, String combustivel,
 			String placa, String anoModelo, String anoFabricacao,
 			int numeroPortas, int numeroMotor, Double quilometragem,
-			Double capacidadePassageiroos, Double torqueDoMotor,
+			int capacidadePassageiroos, Double torqueDoMotor,
 			Categoria categoria) {
 		this.numeroChassi = numeroChassi;
 		this.cor = cor;
@@ -118,10 +118,10 @@ public class Veiculo {
 	public void setQuilometragem(Double quilometragem) {
 		this.quilometragem = quilometragem;
 	}
-	public Double getCapacidadePassageiroos() {
+	public int getCapacidadePassageiroos() {
 		return capacidadePassageiroos;
 	}
-	public void setCapacidadePassageiroos(Double capacidadePassageiroos) {
+	public void setCapacidadePassageiroos(int capacidadePassageiroos) {
 		this.capacidadePassageiroos = capacidadePassageiroos;
 	}
 	public Double getTorqueDoMotor() {

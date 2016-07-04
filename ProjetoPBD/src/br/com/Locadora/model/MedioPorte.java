@@ -2,12 +2,16 @@ package br.com.Locadora.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@PrimaryKeyJoinColumn(name="IDCATEGORIA")
 public class MedioPorte extends Categoria{
-//	@Column
-//	private Acessorios acessorios;
+	@OneToOne
+	@JoinColumn(name = "acessorios_ID")
+	private Acessorios acessorios;
 	@Column
 	private String airBag;
 	@Column
@@ -18,25 +22,25 @@ public class MedioPorte extends Categoria{
 	private boolean rodasDeLigaLeve;
 	@Column
 	private boolean controleDePoluicao;
-	
+
 	public MedioPorte(int kmParaRevisao,
 			String airBag, boolean direcaoAssistida,
 			boolean cintosTraseirosRetrateis, boolean rodasDeLigaLeve,
-			boolean controleDePoluicao) {
+			boolean controleDePoluicao, Acessorios acessorios) {
 		super(kmParaRevisao);
-//		this.acessorios = acessorios;
+		this.acessorios = acessorios;
 		this.airBag = airBag;
 		this.direcaoAssistida = direcaoAssistida;
 		this.cintosTraseirosRetrateis = cintosTraseirosRetrateis;
 		this.rodasDeLigaLeve = rodasDeLigaLeve;
 		this.controleDePoluicao = controleDePoluicao;
 	}
-//	public Acessorios getAcessorios() {
-//		return acessorios;
-//	}
-//	public void setAcessorios(Acessorios acessorios) {
-//		this.acessorios = acessorios;
-//	}
+	public Acessorios getAcessorios() {
+		return acessorios;
+	}
+	public void setAcessorios(Acessorios acessorios) {
+		this.acessorios = acessorios;
+	}
 	public String getAirBag() {
 		return airBag;
 	}
@@ -67,6 +71,6 @@ public class MedioPorte extends Categoria{
 	public void setControleDePoluicao(boolean controleDePoluicao) {
 		this.controleDePoluicao = controleDePoluicao;
 	}
-	
-	
+
+
 }

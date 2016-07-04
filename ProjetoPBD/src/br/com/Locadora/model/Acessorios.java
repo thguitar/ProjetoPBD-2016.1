@@ -5,12 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
 @Entity
 public class Acessorios {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private int ID;
 	@Column(name = "AR_CONDICIONADO")
 	private boolean arCondicionado;
 	@Column(name = "RADIO")
@@ -30,10 +30,10 @@ public class Acessorios {
 		
 	}
 	public int getId() {
-		return id;
+		return ID;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.ID = id;
 	}
 	public String getTipoDeCambio() {
 		return TipoDeCambio;
