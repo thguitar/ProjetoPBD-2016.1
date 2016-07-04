@@ -23,7 +23,11 @@ import javax.swing.JDesktopPane;
 
 import br.com.Locadora.controller.HibernateSingleton;
 import br.com.Locadora.model.Usuario;
+
 import javax.swing.ImageIcon;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
 
 public class TelaInicial extends JFrame {
 
@@ -63,7 +67,7 @@ public class TelaInicial extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setExtendedState(MAXIMIZED_BOTH);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -201,6 +205,19 @@ public class TelaInicial extends JFrame {
 			menuRReserva = new JMenu("Reserva");
 
 			menuRelatorios.add(menuRCadastro);
+			
+			JMenuItem mntmClientes = new JMenuItem("Clientes");
+			mntmClientes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						new GerarRelatorio(JasperFillManager.fillReport("relatorios/Usuarios.jasper", null,HibernateSingleton.Connection()), false);
+					} catch (JRException e) {
+
+						e.printStackTrace();
+					}
+				}
+			});
+			menuRCadastro.add(mntmClientes);
 			menuRelatorios.add(menuRFinanceiro);
 			menuRelatorios.add(menuRLocao);
 			menuRelatorios.add(menuRReserva);

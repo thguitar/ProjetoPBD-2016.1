@@ -1,8 +1,15 @@
 package br.com.Locadora.controller;
 
+import java.sql.Connection;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
+
+import org.hibernate.Session;
+import org.hibernate.internal.SessionImpl;
+
 
 public class HibernateSingleton {
 	private static EntityManagerFactory instance;
@@ -29,5 +36,15 @@ public class HibernateSingleton {
 
 	public static void closeFactory(){
 		instance.close();
+	}
+	
+	public static Connection Connection(){
+		EntityManager entityManager = getInstance("HibMysql").createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Session hibernateSession = (Session) entityManager.unwrap(Session.class);
+		Connection jdbcConnection = ((SessionImpl) hibernateSession).connection();
+		return jdbcConnection;
+		
 	}
 }

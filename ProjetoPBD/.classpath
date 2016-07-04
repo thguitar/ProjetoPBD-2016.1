@@ -15,5 +15,18 @@
 	<classpathentry kind="lib" path="lib/hibernate-core-5.0.3.Final.jar"/>
 	<classpathentry kind="lib" path="lib/jandex-2.0.0.CR1.jar"/>
 	<classpathentry kind="lib" path="lib/javassist-3.18.1-GA.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/commons-beanutils-1.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/commons-javaflow-20060411.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/groovy-all-2.4.6.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/iText-2.1.7.js2.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/jasperreports-6.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/jasperreports-fonts-6.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/jasperreports-functions-6.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/jasperreports-javaflow-6.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/JasperLib/joda-time-2.9.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
