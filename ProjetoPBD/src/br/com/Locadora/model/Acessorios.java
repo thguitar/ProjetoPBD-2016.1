@@ -29,6 +29,20 @@ public class Acessorios {
 	public Acessorios() {
 		
 	}
+	
+	public Acessorios(boolean arCondicionado, boolean radio, boolean dvd,
+			boolean direcaoHidraulica, boolean mp3, boolean cameraDeRe,
+			String tipoDeCambio) {
+		super();
+		this.arCondicionado = arCondicionado;
+		this.radio = radio;
+		this.dvd = dvd;
+		this.direcaoHidraulica = direcaoHidraulica;
+		this.mp3 = mp3;
+		this.cameraDeRe = cameraDeRe;
+		TipoDeCambio = tipoDeCambio;
+	}
+
 	public int getId() {
 		return ID;
 	}

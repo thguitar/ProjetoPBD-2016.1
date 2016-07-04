@@ -12,6 +12,19 @@ public class PequenoPorte extends Categoria{
 	@JoinColumn(name = "acessorios_ID")
 	private Acessorios acessorios;
 
+	public PequenoPorte(boolean arCondicionado, boolean radio, boolean dvd,
+			boolean direcaoHidraulica, boolean mp3, boolean cameraDeRe,
+			String tipoDeCambio){
+		
+		acessorios = new Acessorios(arCondicionado, radio, dvd, direcaoHidraulica, mp3, cameraDeRe, tipoDeCambio);
+		
+	}
+	
+	public PequenoPorte() {
+
+	}
+	
+	
 	public PequenoPorte(int kmParaRevisao) {
 		super(kmParaRevisao);
 

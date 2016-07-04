@@ -27,6 +27,11 @@ import javax.swing.JButton;
 
 
 
+
+
+
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -36,9 +41,17 @@ import java.awt.event.ActionEvent;
 
 
 
+
+
+
+
+
 import br.com.Locadora.controller.VeiculoController;
+import br.com.Locadora.model.Categoria;
 import br.com.Locadora.model.FixedLengthJTextField;
 import br.com.Locadora.model.OnlyNumberField;
+import br.com.Locadora.model.PequenoPorte;
+import br.com.Locadora.model.Veiculo;
 
 import com.toedter.calendar.JYearChooser;
 
@@ -426,7 +439,22 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 
 		buttonSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				if (comboBoxCategoria.getSelectedItem().equals("Pequena")) {
+					Veiculo veiculo = new Veiculo();
+					veiculo.setNumeroChassi(fieldChassi.getText());
+					veiculo.setNumeroMotor(Integer.parseInt(fieldNumMotor.getText()));
+					veiculo.setAnoFabricacao(yearChooserFabricacao.getYear());
+					veiculo.setAnoModelo(yearChooserModelo.getYear());
+					veiculo.setCapacidadePassageiroos((int) comboBoxPassageiros.getSelectedItem());
+					veiculo.setCombustivel((String) comboBoxCombustivel.getSelectedItem());
+					veiculo.setCor(fieldCor.getText());
+					veiculo.setNumeroPortas(Integer.parseInt(String.valueOf(comboBoxNumPortas.getSelectedItem()).substring(0, 1)));
+					veiculo.setPlaca(formattedTextFieldPlaca.getText().replaceAll("[.-]", ""));
+					veiculo.setTorqueDoMotor(Double.parseDouble(formattedTextFieldTorque.getText()));
+					veiculo.setQuilometragem(Double.parseDouble(fieldKms.getText()));
+					veiculo.setCategoria(1);
+					veiculo.setPorte(new PequenoPorte(chckbxArcondicionado.isSelected(), chckbxRadio.isSelected(), chckbxDVD.isSelected(), chckbxDirecaoHidraulica.isSelected(), chckbxMP3.isSelected(), chckbxCameraRe.isSelected(), (String) comboBoTipoCambio.getSelectedItem()));
+				}
 			}
 
 		});

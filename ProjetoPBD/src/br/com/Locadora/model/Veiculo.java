@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Veiculo {
@@ -24,9 +22,9 @@ public class Veiculo {
 	@Column(name = "PLACA", unique = true, length = 7, nullable = false)
 	private String placa;
 	@Column(name = "ANO_MODELO", nullable = false)
-	private String anoModelo;
+	private int anoModelo;
 	@Column(name = "ANO_FABRICACAO", nullable = false)
-	private String anoFabricacao;
+	private int anoFabricacao;
 	@Column(name = "NUM_PORTAS", length = 10, nullable = false)
 	private int numeroPortas;
 	@Column(name = "NUM_MOTOR", unique = true, nullable = false)
@@ -37,19 +35,19 @@ public class Veiculo {
 	private int capacidadePassageiroos;
 	@Column(name = "TORQUE_MOTOR", nullable = false)
 	private Double torqueDoMotor;
-	@OneToOne
-	@JoinColumn(name="categoria_id")
-	private Categoria categoria;
+	@Column(name = "IDCATEGORIA", nullable = false)
+	private int categoria;
+	private PequenoPorte pequenoPorte;
 
 	public Veiculo() {
 
 	}
 	
 	public Veiculo(String numeroChassi, String cor, String combustivel,
-			String placa, String anoModelo, String anoFabricacao,
+			String placa, int anoModelo, int anoFabricacao,
 			int numeroPortas, int numeroMotor, Double quilometragem,
 			int capacidadePassageiroos, Double torqueDoMotor,
-			Categoria categoria) {
+			int categoria) {
 		this.numeroChassi = numeroChassi;
 		this.cor = cor;
 		this.combustivel = combustivel;
@@ -88,16 +86,16 @@ public class Veiculo {
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
-	public String getAnoModelo() {
+	public int getAnoModelo() {
 		return anoModelo;
 	}
-	public void setAnoModelo(String anoModelo) {
+	public void setAnoModelo(int anoModelo) {
 		this.anoModelo = anoModelo;
 	}
-	public String getAnoFabricacao() {
+	public int getAnoFabricacao() {
 		return anoFabricacao;
 	}
-	public void setAnoFabricacao(String anoFabricacao) {
+	public void setAnoFabricacao(int anoFabricacao) {
 		this.anoFabricacao = anoFabricacao;
 	}
 	public int getNumeroPortas() {
@@ -130,10 +128,14 @@ public class Veiculo {
 	public void setTorqueDoMotor(Double torqueDoMotor) {
 		this.torqueDoMotor = torqueDoMotor;
 	}
-	public Categoria getCategoria() {
+	public int getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(int categoria) {
 		this.categoria = categoria;
+	}
+	
+	public void setPorte(PequenoPorte pequenoPorte){
+		this.pequenoPorte = pequenoPorte;
 	}
 }
