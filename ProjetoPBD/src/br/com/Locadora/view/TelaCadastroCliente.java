@@ -30,6 +30,7 @@ import java.util.Date;
 import javax.swing.JButton;
 
 import br.com.Locadora.controller.ClienteController;
+import br.com.Locadora.controller.Validations;
 import br.com.Locadora.model.FixedLengthJTextField;
 import br.com.Locadora.model.OnlyNumberField;
 import br.com.Locadora.model.PessoaFisica;
@@ -461,7 +462,6 @@ public class TelaCadastroCliente extends JInternalFrame {
 					radiobuttonPJurdica.setEnabled(false);
 
 				}
-
 			}
 		});
 		
@@ -524,6 +524,9 @@ public class TelaCadastroCliente extends JInternalFrame {
 					fieldCidade.getText().isEmpty()||fieldNumero.getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Existem Campos Vazios",null , JOptionPane.WARNING_MESSAGE);
 				return false;
+			}else if(!Validations.isValidCPF(fieldCPF.getText().replaceAll("[.-]", ""))){
+				JOptionPane.showMessageDialog(null, "CPF Inválido","Aviso de Inconsistência" , JOptionPane.WARNING_MESSAGE);
+				return false; 
 			}
 
 			return true;
@@ -533,6 +536,9 @@ public class TelaCadastroCliente extends JInternalFrame {
 					fieldCidade.getText().isEmpty()||fieldNumero.getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Existem Campos Vazios",null , JOptionPane.WARNING_MESSAGE);
 				return false;
+			}else if(!Validations.isValidCNPJ(fieldCNPJ.getText().replaceAll("\\D", ""))){
+				JOptionPane.showMessageDialog(null, "CNPJ Inválido","Aviso de Inconsistência" , JOptionPane.WARNING_MESSAGE);
+				return false; 
 			}
 
 			return true;
