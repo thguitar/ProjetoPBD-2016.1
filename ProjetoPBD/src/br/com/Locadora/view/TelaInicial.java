@@ -55,11 +55,19 @@ public class TelaInicial extends JFrame {
 	private JMenuItem mnitemSair;
 	private JMenuItem mnitemAjuda;
 	private JMenuItem mnitemSobreOSistema;
+	private JMenuItem mnitemRClientes;
+	private JMenuItem mnitemRClientesPessoaFsica;
+	private JMenuItem mnitemRClientesPessoaJurdica;
+	private JMenuItem mnitemREmpresas;
+	private JMenuItem mnitemRUsuarios;
+	private JMenuItem mnitemRVeiculos;
 	private JLabel labelBackground;
 	private JLabel labelInformacoes;
 	private DateFormat format;
 	
 	private Usuario usuarioLogado;
+	
+	private GerarRelatorio gerarRelatorio;
 	
 	public TelaInicial(Usuario usuarioLogado) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens/iconCar.png"));
@@ -195,29 +203,120 @@ public class TelaInicial extends JFrame {
 		
 		menuLocao = new JMenu("Loca\u00E7\u00E3o");
 		menuBar.add(menuLocao);
-		
+// INICIO SUBMENU RELATÓRIOS		
 		menuRelatorios = new JMenu("Relat\u00F3rios");
 		menuBar.add(menuRelatorios);
 			
 			menuRCadastro = new JMenu("Cadastro");
+			
+				mnitemRClientes = new JMenuItem("Clientes");
+				mnitemRClientes.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							if(gerarRelatorio != null)
+								gerarRelatorio = null;
+							
+							gerarRelatorio = new GerarRelatorio(JasperFillManager.fillReport("relatorios/Clientes.jasper", null,HibernateSingleton.Connection()), false);
+						} catch (JRException e) {
+							gerarRelatorio = null;
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Erro ao Gerar Relatório","Erro Relatório",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				menuRCadastro.add(mnitemRClientes);
+			
+				mnitemRClientesPessoaFsica = new JMenuItem("Clientes Pessoa F\u00EDsica");
+				mnitemRClientesPessoaFsica.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							if(gerarRelatorio != null)
+								gerarRelatorio = null;
+							
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/ClientesPF.jasper", null,HibernateSingleton.Connection()), false);
+						} catch (JRException e) {
+							gerarRelatorio = null;
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Erro ao Gerar Relatório","Erro Relatório",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				menuRCadastro.add(mnitemRClientesPessoaFsica);
+			
+				mnitemRClientesPessoaJurdica = new JMenuItem("Clientes Pessoa Jur\u00EDdica");
+				mnitemRClientesPessoaJurdica.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							if(gerarRelatorio != null)
+								gerarRelatorio = null;
+							
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/ClientesPJ.jasper", null,HibernateSingleton.Connection()), false);
+						} catch (JRException e) {
+							gerarRelatorio = null;
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Erro ao Gerar Relatório","Erro Relatório",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				menuRCadastro.add(mnitemRClientesPessoaJurdica);
+			
+				mnitemREmpresas = new JMenuItem("Empresas");
+				mnitemREmpresas.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							if(gerarRelatorio != null)
+								gerarRelatorio = null;
+							
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Empresas.jasper", null,HibernateSingleton.Connection()), false);
+						} catch (JRException e) {
+							gerarRelatorio = null;
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Erro ao Gerar Relatório","Erro Relatório",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				menuRCadastro.add(mnitemREmpresas);
+			
+				mnitemRUsuarios = new JMenuItem("Usu\u00E1rios");
+				mnitemRUsuarios.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							if(gerarRelatorio != null)
+								gerarRelatorio = null;
+							
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Usuarios.jasper", null,HibernateSingleton.Connection()), false);
+						} catch (JRException e) {
+							gerarRelatorio = null;
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Erro ao Gerar Relatório","Erro Relatório",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				menuRCadastro.add(mnitemRUsuarios);
+			
+				mnitemRVeiculos = new JMenuItem("Ve\u00EDculos");
+				mnitemRVeiculos.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							if(gerarRelatorio != null)
+								gerarRelatorio = null;
+							
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Veiculos.jasper", null,HibernateSingleton.Connection()), false);
+						} catch (JRException e) {
+							gerarRelatorio = null;
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Erro ao Gerar Relatório","Erro Relatório",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				menuRCadastro.add(mnitemRVeiculos);
+//	FIM SUBMENU RELATÓRIOS			
 			menuRFinanceiro = new JMenu("Financeiro");
 			menuRLocao = new JMenu("Loca\u00E7\u00E3o");
 			menuRReserva = new JMenu("Reserva");
 
 			menuRelatorios.add(menuRCadastro);
-			
-			JMenuItem mntmClientes = new JMenuItem("Clientes");
-			mntmClientes.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						new GerarRelatorio(JasperFillManager.fillReport("relatorios/Usuarios.jasper", null,HibernateSingleton.Connection()), false);
-					} catch (JRException e) {
-
-						e.printStackTrace();
-					}
-				}
-			});
-			menuRCadastro.add(mntmClientes);
+				
 			menuRelatorios.add(menuRFinanceiro);
 			menuRelatorios.add(menuRLocao);
 			menuRelatorios.add(menuRReserva);
