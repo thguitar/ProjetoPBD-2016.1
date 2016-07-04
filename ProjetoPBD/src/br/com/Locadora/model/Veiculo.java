@@ -2,16 +2,10 @@ package br.com.Locadora.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Veiculo {
-	//@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Column(name = "ID")
-	//private int id;
 	@Id
 	@Column(name = "NUM_CHASSI", unique = true, nullable = false)
 	private String numeroChassi;
@@ -37,7 +31,6 @@ public class Veiculo {
 	private Double torqueDoMotor;
 	@Column(name = "IDCATEGORIA", nullable = false)
 	private int categoria;
-	private PequenoPorte pequenoPorte;
 
 	public Veiculo() {
 
@@ -135,7 +128,7 @@ public class Veiculo {
 		this.categoria = categoria;
 	}
 	
-	public void setPorte(PequenoPorte pequenoPorte){
+	/*public void setPorte(PequenoPorte pequenoPorte){
 		this.pequenoPorte = pequenoPorte;
-	}
+	}*/
 }

@@ -203,7 +203,6 @@ public class TelaInicial extends JFrame {
 
 			menuCadastros.add(mnitemClientes);
 			menuCadastros.add(mnitemEmpresas);
-			menuCadastros.add(mnitemVeiculos);
 			mnitemUsuarios = new JMenuItem("Usu\u00E1rios");
 			mnitemUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -228,6 +227,7 @@ public class TelaInicial extends JFrame {
 				}
 			});
 			menuCadastros.add(mnitemUsuarios);
+			menuCadastros.add(mnitemVeiculos);
 		
 		menuReservas = new JMenu("Reservas");
 		menuBar.add(menuReservas);

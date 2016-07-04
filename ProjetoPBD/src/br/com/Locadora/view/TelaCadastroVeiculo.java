@@ -20,34 +20,10 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
-
-
-
-
-
-
-
-
-
-
-
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
-
-
-
-
-
-
-
-
-
-
 import br.com.Locadora.controller.VeiculoController;
-import br.com.Locadora.model.Categoria;
 import br.com.Locadora.model.FixedLengthJTextField;
 import br.com.Locadora.model.OnlyNumberField;
 import br.com.Locadora.model.PequenoPorte;
@@ -87,6 +63,8 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 	private JLabel labelCategoria;
 	private JLabel labelTipoCambio;
 	private JLabel labelAcessorios;
+	private JLabel labelDistnciaEntreEixos;
+	private JLabel labelDesempenho;
 	private JTextField fieldChassi;
 	private JTextField fieldCor;
 	private JTextField fieldNumMotor;
@@ -125,13 +103,21 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 	private JCheckBox chckbxRodasLigaLeve;
 	private JCheckBox chckbxCintosRetrateis;
 	private JCheckBox chckbxControlePoluicao;
+	private JCheckBox chckbxAcionamentoHemb;
+	private JLabel labelCapacidadeDeCarga;
+	private JTextField fieldCapacidadeCarga;
+	private JTextField fieldDistanciEixos;
+	private JTextField fieldVolumeAbastecimento;
+	private JTextField fieldDesempenho;
+	private JLabel lblOutros;
+	private JLabel labelVolAbastecimento;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaCadastroVeiculo() {
 		setClosable(true);
-		setTitle("Cadastro de Ve\u00EDculos                                                                                                                                                                    ");
+		setTitle("Cadastro de Ve\u00EDculos                                                                                                                                                                                     ");
 		setResizable(false);
-		setSize(679, 450);
+		setSize(730, 500);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 102));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -140,7 +126,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 
 		panelTitulo = new JPanel();
 		panelTitulo.setBackground(new Color(204, 204, 255));
-		panelTitulo.setBounds(0, 0, 669, 66);
+		panelTitulo.setBounds(0, 0, 720, 66);
 		contentPane.add(panelTitulo);
 		panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
@@ -151,12 +137,12 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 
 		panelRodape = new JPanel();
 		panelRodape.setBackground(new Color(204, 204, 255));
-		panelRodape.setBounds(0, 399, 669, 18);
+		panelRodape.setBounds(0, 449, 720, 18);
 		contentPane.add(panelRodape);
 
 		panelInformacoesPrincipais = new JPanel();
 		panelInformacoesPrincipais.setBackground(new Color(204, 204, 204));
-		panelInformacoesPrincipais.setBounds(12, 117, 645, 147);
+		panelInformacoesPrincipais.setBounds(12, 117, 696, 128);
 		contentPane.add(panelInformacoesPrincipais);
 		panelInformacoesPrincipais.setLayout(null);
 
@@ -306,7 +292,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		buttonNovo.setForeground(Color.BLACK);
 		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonNovo.setBackground(SystemColor.inactiveCaption);
-		buttonNovo.setBounds(173, 79, 50, 26);
+		buttonNovo.setBounds(193, 78, 50, 26);
 		contentPane.add(buttonNovo);
 
 		buttonSalvar = new JButton();
@@ -316,7 +302,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonSalvar.setEnabled(false);
 		buttonSalvar.setBackground(SystemColor.inactiveCaption);
-		buttonSalvar.setBounds(235, 79, 50, 26);
+		buttonSalvar.setBounds(255, 78, 50, 26);
 		contentPane.add(buttonSalvar);
 
 		buttonExcluir = new JButton();
@@ -326,7 +312,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		buttonExcluir.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonExcluir.setEnabled(false);
 		buttonExcluir.setBackground(SystemColor.inactiveCaption);
-		buttonExcluir.setBounds(297, 79, 50, 26);
+		buttonExcluir.setBounds(317, 78, 50, 26);
 		contentPane.add(buttonExcluir);
 
 		buttonCancelar = new JButton();
@@ -335,7 +321,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		buttonCancelar.setForeground(Color.BLACK);
 		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonCancelar.setBackground(SystemColor.inactiveCaption);
-		buttonCancelar.setBounds(359, 79, 50, 26);
+		buttonCancelar.setBounds(379, 78, 50, 26);
 		contentPane.add(buttonCancelar);
 
 		buttonLocalizar = new JButton();
@@ -344,11 +330,11 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		buttonLocalizar.setForeground(Color.BLACK);
 		buttonLocalizar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonLocalizar.setBackground(SystemColor.inactiveCaption);
-		buttonLocalizar.setBounds(421, 79, 50, 26);
+		buttonLocalizar.setBounds(441, 78, 50, 26);
 		contentPane.add(buttonLocalizar);
 		
 		panelAcessorios = new JPanel();
-		panelAcessorios.setBounds(12, 270, 645, 117);
+		panelAcessorios.setBounds(12, 250, 696, 187);
 		panelAcessorios.setBackground(new Color(204, 204, 204));
 		contentPane.add(panelAcessorios);
 		panelAcessorios.setLayout(null);
@@ -370,27 +356,27 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		
 		chckbxDirecaoHidraulica = new JCheckBox("Dire\u00E7\u00E3o Hidraulica");
 		chckbxDirecaoHidraulica.setEnabled(false);
-		chckbxDirecaoHidraulica.setBounds(146, 29, 129, 24);
+		chckbxDirecaoHidraulica.setBounds(135, 29, 129, 24);
 		panelAcessorios.add(chckbxDirecaoHidraulica);
 		
 		chckbxMP3 = new JCheckBox("MP3");
 		chckbxMP3.setEnabled(false);
-		chckbxMP3.setBounds(146, 57, 50, 24);
+		chckbxMP3.setBounds(8, 113, 50, 24);
 		panelAcessorios.add(chckbxMP3);
 		
 		chckbxCameraRe = new JCheckBox("C\u00E2mera de R\u00E9");
 		chckbxCameraRe.setEnabled(false);
-		chckbxCameraRe.setBounds(146, 85, 105, 24);
+		chckbxCameraRe.setBounds(8, 141, 105, 24);
 		panelAcessorios.add(chckbxCameraRe);
 		
 		comboBoTipoCambio = new JComboBox();
 		comboBoTipoCambio.setEnabled(false);
 		comboBoTipoCambio.setModel(new DefaultComboBoxModel(new String[] {"Autom\u00E1tico", "Dualogic", "Manual", "CVT"}));
-		comboBoTipoCambio.setBounds(372, 29, 93, 25);
+		comboBoTipoCambio.setBounds(214, 57, 93, 25);
 		panelAcessorios.add(comboBoTipoCambio);
 		
 		labelTipoCambio = new JLabel("Tipo C\u00E2mbio:");
-		labelTipoCambio.setBounds(293, 33, 73, 16);
+		labelTipoCambio.setBounds(135, 61, 73, 16);
 		panelAcessorios.add(labelTipoCambio);
 		
 		labelAcessorios = new JLabel("Acess\u00F3rios");
@@ -401,28 +387,79 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		
 		chckbxAirbag = new JCheckBox("AirBag");
 		chckbxAirbag.setEnabled(false);
-		chckbxAirbag.setBounds(293, 57, 63, 24);
+		chckbxAirbag.setBounds(135, 85, 63, 24);
 		panelAcessorios.add(chckbxAirbag);
 		
 		chckbxComputadorDeBordo = new JCheckBox("Computador de Bordo");
 		chckbxComputadorDeBordo.setEnabled(false);
-		chckbxComputadorDeBordo.setBounds(293, 85, 149, 24);
+		chckbxComputadorDeBordo.setBounds(135, 113, 149, 24);
 		panelAcessorios.add(chckbxComputadorDeBordo);
 		
 		chckbxRodasLigaLeve = new JCheckBox("Rodas de Liga Leve");
 		chckbxRodasLigaLeve.setEnabled(false);
-		chckbxRodasLigaLeve.setBounds(485, 57, 135, 24);
+		chckbxRodasLigaLeve.setBounds(315, 29, 135, 24);
 		panelAcessorios.add(chckbxRodasLigaLeve);
 		
 		chckbxCintosRetrateis = new JCheckBox("Cintos Traz. Retrateis");
 		chckbxCintosRetrateis.setEnabled(false);
-		chckbxCintosRetrateis.setBounds(485, 29, 147, 24);
+		chckbxCintosRetrateis.setBounds(135, 141, 147, 24);
 		panelAcessorios.add(chckbxCintosRetrateis);
 		
 		chckbxControlePoluicao = new JCheckBox("Controle de Polu\u00ED\u00E7\u00E3o");
 		chckbxControlePoluicao.setEnabled(false);
-		chckbxControlePoluicao.setBounds(485, 85, 142, 24);
+		chckbxControlePoluicao.setBounds(315, 57, 142, 24);
 		panelAcessorios.add(chckbxControlePoluicao);
+		
+		chckbxAcionamentoHemb = new JCheckBox("Acionamento Embreagem");
+		chckbxAcionamentoHemb.setEnabled(false);
+		chckbxAcionamentoHemb.setBounds(315, 85, 172, 24);
+		panelAcessorios.add(chckbxAcionamentoHemb);
+		
+		labelCapacidadeDeCarga = new JLabel("Capacidade de Carga:");
+		labelCapacidadeDeCarga.setBounds(509, 89, 124, 16);
+		panelAcessorios.add(labelCapacidadeDeCarga);
+		
+		fieldCapacidadeCarga = new JTextField();
+		fieldCapacidadeCarga.setEditable(false);
+		fieldCapacidadeCarga.setBounds(635, 87, 49, 20);
+		panelAcessorios.add(fieldCapacidadeCarga);
+		fieldCapacidadeCarga.setColumns(10);
+		
+		labelDistnciaEntreEixos = new JLabel("Dist\u00E2ncia entre Eixos:");
+		labelDistnciaEntreEixos.setBounds(510, 31, 123, 16);
+		panelAcessorios.add(labelDistnciaEntreEixos);
+		
+		fieldDistanciEixos = new JTextField();
+		fieldDistanciEixos.setEditable(false);
+		fieldDistanciEixos.setBounds(635, 29, 49, 20);
+		panelAcessorios.add(fieldDistanciEixos);
+		fieldDistanciEixos.setColumns(10);
+		
+		labelVolAbastecimento = new JLabel("Vol. de Abastecimento:");
+		labelVolAbastecimento.setBounds(503, 117, 130, 16);
+		panelAcessorios.add(labelVolAbastecimento);
+		
+		fieldVolumeAbastecimento = new JTextField();
+		fieldVolumeAbastecimento.setEditable(false);
+		fieldVolumeAbastecimento.setBounds(635, 115, 49, 20);
+		panelAcessorios.add(fieldVolumeAbastecimento);
+		fieldVolumeAbastecimento.setColumns(10);
+		
+		labelDesempenho = new JLabel("Desempenho:");
+		labelDesempenho.setBounds(555, 61, 78, 16);
+		panelAcessorios.add(labelDesempenho);
+		
+		fieldDesempenho = new JTextField();
+		fieldDesempenho.setEditable(false);
+		fieldDesempenho.setBounds(635, 59, 49, 20);
+		panelAcessorios.add(fieldDesempenho);
+		fieldDesempenho.setColumns(10);
+		
+		lblOutros = new JLabel("Outros");
+		lblOutros.setForeground(new Color(0, 0, 102));
+		lblOutros.setFont(new Font("SansSerif", Font.BOLD, 12));
+		lblOutros.setBounds(510, 0, 39, 16);
+		panelAcessorios.add(lblOutros);
 
 
 		buttonNovo.addActionListener(new ActionListener() {
@@ -453,7 +490,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 					veiculo.setTorqueDoMotor(Double.parseDouble(formattedTextFieldTorque.getText()));
 					veiculo.setQuilometragem(Double.parseDouble(fieldKms.getText()));
 					veiculo.setCategoria(1);
-					veiculo.setPorte(new PequenoPorte(chckbxArcondicionado.isSelected(), chckbxRadio.isSelected(), chckbxDVD.isSelected(), chckbxDirecaoHidraulica.isSelected(), chckbxMP3.isSelected(), chckbxCameraRe.isSelected(), (String) comboBoTipoCambio.getSelectedItem()));
+					//veiculo.setPorte(new PequenoPorte(chckbxArcondicionado.isSelected(), chckbxRadio.isSelected(), chckbxDVD.isSelected(), chckbxDirecaoHidraulica.isSelected(), chckbxMP3.isSelected(), chckbxCameraRe.isSelected(), (String) comboBoTipoCambio.getSelectedItem()));
 				}
 			}
 
@@ -526,6 +563,11 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		chckbxRodasLigaLeve.setSelected(false);
 		chckbxCintosRetrateis.setSelected(false);
 		chckbxControlePoluicao.setSelected(false);
+		chckbxAcionamentoHemb.setSelected(false);
+		fieldDesempenho.setText(null);
+		fieldDistanciEixos.setText(null);
+		fieldCapacidadeCarga.setText(null);
+		fieldVolumeAbastecimento.setText(null);
 
 	}
 
@@ -554,6 +596,11 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		chckbxRodasLigaLeve.setEnabled(false);
 		chckbxCintosRetrateis.setEnabled(false);
 		chckbxControlePoluicao.setEnabled(false);
+		chckbxAcionamentoHemb.setEnabled(false);
+		fieldDesempenho.setEditable(false);
+		fieldDistanciEixos.setEditable(false);
+		fieldCapacidadeCarga.setEditable(false);
+		fieldVolumeAbastecimento.setEditable(false);
 		
 	}
 
@@ -582,6 +629,11 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		chckbxRodasLigaLeve.setEnabled(true);
 		chckbxCintosRetrateis.setEnabled(true);
 		chckbxControlePoluicao.setEnabled(true);
+		chckbxAcionamentoHemb.setEnabled(true);
+		fieldDesempenho.setEditable(true);
+		fieldDistanciEixos.setEditable(true);
+		fieldCapacidadeCarga.setEditable(true);
+		fieldVolumeAbastecimento.setEditable(true);
 	}
 	
 	public void enableFieldsMedia(){
