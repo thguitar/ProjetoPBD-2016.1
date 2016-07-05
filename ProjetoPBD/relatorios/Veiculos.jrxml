@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57652005-0f7a-4a39-a034-08eeb810cac1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT * FROM VEICULOS]]>
+	</queryString>
+	<field name="NUM_CHASSI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_CATEGORIA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CAPACIDADE" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QUILOMETRAGEM" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMBUSTIVEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TORQUE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PLACA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUM_MOTOR" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ANO_MODELO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ANO_FABRICACAO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUM_PORTAS" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="1" width="555" height="33" forecolor="#000000" uuid="9116b1e6-46a0-47e8-91b1-0652e08060e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Veículos]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="38" width="555" height="1" uuid="16bb69b1-58b8-46f4-8ae3-a55ab1b90e5a"/>
+			</line>
+			<line>
+				<reportElement x="0" y="69" width="555" height="1" uuid="8be52a69-322a-48ed-8e29-8e915473ef33"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="2" width="31" height="12" uuid="f2e8fde4-9438-4201-8409-1a8f09e250e6"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Chassi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="2" width="30" height="12" uuid="ff45622b-8650-44c6-8dff-4ad936211c07"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="2" width="34" height="12" uuid="02a98a70-d0f6-4980-b40c-4d1965a163ce"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Motor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="2" width="46" height="12" uuid="443ac616-d591-4d18-a34b-ca70cc615e80"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="2" width="62" height="12" uuid="e4f6510f-522b-4167-a9c5-1b9b909464f3"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Fabricação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="2" width="18" height="12" uuid="80d4e8e7-2ca1-4240-a162-a46e971dc4af"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="2" width="52" height="12" uuid="d0e53c16-f684-4f08-9303-be4dca5f6102"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Combustivel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="2" width="40" height="12" uuid="ed511cf6-c06b-4f63-9984-e7c74ffa0c6f"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Portas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="2" width="50" height="12" uuid="483aa604-1b40-486f-a0d6-165d093d8e39"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Capacidade]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="16" width="555" height="1" uuid="fed8d3c8-59d3-4e99-956d-16732aeb9888"/>
+			</line>
+			<staticText>
+				<reportElement x="487" y="2" width="29" height="12" uuid="1d24f669-9dac-4456-b491-27850e780169"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Torque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="2" width="20" height="12" uuid="c3fd1914-1441-443a-b6e4-0bdab61e6e03"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Km's]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="57" height="12" uuid="d1ef5ee8-b5a3-451f-a024-627571457178"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUM_CHASSI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="40" height="12" uuid="099f77b3-f505-43ba-ae5c-a7c2b9a4ea36"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PLACA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="0" width="55" height="12" uuid="911fc0d1-9ba3-4d7c-bb65-ba9eed8900d1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUM_MOTOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="0" width="46" height="12" uuid="9e5b0d4a-3a8c-49e4-8a24-77399a3223d2"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ANO_MODELO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="0" width="62" height="12" uuid="162ef980-9c81-402e-a282-877c66ee5341"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ANO_FABRICACAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="43" height="12" uuid="9185811a-6b0a-4876-b3a4-654772f85295"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="336" y="0" width="52" height="12" uuid="4dd10ac2-eab4-497c-8150-2dc3e04c547f"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COMBUSTIVEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="494" y="0" width="15" height="12" uuid="fe896a47-50f5-41ce-9abd-108422c66121"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TORQUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="25" height="12" uuid="1c194574-7b8c-4f1c-861c-ffaf003a54a4"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUM_PORTAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="521" y="0" width="33" height="12" uuid="133bf60d-9bae-4067-be0a-a159add342e4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QUILOMETRAGEM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="0" width="50" height="12" uuid="ba0f7aa1-eac5-48ef-a168-4a9c5de691ab"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CAPACIDADE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000" uuid="72052ee8-ffd3-4a79-bf07-fdf8abfea501"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000" uuid="0e970f1c-38d3-4414-b263-feb86dde10c7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000" uuid="1f9de705-ab47-4c20-b540-4dc983230caa"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

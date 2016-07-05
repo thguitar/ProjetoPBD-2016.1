@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57652005-0f7a-4a39-a034-08eeb810cac1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT
+        cliente.ID,
+        cliente.BAIRRO,
+        cliente.CIDADE,
+        cliente.ESTADO,
+        cliente.NOME,
+        cliente.NUMERO,
+        cliente.RUA,
+        pf.CPF,
+        pf.DT_NASCI,
+        pf.DT_VENC_HAB,
+        pf.NUM_HAB,
+        pf.SEXO,
+        pj.CNPJ,
+        pj.INSC_ESTADUAL,
+
+        case
+			ISNULL(pj.CNPJ)
+            when 1 then '' else pj.cnpj
+		end as CNPJ_N,
+
+        case
+			ISNULL(pf.CPF)
+            when 1 then '' else pf.cpf
+		end as CPF_N,
+
+        case
+			ISNULL(pj.INSC_ESTADUAL)
+            when 1 then 'ISENTO' else  pj.INSC_ESTADUAL
+		end as insc_estadual_N,
+
+       case
+			ISNULL(pf.DT_NASCI)
+            when 1 then '' else  DATE_FORMAT(pf.DT_NASCI,'%d/%m/%Y')
+
+		end as DT_NASCI_N,
+
+        case
+			ISNULL(pf.DT_VENC_HAB)
+            when 1 then '' else  DATE_FORMAT(pf.DT_VENC_HAB,'%d/%m/%Y')
+		end as DT_VENC_HAB_N,
+
+        case
+			ISNULL(pf.NUM_HAB)
+            when 1 then '' else pf.NUM_HAB
+		end as NUM_HAB_N
+
+    FROM
+        CLIENTE cliente
+    LEFT OUTER JOIN
+        PessoaFisica pf
+            ON cliente.ID=pf.IDCLIENTE
+    LEFT OUTER JOIN
+        PessoaJuridica pj
+            ON cliente.ID=pj.IDCLIENTE
+ORDER BY cliente.ID]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BAIRRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CIDADE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTADO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMERO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RUA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CPF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DT_NASCI" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DT_VENC_HAB" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUM_HAB" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SEXO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSC_ESTADUAL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CNPJ_N" class="java.lang.String"/>
+	<field name="CPF_N" class="java.lang.String"/>
+	<field name="insc_estadual_N" class="java.lang.String"/>
+	<field name="DT_NASCI_N" class="java.lang.String"/>
+	<field name="DT_VENC_HAB_N" class="java.lang.String"/>
+	<field name="NUM_HAB_N" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="1" width="555" height="33" forecolor="#000000" uuid="9116b1e6-46a0-47e8-91b1-0652e08060e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Clientes]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="38" width="555" height="1" uuid="16bb69b1-58b8-46f4-8ae3-a55ab1b90e5a"/>
+			</line>
+			<line>
+				<reportElement x="0" y="69" width="555" height="1" uuid="8be52a69-322a-48ed-8e29-8e915473ef33"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="16" width="555" height="1" uuid="fed8d3c8-59d3-4e99-956d-16732aeb9888"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="2" width="28" height="12" uuid="cb7a081c-f980-4558-93a3-8e4ad8a2a437"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="2" width="56" height="12" uuid="22dc49ee-39b2-4f34-88ea-d502c171bd6f"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Habilitação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="2" width="45" height="12" uuid="261557bf-db5c-4f4d-a56c-8f2589afe0a9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF/CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="2" width="30" height="12" uuid="ef351993-a02e-4bbc-8645-7eaea75aa757"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="2" width="79" height="12" uuid="184d576d-f178-4d9e-8e6e-0d658b909c82"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Venc. Habilitação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="2" width="48" height="12" uuid="a29e9616-3259-462b-96e8-08bd3de0638e"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt. Nasci]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="2" width="62" height="12" uuid="99484026-d4c7-4660-847c-4b056562e3f1"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Insc. Estadual]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="0" width="28" height="12" uuid="d37f3e4b-6938-4523-97e3-f36bf4699f34"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="0" width="185" height="12" uuid="72aa11ab-636f-4772-90d4-0fc0c5a26022"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="0" width="51" height="12" uuid="2097218c-1c82-4e8d-8058-d593d07d362c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CPF_N}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="0" width="74" height="12" uuid="1f848b4a-c42c-4f88-8cd1-49fb7faec4c9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CNPJ_N}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="50" height="12" uuid="93cf1e29-a87d-402b-a7b4-e8269d517ec1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insc_estadual_N}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="367" y="0" width="51" height="12" uuid="597ce911-a740-4a9d-b76c-8186b66a5176"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DT_NASCI_N}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="490" y="0" width="51" height="12" uuid="cce23014-a75a-4f53-84d1-57f4ec96f2ab"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DT_VENC_HAB_N}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="36" height="12" uuid="e5fb8e4b-b349-4770-aa1e-217f3a145db1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUM_HAB_N}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000" uuid="72052ee8-ffd3-4a79-bf07-fdf8abfea501"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000" uuid="0e970f1c-38d3-4414-b263-feb86dde10c7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000" uuid="1f9de705-ab47-4c20-b540-4dc983230caa"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

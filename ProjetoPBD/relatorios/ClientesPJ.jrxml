@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57652005-0f7a-4a39-a034-08eeb810cac1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT
+     cliente.`ID` AS cliente_ID,
+     cliente.`BAIRRO` AS cliente_BAIRRO,
+     cliente.`CIDADE` AS cliente_CIDADE,
+     cliente.`ESTADO` AS cliente_ESTADO,
+     cliente.`NOME` AS cliente_NOME,
+     cliente.`NUMERO` AS cliente_NUMERO,
+     cliente.`RUA` AS cliente_RUA,
+     pessoajuridica.`CNPJ` AS pessoajuridica_CNPJ,
+     pessoajuridica.`INSC_ESTADUAL` AS pessoajuridica_INSC_ESTADUAL
+FROM
+     `cliente` cliente INNER JOIN `pessoajuridica` pessoajuridica ON cliente.`ID` = pessoajuridica.`IDCLIENTE`]]>
+	</queryString>
+	<field name="cliente_ID" class="java.lang.Integer"/>
+	<field name="cliente_NOME" class="java.lang.String"/>
+	<field name="pessoajuridica_CNPJ" class="java.lang.String"/>
+	<field name="pessoajuridica_INSC_ESTADUAL" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="1" width="555" height="33" forecolor="#000000" uuid="9116b1e6-46a0-47e8-91b1-0652e08060e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Clientes Pessoa Jurídica]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="38" width="555" height="1" uuid="16bb69b1-58b8-46f4-8ae3-a55ab1b90e5a"/>
+			</line>
+			<line>
+				<reportElement x="0" y="69" width="555" height="1" uuid="8be52a69-322a-48ed-8e29-8e915473ef33"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="16" width="555" height="1" uuid="fed8d3c8-59d3-4e99-956d-16732aeb9888"/>
+			</line>
+			<staticText>
+				<reportElement x="329" y="2" width="70" height="12" uuid="75da18ec-1e62-4c30-aaf5-7e2164e697c9"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Incrição Estadual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="2" width="24" height="12" uuid="80fb0f2c-53ae-455b-89db-d5dab38a4609"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="2" width="31" height="12" uuid="5a27fd71-3b50-4bb0-96eb-b3b774ff94a2"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="2" width="30" height="12" uuid="15e62281-13df-4a51-a93a-09c931985560"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="2" width="31" height="12" uuid="f90d9248-c551-4411-9499-3383f7b7336d"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="2" width="181" height="12" uuid="ee7bd95d-ee02-43e4-979f-9db4eefb19f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente_NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="2" width="67" height="12" uuid="dfe5c88f-6ba7-4021-adc5-a539765488c9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoajuridica_CNPJ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="2" width="59" height="12" uuid="50da725d-a10c-4edd-bd79-8b3ea3d2ee32"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoajuridica_INSC_ESTADUAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000" uuid="72052ee8-ffd3-4a79-bf07-fdf8abfea501"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000" uuid="0e970f1c-38d3-4414-b263-feb86dde10c7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000" uuid="1f9de705-ab47-4c20-b540-4dc983230caa"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

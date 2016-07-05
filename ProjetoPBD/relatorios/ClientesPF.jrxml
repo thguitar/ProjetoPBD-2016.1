@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57652005-0f7a-4a39-a034-08eeb810cac1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT
+     cliente.`ID` AS cliente_ID,
+     cliente.`BAIRRO` AS cliente_BAIRRO,
+     cliente.`CIDADE` AS cliente_CIDADE,
+     cliente.`ESTADO` AS cliente_ESTADO,
+     cliente.`NOME` AS cliente_NOME,
+     cliente.`NUMERO` AS cliente_NUMERO,
+     cliente.`RUA` AS cliente_RUA,
+     pessoafisica.`CPF` AS pessoafisica_CPF,
+     pessoafisica.`DT_NASCI` AS pessoafisica_DT_NASCI,
+     pessoafisica.`DT_VENC_HAB` AS pessoafisica_DT_VENC_HAB,
+     pessoafisica.`NUM_HAB` AS pessoafisica_NUM_HAB,
+     pessoafisica.`SEXO` AS pessoafisica_SEXO
+FROM
+     `cliente` cliente INNER JOIN `pessoafisica` pessoafisica ON cliente.`ID` = pessoafisica.`IDCLIENTE`]]>
+	</queryString>
+	<field name="cliente_ID" class="java.lang.Integer"/>
+	<field name="cliente_BAIRRO" class="java.lang.String"/>
+	<field name="cliente_CIDADE" class="java.lang.String"/>
+	<field name="cliente_ESTADO" class="java.lang.String"/>
+	<field name="cliente_NOME" class="java.lang.String"/>
+	<field name="cliente_NUMERO" class="java.lang.String"/>
+	<field name="cliente_RUA" class="java.lang.String"/>
+	<field name="pessoafisica_CPF" class="java.lang.String"/>
+	<field name="pessoafisica_DT_NASCI" class="java.sql.Date"/>
+	<field name="pessoafisica_DT_VENC_HAB" class="java.sql.Date"/>
+	<field name="pessoafisica_NUM_HAB" class="java.lang.String"/>
+	<field name="pessoafisica_SEXO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="1" width="555" height="33" forecolor="#000000" uuid="9116b1e6-46a0-47e8-91b1-0652e08060e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Clientes Pessoa Física]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="38" width="555" height="1" uuid="16bb69b1-58b8-46f4-8ae3-a55ab1b90e5a"/>
+			</line>
+			<line>
+				<reportElement x="0" y="69" width="555" height="1" uuid="8be52a69-322a-48ed-8e29-8e915473ef33"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="16" width="555" height="1" uuid="fed8d3c8-59d3-4e99-956d-16732aeb9888"/>
+			</line>
+			<staticText>
+				<reportElement x="279" y="2" width="70" height="12" uuid="75da18ec-1e62-4c30-aaf5-7e2164e697c9"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Nascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="2" width="20" height="12" uuid="80fb0f2c-53ae-455b-89db-d5dab38a4609"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="2" width="31" height="12" uuid="5a27fd71-3b50-4bb0-96eb-b3b774ff94a2"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="2" width="30" height="12" uuid="15e62281-13df-4a51-a93a-09c931985560"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="2" width="56" height="12" uuid="729d5722-b4fe-41ef-b974-1b438769a8b4"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Habilitação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="2" width="79" height="12" uuid="3c8623b0-2648-4638-9ac6-8b0ecc1d6443"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Venc. Habilitação]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="3" width="31" height="12" uuid="1f6aa709-daa2-4f10-a7cf-b465a29638d1"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="3" width="172" height="12" uuid="41254ea9-f3aa-4796-be9c-7bcf2c176743"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente_NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="3" width="51" height="12" uuid="54cb7840-bcbe-40bd-9f20-e88295d31c97"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoafisica_CPF}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="281" y="3" width="59" height="12" uuid="7bcff47d-ed41-4f72-8955-016e34cf26db"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoafisica_DT_NASCI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="3" width="43" height="12" uuid="7ac27ff4-b078-4342-8405-b11716a5aa46"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoafisica_NUM_HAB}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="420" y="3" width="55" height="12" uuid="78f15a66-a234-4af2-9589-2c5a3cd9d3a7"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoafisica_DT_VENC_HAB}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000" uuid="72052ee8-ffd3-4a79-bf07-fdf8abfea501"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000" uuid="0e970f1c-38d3-4414-b263-feb86dde10c7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000" uuid="1f9de705-ab47-4c20-b540-4dc983230caa"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
