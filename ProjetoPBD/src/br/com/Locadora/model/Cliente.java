@@ -28,13 +28,15 @@ public abstract class Cliente {
 	private String cidade;
 	@Column(name = "ESTADO", length = 20, nullable = false)
 	private String estado;
+	@Column(name = "INATIVO")
+	private boolean inativo;
 
 	public Cliente(){
 		
 	}
 	
 	public Cliente(int ID, String nome, String rua, String bairro, String numero, 
-			String cidade, String estado) {
+			String cidade, String estado, boolean inativo) {
 		this.ID = ID;
 		this.numero = numero;
 		this.nome = nome;
@@ -42,6 +44,7 @@ public abstract class Cliente {
 		this.bairro = bairro;
 		this.cidade = cidade;
 		this.estado = estado;
+		this.inativo = inativo;
 	}
 	
 	public Cliente(String nome, String rua, String bairro, String numero, 
@@ -52,6 +55,7 @@ public abstract class Cliente {
 		this.bairro = bairro;
 		this.cidade = cidade;
 		this.estado = estado;
+		this.inativo = false;
 	}
 	
 	public int getId() {
@@ -109,5 +113,14 @@ public abstract class Cliente {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public boolean isInativo() {
+		return inativo;
+	}
+
+	public void setInativo(boolean inativo) {
+		this.inativo = inativo;
+	}
+	
 
 }
