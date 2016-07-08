@@ -31,10 +31,15 @@ public class Veiculo {
 	private int capacidadePassageiroos;
 	@Column(name = "TORQUE_MOTOR", nullable = false)
 	private double torqueDoMotor;
-	@Column(name = "IDCATEGORIA", nullable = false)
-	private int categoria;
+	@Column(name = "TIPO", length = 1, nullable = false)
+	private char tipo;
+	@Column(name = "INATIVO")
+	private boolean inativo;
 	@OneToOne
-	@JoinColumn(name="acessorios_ID")
+	@JoinColumn(name="IDCATEGORIA")
+	private Categoria categoria;
+	@OneToOne
+	@JoinColumn(name="IDACESSORIOS")
 	private Acessorios acessorios;
 
 	public Veiculo() {
@@ -45,7 +50,7 @@ public class Veiculo {
 			String placa, int anoModelo, int anoFabricacao,
 			int numeroPortas, int numeroMotor, Double quilometragem,
 			int capacidadePassageiroos, Double torqueDoMotor,
-			int categoria) {
+			Categoria categoria) {
 		this.numeroChassi = numeroChassi;
 		this.cor = cor;
 		this.combustivel = combustivel;
@@ -58,6 +63,7 @@ public class Veiculo {
 		this.capacidadePassageiroos = capacidadePassageiroos;
 		this.torqueDoMotor = torqueDoMotor;
 		this.categoria = categoria;
+		this.inativo = false;
 	}
 
 	public String getNumeroChassi() {
@@ -126,11 +132,35 @@ public class Veiculo {
 	public void setTorqueDoMotor(Double torqueDoMotor) {
 		this.torqueDoMotor = torqueDoMotor;
 	}
-	public int getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(int categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public boolean isInativo() {
+		return inativo;
+	}
+
+	public void setInativo(boolean inativo) {
+		this.inativo = inativo;
+	}
+
+	public Acessorios getAcessorios() {
+		return acessorios;
+	}
+
+	public void setAcessorios(Acessorios acessorios) {
+		this.acessorios = acessorios;
+	}
+
+	public void setQuilometragem(double quilometragem) {
+		this.quilometragem = quilometragem;
+	}
+
+	public void setTorqueDoMotor(double torqueDoMotor) {
+		this.torqueDoMotor = torqueDoMotor;
 	}
 	
 }
