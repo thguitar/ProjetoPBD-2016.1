@@ -5,10 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import javax.swing.JOptionPane;
 
 import br.com.Locadora.model.Usuario;
@@ -17,7 +17,6 @@ import br.com.Locadora.view.TelaLogin;
 
 public class LoginController implements ActionListener{
 
-	List<Usuario> listUser;
 	private TelaLogin telalogin;
 	private EntityManager managedEntity;
 
@@ -36,7 +35,7 @@ public class LoginController implements ActionListener{
 					if (validaFields()) {
 						if (logar(new Usuario(telalogin.getFieldUser().getText(), new String(telalogin.getPasswordField().getPassword())))) {
 							telalogin.dispose();
-							new TelaInicial(listUser.get(0)).setVisible(true);
+							new TelaInicial(new UsuarioController().consultaLogin(telalogin.getFieldUser().getText()).get(0)).setVisible(true);
 							telalogin = null;
 						}
 					}
@@ -50,8 +49,10 @@ public class LoginController implements ActionListener{
 					if (validaFields()) {
 						if (logar(new Usuario(telalogin.getFieldUser().getText(), new String(telalogin.getPasswordField().getPassword())))) {
 							telalogin.dispose();
-							new TelaInicial(listUser.get(0)).setVisible(true);
+							new TelaInicial(new UsuarioController().consultaLogin(telalogin.getFieldUser().getText()).get(0)).setVisible(true);
 							telalogin = null;
+						}else {
+							JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}
@@ -69,24 +70,29 @@ public class LoginController implements ActionListener{
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public Boolean logar(Usuario usuario){
+		
+		managedEntity = HibernateSingleton.getInstance("HibMysql").createEntityManager();
 		managedEntity.getTransaction().begin();
-		Query query = managedEntity.createQuery("select u from Usuario u where u.login = :param");
-		query.setParameter("param", usuario.getLogin());
-		listUser = query.getResultList(); 
+		StoredProcedureQuery storedProcedure = managedEntity.createStoredProcedureQuery("VALIDAR_USUARIO");
+		storedProcedure.registerStoredProcedureParameter("P_LOGIN", String.class, ParameterMode.IN);
+		storedProcedure.registerStoredProcedureParameter("P_SENHA", String.class, ParameterMode.IN);
+		storedProcedure.registerStoredProcedureParameter("P_VALIDO", Integer.class, ParameterMode.OUT);
+		
+		storedProcedure.setParameter("P_LOGIN", usuario.getLogin());
+		storedProcedure.setParameter("P_SENHA", usuario.getSenha());
+		
+		storedProcedure.execute();
+		
 		managedEntity.getTransaction().commit();
-		if(!listUser.isEmpty()){ 
-			if (usuario.getLogin().equalsIgnoreCase(listUser.get(0).getLogin())&&usuario.getSenha().equals(listUser.get(0).getSenha())) {
-				closeManaged();
-				return true;
-			}else {
-				JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);
-				return false;
-			}
+
+		if(storedProcedure.getOutputParameterValue("P_VALIDO").toString().equals("1")){ 
+			closeManaged();
+			return true;
+		}else {
+			closeManaged();
+			return false;
 		}
-		JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);
-		return false;
 	}
 
 	@Override
@@ -94,7 +100,7 @@ public class LoginController implements ActionListener{
 		if (validaFields()) {
 			if (logar(new Usuario(telalogin.getFieldUser().getText(), new String(telalogin.getPasswordField().getPassword())))) {
 				telalogin.dispose();
-				new TelaInicial(listUser.get(0)).setVisible(true);
+				new TelaInicial(new UsuarioController().consultaLogin(telalogin.getFieldUser().getText()).get(0)).setVisible(true);
 				telalogin = null;
 			}
 		}

@@ -129,9 +129,10 @@ public class TelaInicial extends JFrame {
 			mnitemSair = new JMenuItem("Sair");
 			mnitemSair.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Sair ?", "Sair do Sistema", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0)
+					if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Sair ?", "Sair do Sistema", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0){
 						HibernateSingleton.closeFactory();
 						System.exit(0);
+					}
 				}
 			});
 		
@@ -207,7 +208,7 @@ public class TelaInicial extends JFrame {
 			mnitemUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if (TelaInicial.this.usuarioLogado.isAdmin()) {
-						if (isCreate(cadastroUsuario)||cadastroVeiculo.isClosed()) {
+						if (isCreate(cadastroUsuario)||cadastroUsuario.isClosed()) {
 							cadastroUsuario = null;
 							cadastroUsuario = new TelaCadastroUsuario();
 							cadastroUsuario.setVisible(true);
@@ -375,7 +376,7 @@ public class TelaInicial extends JFrame {
 		
 		this.usuarioLogado = usuarioLogado;
 		format = new SimpleDateFormat("dd/MM/YYYY");
-		labelInformacoes = new JLabel("Usu\u00E1rio: "+usuarioLogado.getLogin().toUpperCase()+"    Empresa: LOCADORA DE CARROS LTDA    Data: "+format.format(new Date()));
+		labelInformacoes = new JLabel("Usu\u00E1rio: "+usuarioLogado.getLogin().toUpperCase()+"    Empresa: "+usuarioLogado.getEmpresa().getNome().toUpperCase()+"    Data: "+format.format(new Date()));
 		labelInformacoes.setBounds(3, 4, 558, 14);
 		panelInformacoes.add(labelInformacoes);
 		

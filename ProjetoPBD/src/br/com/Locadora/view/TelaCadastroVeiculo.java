@@ -26,7 +26,6 @@ import java.awt.event.ActionEvent;
 import br.com.Locadora.controller.VeiculoController;
 import br.com.Locadora.model.FixedLengthJTextField;
 import br.com.Locadora.model.OnlyNumberField;
-import br.com.Locadora.model.PequenoPorte;
 import br.com.Locadora.model.Veiculo;
 
 import com.toedter.calendar.JYearChooser;

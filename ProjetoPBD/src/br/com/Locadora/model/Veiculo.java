@@ -3,11 +3,13 @@ package br.com.Locadora.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Veiculo {
 	@Id
-	@Column(name = "NUM_CHASSI", unique = true, nullable = false)
+	@Column(name = "NUMERO_CHASSI", unique = true, nullable = false)
 	private String numeroChassi;
 	@Column(name = "COR", nullable = false)
 	private String cor;
@@ -19,18 +21,21 @@ public class Veiculo {
 	private int anoModelo;
 	@Column(name = "ANO_FABRICACAO", nullable = false)
 	private int anoFabricacao;
-	@Column(name = "NUM_PORTAS", length = 10, nullable = false)
+	@Column(name = "NUMERO_PORTAS", length = 10, nullable = false)
 	private int numeroPortas;
-	@Column(name = "NUM_MOTOR", unique = true, nullable = false)
+	@Column(name = "NUMERO_MOTOR", unique = true, nullable = false)
 	private int numeroMotor;
 	@Column(name = "QUILOMETRAGEM", nullable = false)
-	private Double quilometragem;
+	private double quilometragem;
 	@Column(name = "CAPACIDADE", nullable = false)
 	private int capacidadePassageiroos;
 	@Column(name = "TORQUE_MOTOR", nullable = false)
-	private Double torqueDoMotor;
+	private double torqueDoMotor;
 	@Column(name = "IDCATEGORIA", nullable = false)
 	private int categoria;
+	@OneToOne
+	@JoinColumn(name="acessorios_ID")
+	private Acessorios acessorios;
 
 	public Veiculo() {
 
@@ -128,7 +133,4 @@ public class Veiculo {
 		this.categoria = categoria;
 	}
 	
-	/*public void setPorte(PequenoPorte pequenoPorte){
-		this.pequenoPorte = pequenoPorte;
-	}*/
 }

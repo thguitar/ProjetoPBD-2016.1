@@ -29,11 +29,11 @@ public class Empresa {
 
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Reserva> reservas;
-	
+
 	public Empresa(){
-		
+
 	}
-	
+
 	public Empresa(boolean filial, String nome, String endRua,
 			String endBairro, String endNumero, String endCidade,
 			String endEstado) {
@@ -45,7 +45,11 @@ public class Empresa {
 		this.endCidade = endCidade;
 		this.endEstado = endEstado;
 	}
-	
+
+	public Empresa(int ID){
+		this.ID = ID;
+	}
+
 	public int getId() {
 		return ID;
 	}
@@ -106,5 +110,5 @@ public class Empresa {
 	public void setReservas(ArrayList<Reserva> reservas) {
 		this.reservas = reservas;
 	}
-	
+
 }

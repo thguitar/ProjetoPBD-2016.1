@@ -10,51 +10,46 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Categoria {
+public class Categoria {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int ID;
-	@Column(name = "HRS_RESERVADAS_INICIO")
+	@Column(name = "DESCRICAO", nullable = false)
+	private String descricao;
+	@Column(name = "HRS_RESERVADAS_INICIO", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date horasReservadasInicio;
-	@Column(name = "HRS_RESERVADAS_FIM")
+	@Column(name = "HRS_RESERVADAS_FIM", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date horasReservadasFim;
-	@Column(name = "DT_RESERVA")
+	@Column(name = "DT_RESERVA", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Calendar dataReservada;
-	@Column(name = "KM_P_REVISAO")
+	@Column(name = "KM_PARA_REVISAO", nullable = false)
 	private int kmParaRevisao;
 
 	public Categoria(){
 		
 	}
-	
-	public Categoria(int kmParaRevisao) {
-		this.kmParaRevisao = kmParaRevisao;
-	}
 
-	public int getId() {
+	public int getID() {
 		return ID;
 	}
 
-	public void setId(int id) {
-		this.ID = id;
+	public void setID(int iD) {
+		ID = iD;
 	}
 
-	public int getKmParaRevisao() {
-		return kmParaRevisao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setKmParaRevisao(int kmParaRevisao) {
-		this.kmParaRevisao = kmParaRevisao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Date getHorasReservadasInicio() {
@@ -80,5 +75,14 @@ public abstract class Categoria {
 	public void setDataReservada(Calendar dataReservada) {
 		this.dataReservada = dataReservada;
 	}
+
+	public int getKmParaRevisao() {
+		return kmParaRevisao;
+	}
+
+	public void setKmParaRevisao(int kmParaRevisao) {
+		this.kmParaRevisao = kmParaRevisao;
+	}
+	
 
 }

@@ -5,13 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 
 @Entity
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private int ID;
 	@Column(name = "LOGIN", unique = true, nullable = false)
 	private String login;
 	@Column(name = "SENHA", nullable = false)
@@ -22,8 +24,9 @@ public class Usuario {
 	private boolean admin;
 	@Column(name = "EMAIL")
 	private String email;
-	@Column(name = "EMPRESA", nullable = false)
-	private int empresa;
+	@OneToOne
+	@JoinColumn(name="IDEMPRESA")
+	private Empresa empresa;
 	
 	public Usuario() {
 		
@@ -35,11 +38,11 @@ public class Usuario {
 	}
 
 	public int getId() {
-		return id;
+		return ID;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.ID = id;
 	}
 
 	public String getLogin() {
@@ -82,11 +85,11 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public int getEmpresa() {
+	public Empresa getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(int empresa) {
+	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
 	

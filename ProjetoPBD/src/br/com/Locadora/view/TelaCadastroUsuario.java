@@ -224,13 +224,27 @@ public class TelaCadastroUsuario extends JInternalFrame {
 					u.setEmail(fieldEmail.getText());
 					u.setAdmin(chckbxAdmin.isSelected());
 					u.setSenha(new String(passFieldSenha.getPassword()));
-					u.setEmpresa(Integer.parseInt(String.valueOf(comboBoxEmpresa.getSelectedItem()).substring(0, 1)));
+					u.setEmpresa(new Empresa(Integer.parseInt(String.valueOf(comboBoxEmpresa.getSelectedItem()).substring(0, 1))));
 					
 					if(saveupdate){ 
-						controller.insert(u); 
+						if(controller.insert(u))
+							JOptionPane.showMessageDialog(null, "Usuário Cadastrado com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+						else
+							JOptionPane.showMessageDialog(null, "Erro ao Inserir Usuário", null, JOptionPane.ERROR_MESSAGE);
 					}else {
 						u.setId(Integer.parseInt(fieldCodigo.getText()));
-						controller.update(u);
+						if(u.getSenha().equals("pass")){
+							if(controller.update(u,false))
+								JOptionPane.showMessageDialog(null, "Usuário Alterado com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+							else
+								JOptionPane.showMessageDialog(null, "Erro ao Alterar Usuário", null, JOptionPane.ERROR_MESSAGE);	
+						}else{
+
+							if(controller.update(u,true))
+								JOptionPane.showMessageDialog(null, "Usuário Alterado com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+							else
+								JOptionPane.showMessageDialog(null, "Erro ao Alterar Usuário", null, JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					
 					cleanFields();
@@ -245,19 +259,15 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		buttonExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
-					Usuario u = new Usuario();
-					u.setId(Integer.parseInt(fieldCodigo.getText()));
-					u.setNome(fieldNome.getText());
-					u.setLogin(fieldLogin.getText());
-					u.setEmail(fieldEmail.getText());
-					u.setAdmin(chckbxAdmin.isSelected());
-					u.setSenha(new String(passFieldSenha.getPassword()));
-					u.setEmpresa(Integer.parseInt(String.valueOf(comboBoxEmpresa.getSelectedIndex()).substring(0, 1)));
-					controller.delete(u);
-					cleanFields();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
+					if(controller.delete(Integer.parseInt(fieldCodigo.getText()))){
+						JOptionPane.showMessageDialog(null, "Usuário Excluído com Sucesso", null, JOptionPane.INFORMATION_MESSAGE);
+						cleanFields();
+						buttonNovo.setEnabled(true);
+						buttonExcluir.setEnabled(false);
+						buttonSalvar.setEnabled(false);
+					}else {
+						JOptionPane.showMessageDialog(null, "Erro ao Deletar Usuário", null, JOptionPane.ERROR_MESSAGE);
+					}
 				}
 
 			}
@@ -342,9 +352,9 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		fieldNome.setText(u.getNome());
 		fieldLogin.setText(u.getLogin());
 		fieldEmail.setText(u.getEmail());
-		passFieldSenha.setText(u.getSenha());
+		passFieldSenha.setText("pass");
 		chckbxAdmin.setSelected(u.isAdmin());
-		comboBoxEmpresa.setSelectedItem(u.getEmpresa()+" - "+controller.consultaEmpresa(u.getEmpresa()).getNome());
+		comboBoxEmpresa.setSelectedItem(u.getEmpresa()+" - "+controller.consultaEmpresa(u.getEmpresa().getId()).getNome());
 		buttonExcluir.setEnabled(true);
 		buttonSalvar.setEnabled(true);
 		buttonNovo.setEnabled(false);

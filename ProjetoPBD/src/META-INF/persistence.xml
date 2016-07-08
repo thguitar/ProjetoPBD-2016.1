@@ -10,7 +10,7 @@
             <!-- Conexão com o banco de dados -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1/pbd" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://47.47.65.196/pbd" />
 			<property name="hibernate.connection.user" value="root" />
 			<property name="hibernate.connection.password" value="" />
 <!--             <property name="hibernate.hbm2ddl.auto" value="create" /> -->
