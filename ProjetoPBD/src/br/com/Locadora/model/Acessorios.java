@@ -26,7 +26,7 @@ public class Acessorios {
 	@Column(name = "TIPO_CAMBIO")
 	private String TipoDeCambio;
 	@Column(name = "AIRBAG")
-	private boolean airBag;
+	private String airBag;
 	@Column(name = "DIRECAO_ASSISTIDA")
 	private boolean direcaoAssistida;
 	@Column(name = "CINTOS_TRASEIROS_RETRATEIS")
@@ -43,8 +43,6 @@ public class Acessorios {
 	private boolean acionamentoEmbreagem;
 	@Column(name = "DESEMPENHO_VEICULO")
 	private double desempenhoDoVeiculo;
-	@Column(name = "POTENCIA_MOTOR")
-	private double potenciaMotor;
 	@Column(name = "VOLUME_ABASTECIMENTO")
 	private double volumeDeAbastecimento;
 
@@ -69,7 +67,7 @@ public class Acessorios {
 	//Construtor para o Tipo Medio Porte
 	public Acessorios(boolean arCondicionado, boolean radio, boolean dvd,
 			boolean direcaoHidraulica, boolean mp3, boolean cameraDeRe,
-			String tipoDeCambio, boolean airBag, boolean direcaoAssistida,
+			String tipoDeCambio, String airBag, boolean direcaoAssistida,
 			boolean cintosTraseirosRetrateis, boolean rodasDeLigaLeve,
 			boolean controleDePoluicao) {
 		this.arCondicionado = arCondicionado;
@@ -87,31 +85,11 @@ public class Acessorios {
 	}
 
 	//Construtor para o Tipo Grande Porte
-	public Acessorios(boolean arCondicionado, boolean radio, boolean dvd,
-			boolean direcaoHidraulica, boolean mp3, boolean cameraDeRe,
-			String tipoDeCambio, boolean airBag, boolean direcaoAssistida,
-			boolean cintosTraseirosRetrateis, boolean rodasDeLigaLeve,
-			boolean controleDePoluicao, int capacidadeDeCarga,
-			int distanciaEntreEixos, boolean acionamentoEmbreagem,
-			int desempenhoDoVeiculo, Double potenciaMotor,
-			int volumeDeAbastecimento) {
-		this.arCondicionado = arCondicionado;
-		this.radio = radio;
-		this.dvd = dvd;
-		this.direcaoHidraulica = direcaoHidraulica;
-		this.mp3 = mp3;
-		this.cameraDeRe = cameraDeRe;
-		TipoDeCambio = tipoDeCambio;
-		this.airBag = airBag;
-		this.direcaoAssistida = direcaoAssistida;
-		this.cintosTraseirosRetrateis = cintosTraseirosRetrateis;
-		this.rodasDeLigaLeve = rodasDeLigaLeve;
-		this.controleDePoluicao = controleDePoluicao;
+	public Acessorios(double capacidadeDeCarga, double distanciaEntreEixos, boolean acionamentoEmbreagem, double desempenhoDoVeiculo, double volumeDeAbastecimento) {
 		this.capacidadeDeCarga = capacidadeDeCarga;
 		this.distanciaEntreEixos = distanciaEntreEixos;
 		this.acionamentoEmbreagem = acionamentoEmbreagem;
 		this.desempenhoDoVeiculo = desempenhoDoVeiculo;
-		this.potenciaMotor = potenciaMotor;
 		this.volumeDeAbastecimento = volumeDeAbastecimento;
 	}
 
@@ -131,7 +109,7 @@ public class Acessorios {
 	//Construtor para o Tipo Medio Porte with ID
 	public Acessorios(int ID, boolean arCondicionado, boolean radio, boolean dvd,
 			boolean direcaoHidraulica, boolean mp3, boolean cameraDeRe,
-			String tipoDeCambio, boolean airBag, boolean direcaoAssistida,
+			String tipoDeCambio, String airBag, boolean direcaoAssistida,
 			boolean cintosTraseirosRetrateis, boolean rodasDeLigaLeve,
 			boolean controleDePoluicao) {
 		this.arCondicionado = arCondicionado;
@@ -149,31 +127,12 @@ public class Acessorios {
 	}
 
 	//Construtor para o Tipo Grande Porte with ID
-	public Acessorios(int ID, boolean arCondicionado, boolean radio, boolean dvd,
-			boolean direcaoHidraulica, boolean mp3, boolean cameraDeRe,
-			String tipoDeCambio, boolean airBag, boolean direcaoAssistida,
-			boolean cintosTraseirosRetrateis, boolean rodasDeLigaLeve,
-			boolean controleDePoluicao, int capacidadeDeCarga,
-			int distanciaEntreEixos, boolean acionamentoEmbreagem,
-			int desempenhoDoVeiculo, Double potenciaMotor,
-			int volumeDeAbastecimento) {
-		this.arCondicionado = arCondicionado;
-		this.radio = radio;
-		this.dvd = dvd;
-		this.direcaoHidraulica = direcaoHidraulica;
-		this.mp3 = mp3;
-		this.cameraDeRe = cameraDeRe;
-		TipoDeCambio = tipoDeCambio;
-		this.airBag = airBag;
-		this.direcaoAssistida = direcaoAssistida;
-		this.cintosTraseirosRetrateis = cintosTraseirosRetrateis;
-		this.rodasDeLigaLeve = rodasDeLigaLeve;
-		this.controleDePoluicao = controleDePoluicao;
+	public Acessorios(int ID, double capacidadeDeCarga, double distanciaEntreEixos, boolean acionamentoEmbreagem, double desempenhoDoVeiculo, double volumeDeAbastecimento) {
+		this.ID = ID;
 		this.capacidadeDeCarga = capacidadeDeCarga;
 		this.distanciaEntreEixos = distanciaEntreEixos;
 		this.acionamentoEmbreagem = acionamentoEmbreagem;
 		this.desempenhoDoVeiculo = desempenhoDoVeiculo;
-		this.potenciaMotor = potenciaMotor;
 		this.volumeDeAbastecimento = volumeDeAbastecimento;
 	}
 
@@ -241,11 +200,11 @@ public class Acessorios {
 		TipoDeCambio = tipoDeCambio;
 	}
 
-	public boolean getAirBag() {
+	public String getAirBag() {
 		return airBag;
 	}
 
-	public void setAirBag(boolean airBag) {
+	public void setAirBag(String airBag) {
 		this.airBag = airBag;
 	}
 
@@ -297,7 +256,7 @@ public class Acessorios {
 		this.distanciaEntreEixos = distanciaEntreEixos;
 	}
 
-	public boolean getAcionamentoEmbreagem() {
+	public boolean isAcionamentoEmbreagem() {
 		return acionamentoEmbreagem;
 	}
 
@@ -311,14 +270,6 @@ public class Acessorios {
 
 	public void setDesempenhoDoVeiculo(int desempenhoDoVeiculo) {
 		this.desempenhoDoVeiculo = desempenhoDoVeiculo;
-	}
-
-	public Double getPotenciaMotor() {
-		return potenciaMotor;
-	}
-
-	public void setPotenciaMotor(Double potenciaMotor) {
-		this.potenciaMotor = potenciaMotor;
 	}
 
 	public double getVolumeDeAbastecimento() {

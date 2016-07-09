@@ -1,5 +1,6 @@
 package br.com.Locadora.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Veiculo {
 	@Column(name = "NUMERO_PORTAS", length = 10, nullable = false)
 	private int numeroPortas;
 	@Column(name = "NUMERO_MOTOR", unique = true, nullable = false)
-	private int numeroMotor;
+	private String numeroMotor;
 	@Column(name = "QUILOMETRAGEM", nullable = false)
 	private double quilometragem;
 	@Column(name = "CAPACIDADE", nullable = false)
@@ -38,7 +39,7 @@ public class Veiculo {
 	@OneToOne
 	@JoinColumn(name="IDCATEGORIA")
 	private Categoria categoria;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="IDACESSORIOS")
 	private Acessorios acessorios;
 
@@ -48,9 +49,9 @@ public class Veiculo {
 	
 	public Veiculo(String numeroChassi, String cor, String combustivel,
 			String placa, int anoModelo, int anoFabricacao,
-			int numeroPortas, int numeroMotor, Double quilometragem,
+			int numeroPortas, String numeroMotor, Double quilometragem,
 			int capacidadePassageiroos, Double torqueDoMotor,
-			Categoria categoria) {
+			Categoria categoria, Acessorios acessorios) {
 		this.numeroChassi = numeroChassi;
 		this.cor = cor;
 		this.combustivel = combustivel;
@@ -63,80 +64,104 @@ public class Veiculo {
 		this.capacidadePassageiroos = capacidadePassageiroos;
 		this.torqueDoMotor = torqueDoMotor;
 		this.categoria = categoria;
+		this.acessorios = acessorios;
 		this.inativo = false;
 	}
 
 	public String getNumeroChassi() {
 		return numeroChassi;
 	}
+
 	public void setNumeroChassi(String numeroChassi) {
 		this.numeroChassi = numeroChassi;
 	}
+
 	public String getCor() {
 		return cor;
 	}
+
 	public void setCor(String cor) {
 		this.cor = cor;
 	}
+
 	public String getCombustivel() {
 		return combustivel;
 	}
+
 	public void setCombustivel(String combustivel) {
 		this.combustivel = combustivel;
 	}
+
 	public String getPlaca() {
 		return placa;
 	}
+
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
+
 	public int getAnoModelo() {
 		return anoModelo;
 	}
+
 	public void setAnoModelo(int anoModelo) {
 		this.anoModelo = anoModelo;
 	}
+
 	public int getAnoFabricacao() {
 		return anoFabricacao;
 	}
+
 	public void setAnoFabricacao(int anoFabricacao) {
 		this.anoFabricacao = anoFabricacao;
 	}
+
 	public int getNumeroPortas() {
 		return numeroPortas;
 	}
+
 	public void setNumeroPortas(int numeroPortas) {
 		this.numeroPortas = numeroPortas;
 	}
-	public int getNumeroMotor() {
+
+	public String getNumeroMotor() {
 		return numeroMotor;
 	}
-	public void setNumeroMotor(int numeroMotor) {
+
+	public void setNumeroMotor(String numeroMotor) {
 		this.numeroMotor = numeroMotor;
 	}
-	public Double getQuilometragem() {
+
+	public double getQuilometragem() {
 		return quilometragem;
 	}
-	public void setQuilometragem(Double quilometragem) {
+
+	public void setQuilometragem(double quilometragem) {
 		this.quilometragem = quilometragem;
 	}
+
 	public int getCapacidadePassageiroos() {
 		return capacidadePassageiroos;
 	}
+
 	public void setCapacidadePassageiroos(int capacidadePassageiroos) {
 		this.capacidadePassageiroos = capacidadePassageiroos;
 	}
-	public Double getTorqueDoMotor() {
+
+	public double getTorqueDoMotor() {
 		return torqueDoMotor;
 	}
-	public void setTorqueDoMotor(Double torqueDoMotor) {
+
+	public void setTorqueDoMotor(double torqueDoMotor) {
 		this.torqueDoMotor = torqueDoMotor;
 	}
-	public Categoria getCategoria() {
-		return categoria;
+
+	public char getTipo() {
+		return tipo;
 	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+
+	public void setTipo(char tipo) {
+		this.tipo = tipo;
 	}
 
 	public boolean isInativo() {
@@ -147,6 +172,14 @@ public class Veiculo {
 		this.inativo = inativo;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	public Acessorios getAcessorios() {
 		return acessorios;
 	}
@@ -155,12 +188,5 @@ public class Veiculo {
 		this.acessorios = acessorios;
 	}
 
-	public void setQuilometragem(double quilometragem) {
-		this.quilometragem = quilometragem;
-	}
-
-	public void setTorqueDoMotor(double torqueDoMotor) {
-		this.torqueDoMotor = torqueDoMotor;
-	}
 	
 }

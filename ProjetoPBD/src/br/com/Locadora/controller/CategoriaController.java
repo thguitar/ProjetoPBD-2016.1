@@ -7,25 +7,25 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
-import br.com.Locadora.model.Veiculo;
+import br.com.Locadora.model.Categoria;
 
-public class VeiculoController {
+public class CategoriaController {
 	EntityManagerFactory factory;
 	EntityManager manager;
 	
-	public VeiculoController(){
+	public CategoriaController(){
 		factory = HibernateSingleton.getInstance("HibMysql");
 		manager = factory.createEntityManager();
 	}
 	
-	public Veiculo consultaId(String chassi){
+	public Categoria consultaId(int id){
 		
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			Veiculo veiculo = manager.find(Veiculo.class, chassi);
+			Categoria categoria = manager.find(Categoria.class, id);
 			manager.getTransaction().commit();
-			return veiculo;
+			return categoria;
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
@@ -36,12 +36,12 @@ public class VeiculoController {
 		}
 	}
 	
-	public boolean insert(Veiculo veiculo){
+	public boolean insert(Categoria categoria){
 		
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			manager.persist(veiculo);
+			manager.persist(categoria);
 			manager.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
@@ -53,12 +53,12 @@ public class VeiculoController {
 		}
 	}
 	
-	public boolean update(Veiculo veiculo){
+	public boolean update(Categoria categoria){
 
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			manager.merge(veiculo);
+			manager.merge(categoria);
 			manager.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
@@ -70,36 +70,36 @@ public class VeiculoController {
 		}
 	}
 	
-	public boolean delete(String chassi){
+	public void delete(int id){
 		
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			Veiculo veiculo = manager.find(Veiculo.class, chassi);
-			manager.remove(veiculo);
+			Categoria categoria = manager.find(Categoria.class, id);
+			manager.remove(categoria);
 			manager.getTransaction().commit();
-			return true;
+			JOptionPane.showMessageDialog(null, "Veículo Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			return false;
+			JOptionPane.showMessageDialog(null, "Erro ao Deletar Veículo", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			manager.close();
 		}
 		
 	}
 	
-	public Veiculo consultaPlaca(String placa){
+	@SuppressWarnings("unchecked")
+	public List<Categoria> consultaDescricao(String descricao){
 		
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			Query query = manager.createQuery("select v from Veiculo v where v.placa = :param");
-			System.out.println("'"+placa+"'");
-			query.setParameter("param", placa);
-			Veiculo veiculo = (Veiculo) query.getSingleResult(); 
+			Query query = manager.createQuery("select c from Categoria c where c.DESCRICAO = :param");
+			query.setParameter("param", descricao);
+			List<Categoria> categorias = query.getResultList(); 
 			manager.getTransaction().commit();
-			return veiculo;
+			return categorias;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
@@ -110,15 +110,15 @@ public class VeiculoController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Veiculo> ListAll(){
+	public List<Categoria> ListALL(){
 		
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			Query query = manager.createQuery("select v from Veiculo v");
-			List<Veiculo> veiculos = query.getResultList(); 
+			Query query = manager.createQuery("select c from Categoria c");
+			List<Categoria> categorias = query.getResultList(); 
 			manager.getTransaction().commit();
-			return veiculos;
+			return categorias;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();

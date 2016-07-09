@@ -3,8 +3,8 @@ package br.com.Locadora.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "CONFIGURACOES")
+//@Entity
+//@Table(name = "CONFIGURACOES")
 public class Configuracoes {
 
 	private String pathPlanodeFundo; 
