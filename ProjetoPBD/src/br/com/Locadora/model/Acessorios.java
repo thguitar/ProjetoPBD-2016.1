@@ -62,6 +62,10 @@ public class Acessorios {
 		this.mp3 = mp3;
 		this.cameraDeRe = cameraDeRe;
 		TipoDeCambio = tipoDeCambio;
+		this.capacidadeDeCarga = 0.00;
+		this.distanciaEntreEixos = 0.00;
+		this.desempenhoDoVeiculo = 0.00;
+		this.volumeDeAbastecimento = 0.00;
 	}
 
 	//Construtor para o Tipo Medio Porte
@@ -82,6 +86,10 @@ public class Acessorios {
 		this.cintosTraseirosRetrateis = cintosTraseirosRetrateis;
 		this.rodasDeLigaLeve = rodasDeLigaLeve;
 		this.controleDePoluicao = controleDePoluicao;
+		this.capacidadeDeCarga = 0.00;
+		this.distanciaEntreEixos = 0.00;
+		this.desempenhoDoVeiculo = 0.00;
+		this.volumeDeAbastecimento = 0.00;
 	}
 
 	//Construtor para o Tipo Grande Porte
@@ -244,7 +252,7 @@ public class Acessorios {
 		return capacidadeDeCarga;
 	}
 
-	public void setCapacidadeDeCarga(int capacidadeDeCarga) {
+	public void setCapacidadeDeCarga(double capacidadeDeCarga) {
 		this.capacidadeDeCarga = capacidadeDeCarga;
 	}
 
@@ -252,7 +260,7 @@ public class Acessorios {
 		return distanciaEntreEixos;
 	}
 
-	public void setDistanciaEntreEixos(int distanciaEntreEixos) {
+	public void setDistanciaEntreEixos(double distanciaEntreEixos) {
 		this.distanciaEntreEixos = distanciaEntreEixos;
 	}
 
@@ -268,7 +276,7 @@ public class Acessorios {
 		return desempenhoDoVeiculo;
 	}
 
-	public void setDesempenhoDoVeiculo(int desempenhoDoVeiculo) {
+	public void setDesempenhoDoVeiculo(double desempenhoDoVeiculo) {
 		this.desempenhoDoVeiculo = desempenhoDoVeiculo;
 	}
 
@@ -276,7 +284,7 @@ public class Acessorios {
 		return volumeDeAbastecimento;
 	}
 
-	public void setVolumeDeAbastecimento(int volumeDeAbastecimento) {
+	public void setVolumeDeAbastecimento(double volumeDeAbastecimento) {
 		this.volumeDeAbastecimento = volumeDeAbastecimento;
 	}
 	

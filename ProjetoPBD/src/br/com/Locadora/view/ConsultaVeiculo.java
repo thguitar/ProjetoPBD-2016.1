@@ -31,7 +31,7 @@ public class ConsultaVeiculo extends JDialog {
 	private JPanel panelTable;
 	private JLabel labelCodigo;
 	private JLabel labelNome;
-	private JTextField fieldChassi;
+	private JTextField fieldCodigo;
 	private JFormattedTextField formattedTextFieldPlaca;
 	private JButton buttonResearch;
 	private JButton buttonSelect;
@@ -62,11 +62,11 @@ public class ConsultaVeiculo extends JDialog {
 		labelCodigo.setBounds(10, 15, 49, 14);
 		contentPane.add(labelCodigo);
 
-		fieldChassi = new JTextField(10);
-		fieldChassi.setDocument(new FixedLengthJTextField(15));
-		fieldChassi.setBounds(58, 12, 135, 20);
-		contentPane.add(fieldChassi);
-		fieldChassi.setColumns(10);
+		fieldCodigo = new JTextField(10);
+		fieldCodigo.setDocument(new FixedLengthJTextField(15));
+		fieldCodigo.setBounds(58, 12, 58, 20);
+		contentPane.add(fieldCodigo);
+		fieldCodigo.setColumns(10);
 
 		labelNome = new JLabel("Placa:");
 		labelNome.setBounds(203, 15, 40, 14);
@@ -94,7 +94,7 @@ public class ConsultaVeiculo extends JDialog {
 		buttonSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				telaCadastroVeiculo.setFields((String) (tableEmpresas.getValueAt(tableEmpresas.getSelectedRow(), 0)));
+				telaCadastroVeiculo.setFields((Integer) (tableEmpresas.getValueAt(tableEmpresas.getSelectedRow(), 0)));
 
 				dispose();
 			}
@@ -115,9 +115,9 @@ public class ConsultaVeiculo extends JDialog {
 		panelTable.add(scrollPaneTable);
 
 		modelTalble = new DefaultTableModel(null,   
-				new String [] {"CHASSI", "PLACA", "TIPO", "CATEGORIA", "ANO MODELO", "ANO FABRICAÇÃO"}){      
+				new String [] {"CÓDIGO","CHASSI", "PLACA", "TIPO", "CATEGORIA", "ANO MODELO", "ANO FABRICAÇÃO"}){      
 
-			boolean[] canEdit = new boolean []{false, false, false, false, false, false};        
+			boolean[] canEdit = new boolean []{false, false, false, false, false, false, false};        
 
 			@Override  
 			public boolean isCellEditable(int rowIndex, int columnIndex) {        
@@ -151,7 +151,7 @@ public class ConsultaVeiculo extends JDialog {
 	
 	public void pesquisar() {
 		String tipo;
-		if (formattedTextFieldPlaca.getText().equals("   -    ")&&fieldChassi.getText().isEmpty()) {
+		if (formattedTextFieldPlaca.getText().equals("   -    ")&&fieldCodigo.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Veiculo> veiculos = controller.ListAll();
 			for (int i = 0; i < veiculos.size(); i++) {
@@ -162,7 +162,7 @@ public class ConsultaVeiculo extends JDialog {
 				else
 					tipo = "Caminhotene de Carga";
 				
-				modelTalble.addRow(new Object[]{veiculos.get(i).getNumeroChassi(),veiculos.get(i).getPlaca(), tipo, veiculos.get(i).getCategoria().getDescricao(), veiculos.get(i).getAnoModelo(), veiculos.get(i).getAnoFabricacao()});
+				modelTalble.addRow(new Object[]{veiculos.get(i).getID(), veiculos.get(i).getNumeroChassi(),veiculos.get(i).getPlaca(), tipo, veiculos.get(i).getCategoria().getDescricao(), veiculos.get(i).getAnoModelo(), veiculos.get(i).getAnoFabricacao()});
 			}
 		}else if (!formattedTextFieldPlaca.getText().equals("   -    ")) {
 			modelTalble.setNumRows(0);
@@ -173,17 +173,17 @@ public class ConsultaVeiculo extends JDialog {
 				tipo = "Caminhotene";
 			else
 				tipo = "Caminhotene de Carga";
-			modelTalble.addRow(new Object[]{veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
+			modelTalble.addRow(new Object[]{veiculo.getID(), veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
 		}else {
 			modelTalble.setNumRows(0);
-			Veiculo veiculo = controller.consultaId(fieldChassi.getText());
+			Veiculo veiculo = controller.consultaId(Integer.parseInt(fieldCodigo.getText()));
 			if(veiculo.getTipo()=='A')
 				tipo = "Automóvel";
 			else if(veiculo.getTipo()=='C')
 				tipo = "Caminhotene";
 			else
 				tipo = "Caminhotene de Carga";
-			modelTalble.addRow(new Object[]{veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
+			modelTalble.addRow(new Object[]{veiculo.getID(), veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
 		}
 		
 		buttonSelect.setEnabled(true);

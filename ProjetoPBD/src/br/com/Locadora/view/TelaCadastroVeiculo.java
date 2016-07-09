@@ -3,7 +3,9 @@ package br.com.Locadora.view;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 
 import java.awt.Color;
 
@@ -36,6 +38,7 @@ import com.toedter.calendar.JYearChooser;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.SystemColor;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.JCheckBox;
@@ -77,12 +80,12 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 	private JTextField fieldCor;
 	private JTextField fieldNumMotor;
 	private JTextField fieldKms;
-	private JTextField fieldCapacidadeCarga;
-	private JTextField fieldVolumeAbastecimento;
-	private JTextField fieldDesempenho;
 	private JFormattedTextField formattedTextFieldPlaca;
 	private JFormattedTextField formattedTextFieldTorque;
 	private JFormattedTextField fieldDistanciEixos;
+	private JFormattedTextField fieldVolumeAbastecimento;
+	private JFormattedTextField fieldDesempenho;
+	private JFormattedTextField fieldCapacidadeCarga;
 	private JCheckBox chckbxArcondicionado;
 	private JCheckBox chckbxRadio;
 	private JCheckBox chckbxDVD;
@@ -121,14 +124,18 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 	private VeiculoController veiculoController;
 	private CategoriaController categoriaController;
 
+	private Veiculo veiculoUpdate;
+	
 	private List<Categoria> categorias;
+	private JLabel labelCodigo;
+	private JTextField fieldCodigo;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaCadastroVeiculo() {
 		setClosable(true);
 		setTitle("Cadastro de Ve\u00EDculos                                                                                                                                                                                     ");
 		setResizable(false);
-		setSize(730, 500);
+		setSize(730, 530);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 102));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -150,53 +157,53 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 
 		panelRodape = new JPanel();
 		panelRodape.setBackground(new Color(204, 204, 255));
-		panelRodape.setBounds(0, 449, 720, 18);
+		panelRodape.setBounds(0, 479, 720, 18);
 		contentPane.add(panelRodape);
 
 		panelInformacoesPrincipais = new JPanel();
 		panelInformacoesPrincipais.setBackground(new Color(204, 204, 204));
-		panelInformacoesPrincipais.setBounds(12, 117, 696, 128);
+		panelInformacoesPrincipais.setBounds(12, 117, 696, 151);
 		contentPane.add(panelInformacoesPrincipais);
 		panelInformacoesPrincipais.setLayout(null);
 
 		labelChassi = new JLabel("N\u00BA do Chassi:");
-		labelChassi.setBounds(12, 26, 74, 16);
+		labelChassi.setBounds(10, 47, 74, 16);
 		panelInformacoesPrincipais.add(labelChassi);
 		labelChassi.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelCapacidade = new JLabel("Capacidade de Passageiros:");
-		labelCapacidade.setBounds(425, 100, 162, 16);
+		labelCapacidade.setBounds(423, 121, 162, 16);
 		panelInformacoesPrincipais.add(labelCapacidade);
 		labelCapacidade.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelAnoModelo = new JLabel("Ano do Modelo:");
-		labelAnoModelo.setBounds(165, 52, 86, 16);
+		labelAnoModelo.setBounds(163, 73, 86, 16);
 		panelInformacoesPrincipais.add(labelAnoModelo);
 		labelAnoModelo.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelAnoFabricacao = new JLabel("Ano de Farica\u00E7\u00E3o:");
-		labelAnoFabricacao.setBounds(325, 52, 101, 16);
+		labelAnoFabricacao.setBounds(323, 73, 101, 16);
 		panelInformacoesPrincipais.add(labelAnoFabricacao);
 		labelAnoFabricacao.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelPlaca = new JLabel("Placa:");
-		labelPlaca.setBounds(51, 51, 35, 16);
+		labelPlaca.setBounds(49, 72, 35, 16);
 		panelInformacoesPrincipais.add(labelPlaca);
 		labelPlaca.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelCor = new JLabel("Cor:");
-		labelCor.setBounds(61, 76, 23, 16);
+		labelCor.setBounds(59, 97, 23, 16);
 		panelInformacoesPrincipais.add(labelCor);
 		labelCor.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		fieldChassi = new JTextField();
 		fieldChassi.setDocument(new FixedLengthJTextField(15));
 		fieldChassi.setEditable(false);
-		fieldChassi.setBounds(91, 24, 120, 20);
+		fieldChassi.setBounds(89, 45, 120, 20);
 		panelInformacoesPrincipais.add(fieldChassi);
 
 		fieldCor = new JTextField();
-		fieldCor.setBounds(91, 74, 120, 20);
+		fieldCor.setBounds(89, 95, 120, 20);
 		fieldCor.setEditable(false);
 		panelInformacoesPrincipais.add(fieldCor);
 		fieldCor.setColumns(10);
@@ -204,37 +211,37 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		fieldNumMotor = new JTextField();
 		fieldNumMotor.setDocument(new OnlyNumberField(15));
 		fieldNumMotor.setEditable(false);
-		fieldNumMotor.setBounds(302, 24, 120, 20);
+		fieldNumMotor.setBounds(300, 45, 120, 20);
 		panelInformacoesPrincipais.add(fieldNumMotor);
 
 		formattedTextFieldPlaca = new JFormattedTextField(Mascara("UUU-####"));
-		formattedTextFieldPlaca.setBounds(91, 49, 62, 20);
+		formattedTextFieldPlaca.setBounds(89, 70, 62, 20);
 		formattedTextFieldPlaca.setEditable(false);
 		panelInformacoesPrincipais.add(formattedTextFieldPlaca);
 		formattedTextFieldPlaca.setColumns(10);
 
 		labelNumPortas = new JLabel("N\u00BA de portas:");
-		labelNumPortas.setBounds(515, 76, 72, 16);
+		labelNumPortas.setBounds(513, 97, 72, 16);
 		panelInformacoesPrincipais.add(labelNumPortas);
 		labelNumPortas.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelNumMotor = new JLabel("N\u00BA do Motor:");
-		labelNumMotor.setBounds(229, 26, 68, 16);
+		labelNumMotor.setBounds(227, 47, 68, 16);
 		panelInformacoesPrincipais.add(labelNumMotor);
 		labelNumMotor.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelCombustivel = new JLabel("Combust\u00EDvel:");
-		labelCombustivel.setBounds(229, 76, 73, 16);
+		labelCombustivel.setBounds(227, 97, 73, 16);
 		panelInformacoesPrincipais.add(labelCombustivel);
 		labelCombustivel.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelQuilometragem = new JLabel("Quilometragem:");
-		labelQuilometragem.setBounds(496, 51, 91, 16);
+		labelQuilometragem.setBounds(494, 72, 91, 16);
 		panelInformacoesPrincipais.add(labelQuilometragem);
 		labelQuilometragem.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		comboBoxNumPortas = new JComboBox();
-		comboBoxNumPortas.setBounds(592, 74, 73, 20);
+		comboBoxNumPortas.setBounds(590, 95, 73, 20);
 		comboBoxNumPortas.setEnabled(false);
 		panelInformacoesPrincipais.add(comboBoxNumPortas);
 		comboBoxNumPortas.setModel(new DefaultComboBoxModel(new String[] {"1 Porta", "2 Portas", "3 Portas", "4 Portas"}));
@@ -242,27 +249,27 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		fieldKms = new JTextField();
 		fieldKms.setDocument(new OnlyNumberField(10));
 		fieldKms.setEditable(false);
-		fieldKms.setBounds(592, 49, 92, 20);
+		fieldKms.setBounds(590, 70, 92, 20);
 		panelInformacoesPrincipais.add(fieldKms);
 
 		labelTorqueMotor = new JLabel("Torque do Motor:");
-		labelTorqueMotor.setBounds(491, 26, 96, 16);
+		labelTorqueMotor.setBounds(489, 47, 96, 16);
 		panelInformacoesPrincipais.add(labelTorqueMotor);
 		labelTorqueMotor.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		formattedTextFieldTorque = new JFormattedTextField(Mascara("#.#"));
-		formattedTextFieldTorque.setBounds(592, 24, 23, 20);
+		formattedTextFieldTorque.setBounds(590, 45, 23, 20);
 		formattedTextFieldTorque.setEditable(false);
 		panelInformacoesPrincipais.add(formattedTextFieldTorque);
 		formattedTextFieldTorque.setColumns(10);
 
 		labelCategoria = new JLabel("Categoria:");
-		labelCategoria.setBounds(28, 100, 58, 16);
+		labelCategoria.setBounds(26, 121, 58, 16);
 		panelInformacoesPrincipais.add(labelCategoria);
 		labelCategoria.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		comboBoxCategoria = new JComboBox();
-		comboBoxCategoria.setBounds(91, 98, 120, 20);
+		comboBoxCategoria.setBounds(89, 119, 120, 20);
 		comboBoxCategoria.setEnabled(false);
 		panelInformacoesPrincipais.add(comboBoxCategoria);
 		categoriaController = new CategoriaController();
@@ -272,7 +279,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		}
 
 		comboBoxPassageiros = new JComboBox();
-		comboBoxPassageiros.setBounds(592, 98, 63, 20);
+		comboBoxPassageiros.setBounds(590, 119, 63, 20);
 		comboBoxPassageiros.setEnabled(false);
 		for (int i = 1; i<=50; i++ ){
 			comboBoxPassageiros.addItem(i);
@@ -280,19 +287,19 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		panelInformacoesPrincipais.add(comboBoxPassageiros);
 
 		yearChooserModelo = new JYearChooser();
-		yearChooserModelo.setBounds(256, 50, 48, 20);
+		yearChooserModelo.setBounds(254, 71, 48, 20);
 		yearChooserModelo.setEnabled(false);
 		panelInformacoesPrincipais.add(yearChooserModelo);
 		yearChooserModelo.getSpinner().setLocation(0, 103);
 		yearChooserModelo.getSpinner().setSize(48, 20);
 
 		yearChooserFabricacao = new JYearChooser();
-		yearChooserFabricacao.setBounds(431, 50, 48, 20);
+		yearChooserFabricacao.setBounds(429, 71, 48, 20);
 		yearChooserFabricacao.setEnabled(false);
 		panelInformacoesPrincipais.add(yearChooserFabricacao);
 
 		comboBoxCombustivel = new JComboBox();
-		comboBoxCombustivel.setBounds(309, 74, 113, 20);
+		comboBoxCombustivel.setBounds(307, 95, 113, 20);
 		comboBoxCombustivel.setEnabled(false);
 		panelInformacoesPrincipais.add(comboBoxCombustivel);
 		comboBoxCombustivel.setModel(new DefaultComboBoxModel(new String[] {"Biodiesel", "Diesel", "Etanol", "Flex", "Gasolina", "G\u00E1s Natural", "Hidrog\u00EAnio"}));
@@ -304,7 +311,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		panelInformacoesPrincipais.add(labelDadosPrincipais);
 		
 		labelTipo = new JLabel("Tipo:");
-		labelTipo.setBounds(229, 100, 27, 16);
+		labelTipo.setBounds(227, 121, 27, 16);
 		panelInformacoesPrincipais.add(labelTipo);
 		
 		comboBoxTipo = new JComboBox();
@@ -320,8 +327,18 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		});
 		comboBoxTipo.setEnabled(false);
 		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"Autom\u00F3vel", "Caminhotene", "Caminhotene de Carga"}));
-		comboBoxTipo.setBounds(281, 98, 141, 20);
+		comboBoxTipo.setBounds(279, 119, 141, 20);
 		panelInformacoesPrincipais.add(comboBoxTipo);
+		
+		labelCodigo = new JLabel("C\u00F3digo:");
+		labelCodigo.setBounds(42, 22, 42, 16);
+		panelInformacoesPrincipais.add(labelCodigo);
+		
+		fieldCodigo = new JTextField();
+		fieldCodigo.setEditable(false);
+		fieldCodigo.setBounds(89, 20, 48, 20);
+		panelInformacoesPrincipais.add(fieldCodigo);
+		fieldCodigo.setColumns(10);
 
 		buttonNovo = new JButton();
 		buttonNovo.setToolTipText("Novo");
@@ -371,7 +388,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		contentPane.add(buttonLocalizar);
 		
 		panelAcessorios = new JPanel();
-		panelAcessorios.setBounds(12, 250, 696, 187);
+		panelAcessorios.setBounds(12, 280, 696, 187);
 		panelAcessorios.setBackground(new Color(204, 204, 204));
 		contentPane.add(panelAcessorios);
 		panelAcessorios.setLayout(null);
@@ -451,9 +468,15 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		labelCapacidadeDeCarga.setBounds(509, 89, 124, 16);
 		panelAcessorios.add(labelCapacidadeDeCarga);
 		
-		fieldCapacidadeCarga = new JTextField();
-		fieldCapacidadeCarga.setDocument(new OnlyNumberField(6));
+		fieldCapacidadeCarga = new JFormattedTextField();
 		fieldCapacidadeCarga.setEditable(false);
+		DecimalFormat dFormat3 = new DecimalFormat("##.00");
+		dFormat3.setMaximumIntegerDigits(2);
+		NumberFormatter Formatter3 = new NumberFormatter(dFormat3);
+		Formatter3.setFormat (dFormat3);
+		Formatter3.setAllowsInvalid (false);
+		fieldCapacidadeCarga.setFormatterFactory(new DefaultFormatterFactory(Formatter3));
+		fieldCapacidadeCarga.setText(",00");
 		fieldCapacidadeCarga.setBounds(635, 87, 49, 20);
 		panelAcessorios.add(fieldCapacidadeCarga);
 		fieldCapacidadeCarga.setColumns(10);
@@ -461,10 +484,17 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		labelDistnciaEntreEixos = new JLabel("Dist\u00E2ncia entre Eixos:");
 		labelDistnciaEntreEixos.setBounds(510, 31, 123, 16);
 		panelAcessorios.add(labelDistnciaEntreEixos);
-		
-		fieldDistanciEixos = new JFormattedTextField(Mascara("#.##"));
+
+		fieldDistanciEixos = new JFormattedTextField();
 		fieldDistanciEixos.setEditable(false);
 		fieldDistanciEixos.setBounds(635, 29, 49, 20);
+		DecimalFormat dFormat = new DecimalFormat("##.00");
+		dFormat.setMaximumIntegerDigits(1);
+		NumberFormatter Formatter = new NumberFormatter(dFormat);
+		Formatter.setFormat (dFormat);
+		Formatter.setAllowsInvalid (false);
+		fieldDistanciEixos.setFormatterFactory(new DefaultFormatterFactory(Formatter));
+		fieldDistanciEixos.setText(",00");
 		panelAcessorios.add(fieldDistanciEixos);
 		fieldDistanciEixos.setColumns(10);
 		
@@ -472,8 +502,14 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		labelVolAbastecimento.setBounds(503, 117, 130, 16);
 		panelAcessorios.add(labelVolAbastecimento);
 		
-		fieldVolumeAbastecimento = new JTextField();
-		fieldVolumeAbastecimento.setDocument(new OnlyNumberField(4));
+		fieldVolumeAbastecimento = new JFormattedTextField();
+		DecimalFormat dFormat1 = new DecimalFormat("###.00");
+		dFormat1.setMaximumIntegerDigits(2);
+		NumberFormatter Formatter1 = new NumberFormatter(dFormat1);
+		Formatter1.setFormat (dFormat1);
+		Formatter1.setAllowsInvalid (false);
+		fieldVolumeAbastecimento.setFormatterFactory(new DefaultFormatterFactory(Formatter1));
+		fieldVolumeAbastecimento.setText(",00");
 		fieldVolumeAbastecimento.setEditable(false);
 		fieldVolumeAbastecimento.setBounds(635, 115, 49, 20);
 		panelAcessorios.add(fieldVolumeAbastecimento);
@@ -483,9 +519,15 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		labelDesempenho.setBounds(555, 61, 78, 16);
 		panelAcessorios.add(labelDesempenho);
 		
-		fieldDesempenho = new JTextField();
-		fieldDesempenho.setDocument(new OnlyNumberField(4));
+		fieldDesempenho = new JFormattedTextField();
 		fieldDesempenho.setEditable(false);
+		DecimalFormat dFormat4 = new DecimalFormat("##.00");
+		dFormat4.setMaximumIntegerDigits(2);
+		NumberFormatter Formatter4 = new NumberFormatter(dFormat4);
+		Formatter4.setFormat (dFormat4);
+		Formatter4.setAllowsInvalid (false);
+		fieldDesempenho.setFormatterFactory(new DefaultFormatterFactory(Formatter4));
+		fieldDesempenho.setText(",00");
 		fieldDesempenho.setBounds(635, 59, 49, 20);
 		panelAcessorios.add(fieldDesempenho);
 		fieldDesempenho.setColumns(10);
@@ -524,31 +566,62 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Veiculo veiculo = new Veiculo();
 				if (validaFields()) {
-					veiculo.setNumeroChassi(fieldChassi.getText());
-					veiculo.setNumeroMotor(fieldNumMotor.getText());
-					veiculo.setAnoFabricacao(yearChooserFabricacao.getYear());
-					veiculo.setAnoModelo(yearChooserModelo.getYear());
-					veiculo.setCapacidadePassageiroos((int) comboBoxPassageiros.getSelectedItem());
-					veiculo.setCombustivel((String) comboBoxCombustivel.getSelectedItem());
-					veiculo.setCor(fieldCor.getText());
-					veiculo.setNumeroPortas(Integer.parseInt(String.valueOf(comboBoxNumPortas.getSelectedItem()).substring(0, 1)));
-					veiculo.setPlaca(formattedTextFieldPlaca.getText().replaceAll("[.-]", ""));
-					veiculo.setTorqueDoMotor(Double.parseDouble(formattedTextFieldTorque.getText()));
-					veiculo.setQuilometragem(Double.parseDouble(fieldKms.getText()));
-					veiculo.setCategoria(categorias.get(comboBoxCategoria.getSelectedIndex()));
-					switch (comboBoxTipo.getSelectedIndex()) {
-						case 0:{veiculo.setTipo('A'); veiculo.setAcessorios(new Acessorios(chckbxArcondicionado.isSelected(), chckbxRadio.isSelected(), chckbxDVD.isSelected(), chckbxDirecaoHidraulica.isSelected(), chckbxMP3.isSelected(), chckbxCameraRe.isSelected(), (String) comboBoTipoCambio.getSelectedItem()));} break;
-						case 1:{veiculo.setTipo('C'); veiculo.setAcessorios(new Acessorios(chckbxArcondicionado.isSelected(), chckbxRadio.isSelected(), chckbxDVD.isSelected(), chckbxDirecaoHidraulica.isSelected(), chckbxMP3.isSelected(), chckbxCameraRe.isSelected(), (String) comboBoTipoCambio.getSelectedItem(), (String) comboBoxAirBag.getSelectedItem(), chckbxComputadorDeBordo.isSelected(), chckbxCintosRetrateis.isSelected(), chckbxRodasLigaLeve.isSelected(), chckbxControlePoluicao.isSelected()));} break;
-						case 2:{veiculo.setTipo('V');veiculo.setAcessorios(new Acessorios(Double.parseDouble(fieldCapacidadeCarga.getText()), Double.parseDouble(fieldDistanciEixos.getText()), chckbxAcionamentoHemb.isSelected(), Double.parseDouble(fieldDesempenho.getText()), Double.parseDouble(fieldVolumeAbastecimento.getText())));} break;
-						default: break;
-					}
-
-					if (saveupdate){ 
+					if (saveupdate){
+						veiculo.setNumeroChassi(fieldChassi.getText());
+						veiculo.setNumeroMotor(fieldNumMotor.getText());
+						veiculo.setAnoFabricacao(yearChooserFabricacao.getYear());
+						veiculo.setAnoModelo(yearChooserModelo.getYear());
+						veiculo.setCapacidadePassageiroos((int) comboBoxPassageiros.getSelectedItem());
+						veiculo.setCombustivel((String) comboBoxCombustivel.getSelectedItem());
+						veiculo.setCor(fieldCor.getText());
+						veiculo.setNumeroPortas(Integer.parseInt(String.valueOf(comboBoxNumPortas.getSelectedItem()).substring(0, 1)));
+						veiculo.setPlaca(formattedTextFieldPlaca.getText().replaceAll("[.-]", ""));
+						veiculo.setTorqueDoMotor(Double.parseDouble(formattedTextFieldTorque.getText()));
+						veiculo.setQuilometragem(Integer.parseInt(fieldKms.getText()));
+						veiculo.setCategoria(categorias.get(comboBoxCategoria.getSelectedIndex()));
+						switch (comboBoxTipo.getSelectedIndex()) {
+							case 0:{veiculo.setTipo('A'); veiculo.setAcessorios(new Acessorios(chckbxArcondicionado.isSelected(), chckbxRadio.isSelected(), chckbxDVD.isSelected(), chckbxDirecaoHidraulica.isSelected(), chckbxMP3.isSelected(), chckbxCameraRe.isSelected(), (String) comboBoTipoCambio.getSelectedItem()));} break;
+							case 1:{veiculo.setTipo('C'); veiculo.setAcessorios(new Acessorios(chckbxArcondicionado.isSelected(), chckbxRadio.isSelected(), chckbxDVD.isSelected(), chckbxDirecaoHidraulica.isSelected(), chckbxMP3.isSelected(), chckbxCameraRe.isSelected(), (String) comboBoTipoCambio.getSelectedItem(), (String) comboBoxAirBag.getSelectedItem(), chckbxComputadorDeBordo.isSelected(), chckbxCintosRetrateis.isSelected(), chckbxRodasLigaLeve.isSelected(), chckbxControlePoluicao.isSelected()));} break;
+							case 2:{veiculo.setTipo('V'); veiculo.setAcessorios(new Acessorios(Double.parseDouble(fieldCapacidadeCarga.getText().replace(',', '.')), Double.parseDouble(fieldDistanciEixos.getText().replace(',', '.')), chckbxAcionamentoHemb.isSelected(), Double.parseDouble(fieldDesempenho.getText().replace(',', '.')), Double.parseDouble(fieldVolumeAbastecimento.getText().replace(',', '.'))));} break;
+							default: break;
+						}
 						if(veiculoController.insert(veiculo))
 							JOptionPane.showMessageDialog(null, "Veículo Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Veículo", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
-					} else{ 
+					} else{
+						veiculoUpdate.setID(Integer.parseInt(fieldCodigo.getText()));
+						veiculoUpdate.setNumeroChassi(fieldChassi.getText());
+						veiculoUpdate.setNumeroMotor(fieldNumMotor.getText());
+						veiculoUpdate.setAnoFabricacao(yearChooserFabricacao.getYear());
+						veiculoUpdate.setAnoModelo(yearChooserModelo.getYear());
+						veiculoUpdate.setCapacidadePassageiroos((int) comboBoxPassageiros.getSelectedItem());
+						veiculoUpdate.setCombustivel((String) comboBoxCombustivel.getSelectedItem());
+						veiculoUpdate.setCor(fieldCor.getText());
+						veiculoUpdate.setNumeroPortas(Integer.parseInt(String.valueOf(comboBoxNumPortas.getSelectedItem()).substring(0, 1)));
+						veiculoUpdate.setPlaca(formattedTextFieldPlaca.getText().replaceAll("[.-]", ""));
+						veiculoUpdate.setTorqueDoMotor(Double.parseDouble(formattedTextFieldTorque.getText()));
+						veiculoUpdate.setQuilometragem(Integer.parseInt(fieldKms.getText()));
+						veiculoUpdate.setCategoria(categorias.get(comboBoxCategoria.getSelectedIndex()));
+//						veiculoUpdate.getAcessorios().setID(veiculoUpdate.getAcessorios().getID());
+						veiculoUpdate.getAcessorios().setArCondicionado(chckbxArcondicionado.isSelected());
+						veiculoUpdate.getAcessorios().setRadio(chckbxRadio.isSelected());
+						veiculoUpdate.getAcessorios().setDvd(chckbxDVD.isSelected());
+						veiculoUpdate.getAcessorios().setDirecaoHidraulica(chckbxDirecaoHidraulica.isSelected());
+						veiculoUpdate.getAcessorios().setMp3(chckbxMP3.isSelected());
+						veiculoUpdate.getAcessorios().setCameraDeRe(chckbxCameraRe.isSelected());
+						veiculoUpdate.getAcessorios().setTipoDeCambio((String) comboBoTipoCambio.getSelectedItem());
+						veiculoUpdate.getAcessorios().setAirBag((String) comboBoxAirBag.getSelectedItem());
+						veiculoUpdate.getAcessorios().setDirecaoAssistida(chckbxComputadorDeBordo.isSelected());
+						veiculoUpdate.getAcessorios().setCintosTraseirosRetrateis(chckbxCintosRetrateis.isSelected());
+						veiculoUpdate.getAcessorios().setRodasDeLigaLeve(chckbxRodasLigaLeve.isSelected());
+						veiculoUpdate.getAcessorios().setControleDePoluicao(chckbxControlePoluicao.isSelected());
+						veiculoUpdate.getAcessorios().setCapacidadeDeCarga(Double.parseDouble(fieldCapacidadeCarga.getText().replace(',', '.')));
+						veiculoUpdate.getAcessorios().setDistanciaEntreEixos(Double.parseDouble(fieldDistanciEixos.getText().replace(',', '.')));
+						veiculoUpdate.getAcessorios().setAcionamentoEmbreagem(chckbxAcionamentoHemb.isSelected());
+						veiculoUpdate.getAcessorios().setDesempenhoDoVeiculo(Double.parseDouble(fieldDesempenho.getText().replace(',', '.')));
+						veiculoUpdate.getAcessorios().setVolumeDeAbastecimento(Double.parseDouble(fieldVolumeAbastecimento.getText().replace(',', '.')));
+
 						if(veiculoController.update(veiculo))
 							JOptionPane.showMessageDialog(null, "Veículo Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 						else
@@ -627,8 +700,8 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		if (fieldChassi.getText().isEmpty()||fieldCor.getText().isEmpty()||fieldKms.getText().isEmpty()||fieldNumMotor.getText().isEmpty()||formattedTextFieldPlaca.equals("   -    ")||
 				formattedTextFieldTorque.equals(" . ")||fieldKms.getText().isEmpty()) {
 			if(comboBoxTipo.getSelectedIndex()==2){ 
-				if(fieldCapacidadeCarga.getText().isEmpty()||fieldVolumeAbastecimento.getText().isEmpty()||fieldDistanciEixos.getText().equals(" .  ")||
-						fieldDesempenho.getText().isEmpty()){
+				if(fieldCapacidadeCarga.getText().equals(",00")||fieldVolumeAbastecimento.getText().equals(",00")||fieldDistanciEixos.getText().equals(",00")||
+						fieldDesempenho.getText().equals(",00")){
 					JOptionPane.showMessageDialog(null, "Campos Obrigatórios", null, JOptionPane.WARNING_MESSAGE);
 					return false;
 				}
@@ -636,10 +709,18 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, "Campos Obrigatórios", null, JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
+		if(comboBoxTipo.getSelectedIndex()==2){ 
+			if(fieldCapacidadeCarga.getText().equals(",00")||fieldVolumeAbastecimento.getText().equals(",00")||fieldDistanciEixos.getText().equals(",00")||
+					fieldDesempenho.getText().equals(",00")){
+				JOptionPane.showMessageDialog(null, "Campos Obrigatórios", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+		}
 		return true;
 	}
 	
 	public void cleanFields(){
+		fieldCodigo.setText(null);
 		fieldChassi.setText(null);
 		fieldCor.setText(null);
 		fieldNumMotor.setText(null);
@@ -791,44 +872,45 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 
 	}
 	
-	public void setFields(String chassi){
-		Veiculo veiculo = veiculoController.consultaId(chassi);
+	public void setFields(int codigo){
+		veiculoUpdate = veiculoController.consultaId(codigo);
 		
-		fieldChassi.setText(veiculo.getNumeroChassi());
-		fieldCor.setText(veiculo.getCor());
-		fieldNumMotor.setText(veiculo.getNumeroMotor());
-		comboBoxCategoria.setSelectedItem(veiculo.getCategoria().getDescricao());
-		comboBoxCombustivel.setSelectedItem(veiculo.getCombustivel());
-		comboBoxNumPortas.setSelectedItem(veiculo.getNumeroPortas());
-		comboBoxPassageiros.setSelectedItem(veiculo.getCapacidadePassageiroos());
-		formattedTextFieldPlaca.setValue(veiculo.getPlaca());
-		formattedTextFieldTorque.setValue(veiculo.getTorqueDoMotor());
-		fieldKms.setText(String.valueOf(veiculo.getQuilometragem()));
-		yearChooserFabricacao.setValue(veiculo.getAnoFabricacao());
-		yearChooserModelo.setValue(veiculo.getAnoModelo());
-		chckbxArcondicionado.setSelected(veiculo.getAcessorios().isArCondicionado());
-		chckbxCameraRe.setSelected(veiculo.getAcessorios().isCameraDeRe());
-		chckbxDirecaoHidraulica.setSelected(veiculo.getAcessorios().isDirecaoHidraulica());
-		chckbxDVD.setSelected(veiculo.getAcessorios().isDvd());
-		chckbxMP3.setSelected(veiculo.getAcessorios().isMp3());
-		chckbxRadio.setSelected(veiculo.getAcessorios().isRadio());
-		comboBoTipoCambio.setSelectedItem(veiculo.getAcessorios().getTipoDeCambio());
-		comboBoxAirBag.setSelectedItem(veiculo.getAcessorios().getAirBag());
-		chckbxComputadorDeBordo.setSelected(veiculo.getAcessorios().isDirecaoAssistida());
-		chckbxRodasLigaLeve.setSelected(veiculo.getAcessorios().isRodasDeLigaLeve());
-		chckbxCintosRetrateis.setSelected(veiculo.getAcessorios().isCintosTraseirosRetrateis());
-		chckbxControlePoluicao.setSelected(veiculo.getAcessorios().isControleDePoluicao());
-		chckbxAcionamentoHemb.setSelected(veiculo.getAcessorios().isAcionamentoEmbreagem());
-		fieldDesempenho.setText(String.valueOf(veiculo.getAcessorios().getDesempenhoDoVeiculo()));
-		fieldDistanciEixos.setText(String.valueOf(veiculo.getAcessorios().getDistanciaEntreEixos()));
-		fieldCapacidadeCarga.setText(String.valueOf(veiculo.getAcessorios().getCapacidadeDeCarga()));
-		fieldVolumeAbastecimento.setText(String.valueOf(veiculo.getAcessorios().getVolumeDeAbastecimento()));
+		fieldCodigo.setText(String.valueOf(veiculoUpdate.getID()));
+		fieldChassi.setText(veiculoUpdate.getNumeroChassi());
+		fieldCor.setText(veiculoUpdate.getCor());
+		fieldNumMotor.setText(veiculoUpdate.getNumeroMotor());
+		comboBoxCategoria.setSelectedItem(veiculoUpdate.getCategoria().getDescricao());
+		comboBoxCombustivel.setSelectedItem(veiculoUpdate.getCombustivel());
+		comboBoxNumPortas.setSelectedItem(veiculoUpdate.getNumeroPortas());
+		comboBoxPassageiros.setSelectedItem(veiculoUpdate.getCapacidadePassageiroos());
+		formattedTextFieldPlaca.setText(veiculoUpdate.getPlaca());
+		formattedTextFieldTorque.setText(String.valueOf(veiculoUpdate.getTorqueDoMotor()));
+		fieldKms.setText(String.valueOf(veiculoUpdate.getQuilometragem()));
+		yearChooserFabricacao.setValue(veiculoUpdate.getAnoFabricacao());
+		yearChooserModelo.setValue(veiculoUpdate.getAnoModelo());
+		chckbxArcondicionado.setSelected(veiculoUpdate.getAcessorios().isArCondicionado());
+		chckbxCameraRe.setSelected(veiculoUpdate.getAcessorios().isCameraDeRe());
+		chckbxDirecaoHidraulica.setSelected(veiculoUpdate.getAcessorios().isDirecaoHidraulica());
+		chckbxDVD.setSelected(veiculoUpdate.getAcessorios().isDvd());
+		chckbxMP3.setSelected(veiculoUpdate.getAcessorios().isMp3());
+		chckbxRadio.setSelected(veiculoUpdate.getAcessorios().isRadio());
+		comboBoTipoCambio.setSelectedItem(veiculoUpdate.getAcessorios().getTipoDeCambio());
+		comboBoxAirBag.setSelectedItem(veiculoUpdate.getAcessorios().getAirBag());
+		chckbxComputadorDeBordo.setSelected(veiculoUpdate.getAcessorios().isDirecaoAssistida());
+		chckbxRodasLigaLeve.setSelected(veiculoUpdate.getAcessorios().isRodasDeLigaLeve());
+		chckbxCintosRetrateis.setSelected(veiculoUpdate.getAcessorios().isCintosTraseirosRetrateis());
+		chckbxControlePoluicao.setSelected(veiculoUpdate.getAcessorios().isControleDePoluicao());
+		chckbxAcionamentoHemb.setSelected(veiculoUpdate.getAcessorios().isAcionamentoEmbreagem());
+		fieldDesempenho.setText(String.valueOf(veiculoUpdate.getAcessorios().getDesempenhoDoVeiculo()));
+		fieldDistanciEixos.setText(String.valueOf(veiculoUpdate.getAcessorios().getDistanciaEntreEixos()));
+		fieldCapacidadeCarga.setText(String.valueOf(veiculoUpdate.getAcessorios().getCapacidadeDeCarga()));
+		fieldVolumeAbastecimento.setText(String.valueOf(veiculoUpdate.getAcessorios().getVolumeDeAbastecimento()));
 		
-		if(veiculo.getTipo()=='A'){
+		if(veiculoUpdate.getTipo()=='A'){
 			comboBoxTipo.setSelectedItem("Automóvel");
 			enableFieldsPequeno();
 		}
-		else if(veiculo.getTipo()=='C'){
+		else if(veiculoUpdate.getTipo()=='C'){
 			comboBoxTipo.setSelectedItem("Caminhotene");
 			enableFieldsPickup();
 		}

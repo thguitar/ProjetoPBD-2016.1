@@ -18,12 +18,12 @@ public class VeiculoController {
 		manager = factory.createEntityManager();
 	}
 	
-	public Veiculo consultaId(String chassi){
+	public Veiculo consultaId(int codigo){
 		
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			Veiculo veiculo = manager.find(Veiculo.class, chassi);
+			Veiculo veiculo = manager.find(Veiculo.class, codigo);
 			manager.getTransaction().commit();
 			return veiculo;
 		} catch (Exception e) {

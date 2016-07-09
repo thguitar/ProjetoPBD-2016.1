@@ -3,6 +3,8 @@ package br.com.Locadora.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -10,6 +12,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class Veiculo {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	private int ID;
 	@Column(name = "NUMERO_CHASSI", unique = true, nullable = false)
 	private String numeroChassi;
 	@Column(name = "COR", nullable = false)
@@ -26,8 +31,8 @@ public class Veiculo {
 	private int numeroPortas;
 	@Column(name = "NUMERO_MOTOR", unique = true, nullable = false)
 	private String numeroMotor;
-	@Column(name = "QUILOMETRAGEM", nullable = false)
-	private double quilometragem;
+	@Column(name = "QUILOMETRAGEM", length = 10, nullable = false)
+	private int quilometragem;
 	@Column(name = "CAPACIDADE", nullable = false)
 	private int capacidadePassageiroos;
 	@Column(name = "TORQUE_MOTOR", nullable = false)
@@ -39,7 +44,7 @@ public class Veiculo {
 	@OneToOne
 	@JoinColumn(name="IDCATEGORIA")
 	private Categoria categoria;
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="IDACESSORIOS")
 	private Acessorios acessorios;
 
@@ -49,7 +54,7 @@ public class Veiculo {
 	
 	public Veiculo(String numeroChassi, String cor, String combustivel,
 			String placa, int anoModelo, int anoFabricacao,
-			int numeroPortas, String numeroMotor, Double quilometragem,
+			int numeroPortas, String numeroMotor, int quilometragem,
 			int capacidadePassageiroos, Double torqueDoMotor,
 			Categoria categoria, Acessorios acessorios) {
 		this.numeroChassi = numeroChassi;
@@ -66,6 +71,14 @@ public class Veiculo {
 		this.categoria = categoria;
 		this.acessorios = acessorios;
 		this.inativo = false;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 	public String getNumeroChassi() {
@@ -132,11 +145,11 @@ public class Veiculo {
 		this.numeroMotor = numeroMotor;
 	}
 
-	public double getQuilometragem() {
+	public int getQuilometragem() {
 		return quilometragem;
 	}
 
-	public void setQuilometragem(double quilometragem) {
+	public void setQuilometragem(int quilometragem) {
 		this.quilometragem = quilometragem;
 	}
 
