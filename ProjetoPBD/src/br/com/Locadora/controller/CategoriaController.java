@@ -28,7 +28,7 @@ public class CategoriaController {
 			return categoria;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			manager.getTransaction().rollback();
 			return null;
 		} finally{
@@ -78,11 +78,11 @@ public class CategoriaController {
 			Categoria categoria = manager.find(Categoria.class, id);
 			manager.remove(categoria);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Veículo Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Categoria Excluída com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Deletar Veículo", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Deletar Categoria", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			manager.close();
 		}
@@ -95,15 +95,15 @@ public class CategoriaController {
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
-			Query query = manager.createQuery("select c from Categoria c where c.DESCRICAO = :param");
-			query.setParameter("param", descricao);
+			Query query = manager.createQuery("select c from Categoria c where c.descricao like :param");
+			query.setParameter("param", "%"+descricao+"%");
 			List<Categoria> categorias = query.getResultList(); 
 			manager.getTransaction().commit();
 			return categorias;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 		
@@ -122,7 +122,7 @@ public class CategoriaController {
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 		

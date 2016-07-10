@@ -12,17 +12,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import br.com.Locadora.controller.ClienteController;
-import br.com.Locadora.model.Cliente;
-import br.com.Locadora.model.PessoaFisica;
-import br.com.Locadora.model.PessoaJuridica;
+import br.com.Locadora.controller.CategoriaController;
+import br.com.Locadora.model.Categoria;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
 
-public class ConsultaCliente extends JDialog {
+public class ConsultaCategoria extends JDialog {
 
 	private static final long serialVersionUID = -7616001911230736284L;
 
@@ -34,17 +32,17 @@ public class ConsultaCliente extends JDialog {
 	private JTextField fieldNome;
 	private JButton buttonResearch;
 	private JButton buttonSelect;
-	private JTable tableClientes;
+	private JTable tableCategoria;
 	private JSeparator separator;
 	private JScrollPane scrollPaneTable;
 	private DefaultTableModel modelTalble; 
 
-	private ClienteController clienteController;
+	private CategoriaController categoriaController;
 	
 	@SuppressWarnings("serial")
-	public ConsultaCliente(TelaCadastroCliente telaCadastroCliente) {
+	public ConsultaCategoria(TelaCadastroCategoria telaCadastroCategoria) {
 		setResizable(false);
-		setTitle("Consulta Clientes");
+		setTitle("Consulta Categoria");
 		setType(Type.POPUP);
 		setModal(true);
 		setAlwaysOnTop(true);
@@ -58,20 +56,20 @@ public class ConsultaCliente extends JDialog {
 		contentPane.setLayout(null);
 
 		labelCodigo = new JLabel("C\u00F3digo:");
-		labelCodigo.setBounds(10, 15, 49, 14);
+		labelCodigo.setBounds(10, 15, 42, 16);
 		contentPane.add(labelCodigo);
 
 		fieldID = new JTextField(10);
-		fieldID.setBounds(56, 12, 40, 20);
+		fieldID.setBounds(56, 13, 40, 20);
 		contentPane.add(fieldID);
 		fieldID.setColumns(10);
 
-		labelNome = new JLabel("Nome:");
-		labelNome.setBounds(105, 15, 40, 14);
+		labelNome = new JLabel("Descri\u00E7\u00E3o:");
+		labelNome.setBounds(108, 14, 61, 16);
 		contentPane.add(labelNome);
 
 		fieldNome = new JTextField();
-		fieldNome.setBounds(145, 12, 245, 20);
+		fieldNome.setBounds(176, 13, 214, 20);
 		contentPane.add(fieldNome);
 		fieldNome.setColumns(10);
 
@@ -90,11 +88,7 @@ public class ConsultaCliente extends JDialog {
 		buttonSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).equals("FÍSICA")) {
-					telaCadastroCliente.setFieldsPF((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
-				}else {
-					telaCadastroCliente.setFieldsPJ((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
-				}
+				telaCadastroCategoria.setFields((int) (tableCategoria.getValueAt(tableCategoria.getSelectedRow(), 0)));
 				
 				dispose();
 			}
@@ -115,9 +109,9 @@ public class ConsultaCliente extends JDialog {
 		panelTable.add(scrollPaneTable);
 
 		modelTalble = new DefaultTableModel(null,   
-				new String [] {"Código", "Nome", "Tipo Pessoa", "CPF/CNPJ", "Insc. Estadual", "Sexo"}){      
+				new String [] {"Código", "Descrição"}){      
 
-			boolean[] canEdit = new boolean []{false, false, false, false, false, false};        
+			boolean[] canEdit = new boolean []{false, false};        
 
 			@Override  
 			public boolean isCellEditable(int rowIndex, int columnIndex) {        
@@ -125,45 +119,36 @@ public class ConsultaCliente extends JDialog {
 			}      
 		};    
 
-		tableClientes = new JTable(modelTalble);
-		tableClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		scrollPaneTable.setViewportView(tableClientes);
-		tableClientes.getColumnModel().getColumn(0).setPreferredWidth(70);
-		tableClientes.getColumnModel().getColumn(1).setPreferredWidth(350);
-		tableClientes.getColumnModel().getColumn(2).setPreferredWidth(80);
-		tableClientes.getColumnModel().getColumn(3).setPreferredWidth(100);
-		tableClientes.getColumnModel().getColumn(4).setPreferredWidth(100);
-		tableClientes.getColumnModel().getColumn(5).setPreferredWidth(75);
+		tableCategoria = new JTable(modelTalble);
+		tableCategoria.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPaneTable.setViewportView(tableCategoria);
+		tableCategoria.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tableCategoria.getColumnModel().getColumn(1).setPreferredWidth(499);
 		
 	}
 
 	public void pesquisar() {
-		clienteController = new ClienteController();
+		categoriaController = new CategoriaController();
 		
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
-			List<PessoaFisica> clientes = clienteController.consultaClientesPF();
-			for (int i = 0; i < clientes.size(); i++) {
-				modelTalble.addRow(new Object[]{clientes.get(i).getId(),clientes.get(i).getNome(), "FÍSICA", clientes.get(i).getCpf(), "ISENTO", clientes.get(i).getSexo()=='M'? "MASCULINO" : "FEMININO"});
+			List<Categoria> categorias = categoriaController.ListALL();
+			for (int i = 0; i < categorias.size(); i++) {
+				modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
 			}
-			List<PessoaJuridica> clientesPJ = clienteController.consultaClientesPJ();
-			for (int i = 0; i < clientesPJ.size(); i++) {
-				modelTalble.addRow(new Object[]{clientesPJ.get(i).getId(),clientesPJ.get(i).getNome(), "JURÍDICA", clientesPJ.get(i).getCnpj(), clientesPJ.get(i).getInscricaoEstadual()});
-			}
-			
-			clientes = null;
-			clientesPJ = null;
+						
+			categorias = null;
 			
 		}else if (!fieldNome.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
-			List<Cliente> clientes = clienteController.consultaNome(fieldNome.getText());
-			for (int i = 0; i < clientes.size(); i++) {
-				modelTalble.addRow(new Object[]{clientes.get(i).getId(),clientes.get(i).getNome()});
+			List<Categoria> categorias = categoriaController.consultaDescricao(fieldNome.getText());
+			for (int i = 0; i < categorias.size(); i++) {
+				modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
 			}
 		}else {
 			modelTalble.setNumRows(0);
-			Cliente cliente = clienteController.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{cliente.getId(),cliente.getNome()});
+			Categoria categoria = categoriaController.consultaId(Integer.parseInt(fieldID.getText()));
+			modelTalble.addRow(new Object[]{categoria.getID(), categoria.getDescricao()});
 		}
 
 		buttonSelect.setEnabled(true);

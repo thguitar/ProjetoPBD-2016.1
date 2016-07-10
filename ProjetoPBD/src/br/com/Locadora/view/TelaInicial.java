@@ -73,8 +73,10 @@ public class TelaInicial extends JFrame {
 	private TelaCadastroEmpresa cadastroEmpresa;
 	private TelaCadastroVeiculo cadastroVeiculo;
 	private TelaCadastroUsuario cadastroUsuario;
+	private TelaCadastroCategoria cadastroCategoria;
 	
 	private GerarRelatorio gerarRelatorio;
+	private JMenuItem mnitemCategorias;
 	
 	public TelaInicial(Usuario usuarioLogado) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens/iconCar.png"));
@@ -201,6 +203,26 @@ public class TelaInicial extends JFrame {
 					cadastroVeiculo.moveToFront();
 				}
 			});
+			
+			mnitemCategorias = new JMenuItem("Categorias");
+			mnitemCategorias.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(isCreate(cadastroCategoria)||cadastroCategoria.isClosed()){
+						cadastroCategoria = null;
+						cadastroCategoria = new TelaCadastroCategoria();
+						cadastroCategoria.setVisible(true);
+						desktopPane.add(cadastroCategoria);
+						try {
+							cadastroCategoria.setPosicao();
+							cadastroCategoria.setSelected(true);
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+					}
+					cadastroCategoria.moveToFront();	
+				}
+			});
+			menuCadastros.add(mnitemCategorias);
 
 			menuCadastros.add(mnitemClientes);
 			menuCadastros.add(mnitemEmpresas);

@@ -39,4 +39,12 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
+	public double getValorAluguel() {
+		return valorAluguel;
+	}
+
+	public void setValorAluguel(double valorAluguel) {
+		this.valorAluguel = valorAluguel;
+	}
+	
 }
