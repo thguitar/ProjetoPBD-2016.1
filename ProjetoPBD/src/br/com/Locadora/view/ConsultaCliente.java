@@ -40,9 +40,11 @@ public class ConsultaCliente extends JDialog {
 	private DefaultTableModel modelTalble; 
 
 	private ClienteController clienteController;
+	private TelaCadastroCliente telaCliente;
+	private TelaReserva telaReserva;
 	
 	@SuppressWarnings("serial")
-	public ConsultaCliente(TelaCadastroCliente telaCadastroCliente) {
+	public ConsultaCliente(Object objectTela) {
 		setResizable(false);
 		setTitle("Consulta Clientes");
 		setType(Type.POPUP);
@@ -89,11 +91,16 @@ public class ConsultaCliente extends JDialog {
 		buttonSelect.setEnabled(false);
 		buttonSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).equals("FÍSICA")) {
-					telaCadastroCliente.setFieldsPF((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
+				if(objectTela.getClass().equals(TelaCadastroCliente.class)){
+					telaCliente = (TelaCadastroCliente) objectTela;
+					if (tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).equals("FÍSICA")) {
+						telaCliente.setFieldsPF((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
+					}else {
+						telaCliente.setFieldsPJ((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
+					}
 				}else {
-					telaCadastroCliente.setFieldsPJ((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
+					telaReserva = (TelaReserva) objectTela;
+					telaReserva.setCliente(clienteController.consultaId((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0))));
 				}
 				
 				dispose();

@@ -107,4 +107,13 @@ public class EmpresaController {
 		manager.getTransaction().commit();
 		return empresas;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> listALL(){
+		manager.getTransaction().begin();
+		Query query = manager.createQuery("select e from Empresa e");
+		List<Empresa>empresas = query.getResultList(); 
+		manager.getTransaction().commit();
+		return empresas;
+	}
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Reserva {
@@ -26,23 +28,24 @@ public class Reserva {
 	private Empresa empresa;
 	@Column(name = "DESCRICAO", length = 50, nullable = false)
 	private String descricao;
-	@Column(name = "STATUS", length = 20, nullable = false)
+	@Column(name = "STATUS", length = 20)
 	private String status;
-	@Column(name = "DATA_MOVIMENTO", nullable = false)
+	@Temporal(value=TemporalType.DATE)
+	@Column(name = "DATA_MOVIMENTO")
 	private Date data;
+	@Column(name = "CANCELADA")
+	private boolean cancelada;
 	
 	public Reserva() {
 	
 	}
 
 	public Reserva(String descricao, Cliente cliente, Categoria categoria,
-			Empresa empresa, Date data) {
+			Empresa empresa) {
 		this.descricao = descricao;
 		this.cliente = cliente;
 		this.categoria = categoria;
 		this.empresa = empresa;
-		this.status = "ABERTA";
-		this.data = data;
 		
 	}
 
@@ -111,6 +114,14 @@ public class Reserva {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public boolean isCancelada() {
+		return cancelada;
+	}
+
+	public void setCancelada(boolean cancelada) {
+		this.cancelada = cancelada;
 	}
 
 }

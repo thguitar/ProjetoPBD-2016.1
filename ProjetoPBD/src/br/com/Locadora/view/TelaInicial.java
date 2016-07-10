@@ -74,6 +74,7 @@ public class TelaInicial extends JFrame {
 	private TelaCadastroVeiculo cadastroVeiculo;
 	private TelaCadastroUsuario cadastroUsuario;
 	private TelaCadastroCategoria cadastroCategoria;
+	private TelaReserva telaReserva;
 	
 	private GerarRelatorio gerarRelatorio;
 	private JMenuItem mnitemCategorias;
@@ -254,6 +255,27 @@ public class TelaInicial extends JFrame {
 		
 		menuReservas = new JMenu("Reservas");
 		menuBar.add(menuReservas);
+		
+		JMenuItem mntmManutenoDeReservas = new JMenuItem("Manuten\u00E7\u00E3o de Reservas");
+		mntmManutenoDeReservas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(isCreate(telaReserva)||telaReserva.isClosed()){
+					telaReserva = null;
+					telaReserva =  new TelaReserva();
+					telaReserva.setVisible(true);
+					desktopPane.add(telaReserva);
+					try {
+						telaReserva.setPosicao();
+						telaReserva.setSelected(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+				telaReserva.moveToFront();
+			}
+		});
+		menuReservas.add(mntmManutenoDeReservas);
 		
 		menuLocao = new JMenu("Loca\u00E7\u00E3o");
 		menuBar.add(menuLocao);
