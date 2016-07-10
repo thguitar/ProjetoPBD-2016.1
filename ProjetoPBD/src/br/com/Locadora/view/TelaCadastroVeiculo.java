@@ -564,9 +564,9 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 
 		buttonSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Veiculo veiculo = new Veiculo();
 				if (validaFields()) {
 					if (saveupdate){
+						Veiculo veiculo = new Veiculo();
 						veiculo.setNumeroChassi(fieldChassi.getText());
 						veiculo.setNumeroMotor(fieldNumMotor.getText());
 						veiculo.setAnoFabricacao(yearChooserFabricacao.getYear());
@@ -596,6 +596,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 						veiculoUpdate.setAnoFabricacao(yearChooserFabricacao.getYear());
 						veiculoUpdate.setAnoModelo(yearChooserModelo.getYear());
 						veiculoUpdate.setCapacidadePassageiroos((int) comboBoxPassageiros.getSelectedItem());
+						veiculoUpdate.setCombustivel("COMBUSTIVEL");
 						veiculoUpdate.setCombustivel((String) comboBoxCombustivel.getSelectedItem());
 						veiculoUpdate.setCor(fieldCor.getText());
 						veiculoUpdate.setNumeroPortas(Integer.parseInt(String.valueOf(comboBoxNumPortas.getSelectedItem()).substring(0, 1)));
@@ -622,8 +623,10 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 						veiculoUpdate.getAcessorios().setDesempenhoDoVeiculo(Double.parseDouble(fieldDesempenho.getText().replace(',', '.')));
 						veiculoUpdate.getAcessorios().setVolumeDeAbastecimento(Double.parseDouble(fieldVolumeAbastecimento.getText().replace(',', '.')));
 
-						if(veiculoController.update(veiculo))
+						if(veiculoController.commit()){
 							JOptionPane.showMessageDialog(null, "Veículo Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							veiculoUpdate = null;
+						}
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Alterar Veículo", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
 					}	
@@ -738,6 +741,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 		cleanFieldsPickup();
 		cleanFieldsCarga();
 		disableFields();
+		disableFieldsPequeno();
 		disableFieldsPickup();
 		disableFieldsPickupCarga();
 		buttonNovo.setEnabled(true);
@@ -873,7 +877,7 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 	}
 	
 	public void setFields(int codigo){
-		veiculoUpdate = veiculoController.consultaId(codigo);
+		veiculoUpdate = veiculoController.consultaIdUpdate(codigo);
 		
 		fieldCodigo.setText(String.valueOf(veiculoUpdate.getID()));
 		fieldChassi.setText(veiculoUpdate.getNumeroChassi());

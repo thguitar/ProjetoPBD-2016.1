@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -41,6 +42,7 @@ public class ConsultaVeiculo extends JDialog {
 	private DefaultTableModel modelTalble; 
 
 	private VeiculoController controller;
+	private JButton buttonLimpar;
 	
 	@SuppressWarnings("serial")
 	public ConsultaVeiculo(TelaCadastroVeiculo telaCadastroVeiculo) {
@@ -58,7 +60,7 @@ public class ConsultaVeiculo extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		labelCodigo = new JLabel("Chassi:");
+		labelCodigo = new JLabel("Código:");
 		labelCodigo.setBounds(10, 15, 49, 14);
 		contentPane.add(labelCodigo);
 
@@ -69,11 +71,11 @@ public class ConsultaVeiculo extends JDialog {
 		fieldCodigo.setColumns(10);
 
 		labelNome = new JLabel("Placa:");
-		labelNome.setBounds(203, 15, 40, 14);
+		labelNome.setBounds(128, 15, 40, 14);
 		contentPane.add(labelNome);
 
 		formattedTextFieldPlaca = new JFormattedTextField(Mascara("UUU-####"));
-		formattedTextFieldPlaca.setBounds(245, 12, 92, 20);
+		formattedTextFieldPlaca.setBounds(170, 12, 92, 20);
 		contentPane.add(formattedTextFieldPlaca);
 		formattedTextFieldPlaca.setColumns(10);
 
@@ -128,12 +130,25 @@ public class ConsultaVeiculo extends JDialog {
 		tableEmpresas = new JTable(modelTalble);
 		tableEmpresas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPaneTable.setViewportView(tableEmpresas);
-		tableEmpresas.getColumnModel().getColumn(0).setPreferredWidth(120);
-		tableEmpresas.getColumnModel().getColumn(1).setPreferredWidth(70);
-		tableEmpresas.getColumnModel().getColumn(2).setPreferredWidth(100);
-		tableEmpresas.getColumnModel().getColumn(3).setPreferredWidth(200);
-		tableEmpresas.getColumnModel().getColumn(4).setPreferredWidth(100);
-		tableEmpresas.getColumnModel().getColumn(5).setPreferredWidth(110);
+		
+		buttonLimpar = new JButton("Limpar");
+		buttonLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modelTalble.setNumRows(0);
+				fieldCodigo.setText(null);
+				formattedTextFieldPlaca.setText(null);
+				buttonSelect.setEnabled(false);
+			}
+		});
+		buttonLimpar.setBounds(300, 11, 92, 23);
+		contentPane.add(buttonLimpar);
+		
+		tableEmpresas.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tableEmpresas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tableEmpresas.getColumnModel().getColumn(2).setPreferredWidth(70);
+		tableEmpresas.getColumnModel().getColumn(3).setPreferredWidth(100);
+		tableEmpresas.getColumnModel().getColumn(4).setPreferredWidth(150);
+		tableEmpresas.getColumnModel().getColumn(5).setPreferredWidth(150);
 
 	}
 
@@ -167,13 +182,17 @@ public class ConsultaVeiculo extends JDialog {
 		}else if (!formattedTextFieldPlaca.getText().equals("   -    ")) {
 			modelTalble.setNumRows(0);
 			Veiculo veiculo = controller.consultaPlaca(formattedTextFieldPlaca.getText().replaceAll("[.-]", ""));
-			if(veiculo.getTipo()=='A')
-				tipo = "Automóvel";
-			else if(veiculo.getTipo()=='C')
-				tipo = "Caminhotene";
-			else
-				tipo = "Caminhotene de Carga";
-			modelTalble.addRow(new Object[]{veiculo.getID(), veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
+			if(veiculo!=null){
+				if(veiculo.getTipo()=='A')
+					tipo = "Automóvel";
+				else if(veiculo.getTipo()=='C')
+					tipo = "Caminhotene";
+				else
+					tipo = "Caminhotene de Carga";
+				modelTalble.addRow(new Object[]{veiculo.getID(), veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
+			}else {
+				JOptionPane.showMessageDialog(null, "Nenhum Veículo Localizado");
+			}
 		}else {
 			modelTalble.setNumRows(0);
 			Veiculo veiculo = controller.consultaId(Integer.parseInt(fieldCodigo.getText()));

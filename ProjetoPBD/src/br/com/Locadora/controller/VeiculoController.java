@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,23 @@ public class VeiculoController {
 			manager.getTransaction().begin();
 			Veiculo veiculo = manager.find(Veiculo.class, codigo);
 			manager.getTransaction().commit();
+			return veiculo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+			manager.getTransaction().rollback();
+			return null;
+		} finally{
+			manager.close();
+		}
+	}
+	
+	public Veiculo consultaIdUpdate(int codigo){
+		
+		try {
+			manager = factory.createEntityManager();
+			manager.getTransaction().begin();
+			Veiculo veiculo = manager.find(Veiculo.class, codigo);
 			return veiculo;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,11 +113,14 @@ public class VeiculoController {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			Query query = manager.createQuery("select v from Veiculo v where v.placa = :param");
-			System.out.println("'"+placa+"'");
 			query.setParameter("param", placa);
 			Veiculo veiculo = (Veiculo) query.getSingleResult(); 
 			manager.getTransaction().commit();
 			return veiculo;
+		} catch (NoResultException noResultException) {
+			manager.getTransaction().rollback();
+			noResultException.printStackTrace();
+			return null;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
@@ -128,4 +149,15 @@ public class VeiculoController {
 		
 	}
 	
+	
+	public boolean commit(){
+		try {
+			manager.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
 }
