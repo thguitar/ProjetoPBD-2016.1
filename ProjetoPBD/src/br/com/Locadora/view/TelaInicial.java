@@ -76,6 +76,7 @@ public class TelaInicial extends JFrame {
 	private TelaCadastroCategoria cadastroCategoria;
 	private TelaReserva telaReserva;
 	private TelaLocacao telaLocacao;
+	private TelaManutencaoPreco manutencaoPreco;
 	
 	private GerarRelatorio gerarRelatorio;
 	private JMenuItem mnitemCategorias;
@@ -306,6 +307,24 @@ public class TelaInicial extends JFrame {
 		menuLocao.add(mnitemManutencaoDeLocacao);
 		
 		mnitemManutenoDePrecos = new JMenuItem("Manuten\u00E7\u00E3o de Pre\u00E7os");
+		mnitemManutenoDePrecos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(isCreate(manutencaoPreco)||manutencaoPreco.isClosed()){
+					manutencaoPreco = null;
+					manutencaoPreco =  new TelaManutencaoPreco();
+					manutencaoPreco.setVisible(true);
+					desktopPane.add(manutencaoPreco);
+					try {
+						manutencaoPreco.setPosicao();
+						manutencaoPreco.setSelected(true);
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
+				
+				manutencaoPreco.moveToFront();
+			}
+		});
 		menuLocao.add(mnitemManutenoDePrecos);
 // INICIO SUBMENU RELATÓRIOS		
 		menuRelatorios = new JMenu("Relat\u00F3rios");

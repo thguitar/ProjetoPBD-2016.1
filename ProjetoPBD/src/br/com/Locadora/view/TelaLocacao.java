@@ -39,6 +39,8 @@ import java.util.List;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JCheckBox;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 public class TelaLocacao extends JInternalFrame {
@@ -87,7 +89,7 @@ public class TelaLocacao extends JInternalFrame {
 	private JDateChooser dateChooserDataDevolucao;
 	
 	private boolean saveupdate;
-
+	private double valorTotal;
 	private Date dataAtual;
 	
 	private LocacaoController locacaoController;
@@ -101,6 +103,7 @@ public class TelaLocacao extends JInternalFrame {
 	private Veiculo veiculo;
 	private Reserva reservaImportada;
 	private JButton buttonImportReserva;
+	private JButton buttonAtualizaPreco;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaLocacao() {
@@ -243,6 +246,7 @@ public class TelaLocacao extends JInternalFrame {
 		panelCentro.add(comboBoxTipoLocacao);
 		
 		fieldValor = new JTextField();
+		fieldValor.setFont(new Font("Dialog", Font.BOLD, 14));
 		fieldValor.setEditable(false);
 		fieldValor.setBounds(486, 161, 86, 21);
 		panelCentro.add(fieldValor);
@@ -258,6 +262,12 @@ public class TelaLocacao extends JInternalFrame {
 		panelCentro.add(labelKms);
 		
 		fieldKms = new JTextField();
+		fieldKms.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				atualizaValor();
+			}
+		});
 		fieldKms.setEditable(false);
 		fieldKms.setBounds(316, 151, 57, 20);
 		panelCentro.add(fieldKms);
@@ -304,7 +314,7 @@ public class TelaLocacao extends JInternalFrame {
 		buttonNovo.setForeground(Color.BLACK);
 		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonNovo.setBackground(SystemColor.inactiveCaption);
-		buttonNovo.setBounds(136, 69, 50, 26);
+		buttonNovo.setBounds(107, 69, 50, 26);
 		contentPane.add(buttonNovo);
 		
 		buttonSalvar = new JButton();
@@ -314,7 +324,7 @@ public class TelaLocacao extends JInternalFrame {
 		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonSalvar.setEnabled(false);
 		buttonSalvar.setBackground(SystemColor.inactiveCaption);
-		buttonSalvar.setBounds(198, 69, 50, 26);
+		buttonSalvar.setBounds(169, 69, 50, 26);
 		contentPane.add(buttonSalvar);
 		
 		buttonExcluir = new JButton();
@@ -324,7 +334,7 @@ public class TelaLocacao extends JInternalFrame {
 		buttonExcluir.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonExcluir.setEnabled(false);
 		buttonExcluir.setBackground(SystemColor.inactiveCaption);
-		buttonExcluir.setBounds(260, 69, 50, 26);
+		buttonExcluir.setBounds(231, 69, 50, 26);
 		contentPane.add(buttonExcluir);
 		
 		buttonCancelar = new JButton();
@@ -333,7 +343,7 @@ public class TelaLocacao extends JInternalFrame {
 		buttonCancelar.setForeground(Color.BLACK);
 		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonCancelar.setBackground(SystemColor.inactiveCaption);
-		buttonCancelar.setBounds(322, 69, 50, 26);
+		buttonCancelar.setBounds(293, 69, 50, 26);
 		contentPane.add(buttonCancelar);
 		
 		buttonLocalizar = new JButton();
@@ -342,7 +352,7 @@ public class TelaLocacao extends JInternalFrame {
 		buttonLocalizar.setForeground(Color.BLACK);
 		buttonLocalizar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonLocalizar.setBackground(SystemColor.inactiveCaption);
-		buttonLocalizar.setBounds(384, 69, 50, 26);
+		buttonLocalizar.setBounds(355, 69, 50, 26);
 		contentPane.add(buttonLocalizar);
 		
 		buttonImportReserva = new JButton();
@@ -352,18 +362,28 @@ public class TelaLocacao extends JInternalFrame {
 		buttonImportReserva.setForeground(Color.BLACK);
 		buttonImportReserva.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonImportReserva.setBackground(SystemColor.inactiveCaption);
-		buttonImportReserva.setBounds(446, 69, 50, 26);
+		buttonImportReserva.setBounds(417, 69, 50, 26);
 		contentPane.add(buttonImportReserva);
+		
+		buttonAtualizaPreco = new JButton();
+		buttonAtualizaPreco.setToolTipText("Importar Reserva");
+		buttonAtualizaPreco.setIcon(new ImageIcon("imagens/refreshButton.png"));
+		buttonAtualizaPreco.setForeground(Color.BLACK);
+		buttonAtualizaPreco.setFont(new Font("SansSerif", Font.BOLD, 13));
+		buttonAtualizaPreco.setEnabled(false);
+		buttonAtualizaPreco.setBackground(SystemColor.inactiveCaption);
+		buttonAtualizaPreco.setBounds(479, 69, 50, 26);
+		contentPane.add(buttonAtualizaPreco);
 		
 		buttonNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cleanFields();
 				buttonSalvar.setEnabled(true);
 				buttonImportReserva.setEnabled(true);
+				buttonAtualizaPreco.setEnabled(true);
 				buttonExcluir.setEnabled(false);
 				buttonLocalizar.setEnabled(false);
 				buttonNovo.setEnabled(false);
-				
 				enableFields();
 				saveupdate = true;
 			}
@@ -372,7 +392,7 @@ public class TelaLocacao extends JInternalFrame {
 		buttonSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (validarFields()) {
-					
+					atualizaValor();
 					if(saveupdate){ 
 						Locacao locacao = new Locacao();
 						locacao.setCliente(cliente);
@@ -409,6 +429,7 @@ public class TelaLocacao extends JInternalFrame {
 					disableFields();
 					buttonNovo.setEnabled(true);
 					buttonImportReserva.setEnabled(false);
+					buttonAtualizaPreco.setEnabled(false);
 					buttonExcluir.setEnabled(false);
 					buttonSalvar.setEnabled(false);
 					buttonLocalizar.setEnabled(true);
@@ -428,6 +449,7 @@ public class TelaLocacao extends JInternalFrame {
 					cleanFields();
 					disableFields();
 					buttonNovo.setEnabled(true);
+					buttonAtualizaPreco.setEnabled(false);
 					buttonExcluir.setEnabled(false);
 					buttonSalvar.setEnabled(false);
 				}
@@ -441,6 +463,7 @@ public class TelaLocacao extends JInternalFrame {
 				disableFields();
 				buttonSalvar.setEnabled(false);
 				buttonImportReserva.setEnabled(false);
+				buttonAtualizaPreco.setEnabled(false);
 				buttonNovo.setEnabled(true);
 				buttonExcluir.setEnabled(false);
 				buttonLocalizar.setEnabled(true);
@@ -478,12 +501,19 @@ public class TelaLocacao extends JInternalFrame {
 				else 
 					fieldKms.setEditable(false);
 					fieldKms.setText(null);
+					
 			}
 		});
 		
 		buttonImportReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new ConsultaReserva(TelaLocacao.this).setVisible(true);
+			}
+		});
+		
+		buttonAtualizaPreco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizaValor();
 			}
 		});
 		
@@ -557,6 +587,7 @@ public class TelaLocacao extends JInternalFrame {
 		dateChooserDataDevolucao.setDate(locacaoUpdate.getDataPrevistaDevolucao());
 		buttonExcluir.setEnabled(true);
 		buttonImportReserva.setEnabled(false);
+		buttonAtualizaPreco.setEnabled(true);
 		buttonSalvar.setEnabled(true);
 		buttonNovo.setEnabled(false);
 		saveupdate = false;
@@ -598,6 +629,21 @@ public class TelaLocacao extends JInternalFrame {
 		cliente = reserva.getCliente();
 	}
 	
+	public void atualizaValor(){
+		if(fieldValor.getText().isEmpty()&&valorTotal==0){
+			JOptionPane.showMessageDialog(null, "Não existe valores a serem atualizados","Aviso Valores", JOptionPane.WARNING_MESSAGE);
+		}else{
+				if(comboBoxTipoLocacao.getSelectedIndex()==0){
+					valorTotal = veiculo.getCategoria().getValorAluguel()+tiposLocacao.get(comboBoxTipoLocacao.getSelectedIndex()).getValor();
+					fieldValor.setText(String.valueOf(valorTotal));
+				}
+				else{
+					System.out.println(valorTotal);
+					valorTotal = veiculo.getCategoria().getValorAluguel()+(tiposLocacao.get(comboBoxTipoLocacao.getSelectedIndex()).getValor()*Integer.parseInt(fieldKms.getText()));
+					fieldValor.setText(String.valueOf(valorTotal));
+				}
+			}
+	}
 	
 	public void setPosicao() {
 		Dimension d = this.getDesktopPane().getSize();
