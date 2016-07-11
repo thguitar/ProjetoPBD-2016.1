@@ -1,12 +1,12 @@
 package br.com.Locadora.model;
 
-import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 @Entity
 public class Empresa {
 	@Id
@@ -26,9 +26,6 @@ public class Empresa {
 	private String endCidade;
 	@Column(name = "ESTADO", length = 50, nullable = false)
 	private String endEstado;
-
-	private ArrayList<Usuario> usuarios;
-	private ArrayList<Reserva> reservas;
 
 	public Empresa(){
 
@@ -97,18 +94,6 @@ public class Empresa {
 	}
 	public void setEndEstado(String endEstado) {
 		this.endEstado = endEstado;
-	}
-	public ArrayList<Usuario> getUsuarios() {
-		return usuarios;
-	}
-	public void setUsuarios(ArrayList<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-	public ArrayList<Reserva> getReservas() {
-		return reservas;
-	}
-	public void setReservas(ArrayList<Reserva> reservas) {
-		this.reservas = reservas;
 	}
 
 }
