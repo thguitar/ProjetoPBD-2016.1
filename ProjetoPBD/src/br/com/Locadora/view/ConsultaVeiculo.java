@@ -44,8 +44,11 @@ public class ConsultaVeiculo extends JDialog {
 	private VeiculoController controller;
 	private JButton buttonLimpar;
 	
+	private TelaCadastroVeiculo telaVeiculo;
+	private TelaLocacao telaLocacao;
+	
 	@SuppressWarnings("serial")
-	public ConsultaVeiculo(TelaCadastroVeiculo telaCadastroVeiculo) {
+	public ConsultaVeiculo(Object objectTela) {
 		setResizable(false);
 		setTitle("Consulta Ve\u00EDculos");
 		setType(Type.POPUP);
@@ -96,9 +99,16 @@ public class ConsultaVeiculo extends JDialog {
 		buttonSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				telaCadastroVeiculo.setFields((Integer) (tableEmpresas.getValueAt(tableEmpresas.getSelectedRow(), 0)));
+				if (objectTela.getClass().equals(TelaCadastroVeiculo.class)) {
+					dispose();
+					telaVeiculo = (TelaCadastroVeiculo) objectTela;
+					telaVeiculo.setFields((Integer) (tableEmpresas.getValueAt(tableEmpresas.getSelectedRow(), 0)));
+				}else {
+					dispose();
+					telaLocacao = (TelaLocacao) objectTela;
+					telaLocacao.setVeiculo(controller.consultaId((Integer) (tableEmpresas.getValueAt(tableEmpresas.getSelectedRow(), 0))));
+				}
 
-				dispose();
 			}
 		});
 		contentPane.add(buttonSelect);

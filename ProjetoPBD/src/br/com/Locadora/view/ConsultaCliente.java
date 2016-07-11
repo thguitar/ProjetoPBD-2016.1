@@ -4,6 +4,7 @@ package br.com.Locadora.view;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -42,9 +43,10 @@ public class ConsultaCliente extends JDialog {
 	private ClienteController clienteController;
 	private TelaCadastroCliente telaCliente;
 	private TelaReserva telaReserva;
+	private TelaLocacao telaLocacao;
 	
 	@SuppressWarnings("serial")
-	public ConsultaCliente(Object objectTela) {
+	public ConsultaCliente(Object objectTela,boolean iscliente) {
 		setResizable(false);
 		setTitle("Consulta Clientes");
 		setType(Type.POPUP);
@@ -98,12 +100,27 @@ public class ConsultaCliente extends JDialog {
 					}else {
 						telaCliente.setFieldsPJ((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0)));
 					}
-				}else {
+					dispose();
+				}else if(objectTela.getClass().equals(TelaReserva.class)){
 					telaReserva = (TelaReserva) objectTela;
 					telaReserva.setCliente(clienteController.consultaId((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0))));
+					dispose();
+				}else {
+					if(iscliente){
+						telaLocacao = (TelaLocacao) objectTela;
+						telaLocacao.setCliente(clienteController.consultaId((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0))));
+						dispose();
+					}
+					else	
+						if(tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).equals("FÍSICA")){
+							telaLocacao = (TelaLocacao) objectTela;
+							telaLocacao.setMotorista(clienteController.consultaPFId((int) (tableClientes.getValueAt(tableClientes.getSelectedRow(), 0))));
+							dispose();
+						}
+						else{
+							JOptionPane.showMessageDialog(ConsultaCliente.this, "O Motorista deve ser uma Pessoa Física", "Atenção", JOptionPane.WARNING_MESSAGE);
+						}
 				}
-				
-				dispose();
 			}
 		});
 		contentPane.add(buttonSelect);

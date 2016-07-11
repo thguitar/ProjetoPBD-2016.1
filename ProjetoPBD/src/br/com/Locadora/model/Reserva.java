@@ -38,6 +38,8 @@ public class Reserva {
 	private Date data_retirada;
 	@Column(name = "CANCELADA")
 	private boolean cancelada;
+	@Column(name = "EFETIVADA")
+	private boolean efetivada;
 	
 	public Reserva() {
 	
@@ -136,4 +138,12 @@ public class Reserva {
 		this.cancelada = cancelada;
 	}
 
+	public boolean isEfetivada() {
+		return efetivada;
+	}
+
+	public void setEfetivada(boolean efetivada) {
+		this.efetivada = efetivada;
+	}
+	
 }

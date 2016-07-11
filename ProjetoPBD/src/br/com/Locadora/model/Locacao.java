@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Locacao {
@@ -26,27 +28,37 @@ public class Locacao {
 	@OneToOne
 	@JoinColumn(name="IDVEICULO")
 	private Veiculo veiculo;
+	@OneToOne
+	@JoinColumn(name="IDEMPRESADESTINO")
+	private Empresa empresaDestino;
 	@Column(name = "TIPO", length = 20, nullable = false)
 	private String tipo;
 	@Column(name = "VALOR", nullable = false)
 	private Double valor;
-	@Column(name = "DATA_HORA_SAIDA", nullable = false)
+	@Column(name = "DATA_HORA_SAIDA")
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date dataHoraSaida;
 	@Column(name = "DATA_PREVISTA_DEVOLUCAO", nullable = false)
+	@Temporal(value=TemporalType.DATE)
 	private Date dataPrevistaDevolucao;
-	@Column(name = "STATUS", length = 15, nullable = false)
+	@Column(name = "STATUS", length = 15)
 	private String status;
-
+	@Column(name = "CANCELADA")
+	private boolean cancelada;
+	@Column(name = "IDRESERVA")
+	private int idReservaImportada;
+	
 	public Locacao() {
 
 	}
 
 	public Locacao(Cliente cliente, PessoaFisica motorista, Veiculo veiculo,
 			String tipo, Double valor, Date dataHoraSaida,
-			Date dataPrevistaDevolucao) {
+			Date dataPrevistaDevolucao, Empresa empresa) {
 		this.cliente = cliente;
 		this.motorista = motorista;
 		this.veiculo = veiculo;
+		this.empresaDestino = empresa;
 		this.tipo = tipo;
 		this.valor = valor;
 		this.dataHoraSaida = dataHoraSaida;
@@ -55,17 +67,20 @@ public class Locacao {
 	}
 
 	public Locacao(int iD, Cliente cliente, PessoaFisica motorista,
-			Veiculo veiculo, String tipo, Double valor, Date dataHoraSaida,
-			Date dataPrevistaDevolucao, String status) {
+			Veiculo veiculo, Empresa empresa, String tipo, Double valor, Date dataHoraSaida,
+			Date dataPrevistaDevolucao, String status, boolean cancelada, int idReservaImportada) {
 		ID = iD;
 		this.cliente = cliente;
 		this.motorista = motorista;
 		this.veiculo = veiculo;
+		this.empresaDestino = empresa;
 		this.tipo = tipo;
 		this.valor = valor;
 		this.dataHoraSaida = dataHoraSaida;
 		this.dataPrevistaDevolucao = dataPrevistaDevolucao;
 		this.status = status;
+		this.cancelada = cancelada;
+		this.idReservaImportada = idReservaImportada; 
 	}
 
 	public int getID() {
@@ -140,4 +155,28 @@ public class Locacao {
 		this.status = status;
 	}
 
+	public boolean isCancelada() {
+		return cancelada;
+	}
+
+	public void setCancelada(boolean cancelada) {
+		this.cancelada = cancelada;
+	}
+
+	public Empresa getEmpresaDestino() {
+		return empresaDestino;
+	}
+
+	public void setEmpresaDestino(Empresa empresaDestino) {
+		this.empresaDestino = empresaDestino;
+	}
+
+	public int getIdReservaImportada() {
+		return idReservaImportada;
+	}
+
+	public void setIdReservaImportada(int idReservaImportada) {
+		this.idReservaImportada = idReservaImportada;
+	}
+	
 }

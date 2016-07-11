@@ -367,7 +367,7 @@ public class TelaReserva extends JInternalFrame {
 		
 		buttonLocalizarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new ConsultaCliente(TelaReserva.this).setVisible(true);
+				new ConsultaCliente(TelaReserva.this, false).setVisible(true);
 			}
 		});
 		

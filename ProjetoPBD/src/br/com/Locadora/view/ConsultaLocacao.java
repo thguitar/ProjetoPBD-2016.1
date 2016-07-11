@@ -12,15 +12,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import br.com.Locadora.controller.ReservaController;
-import br.com.Locadora.model.Reserva;
+import br.com.Locadora.controller.LocacaoController;
+import br.com.Locadora.model.Locacao;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
 
-public class ConsultaReserva extends JDialog {
+public class ConsultaLocacao extends JDialog {
 
 	private static final long serialVersionUID = -7616001911230736284L;
 
@@ -29,20 +29,18 @@ public class ConsultaReserva extends JDialog {
 	private JLabel labelCodigo;
 	private JLabel labelDescricao;
 	private JTextField fieldID;
-	private JTextField fieldDescricao;
+	private JTextField fieldCliente;
 	private JButton buttonResearch;
 	private JButton buttonSelect;
-	private JTable tableReservas;
+	private JTable tableLocacao;
 	private JSeparator separator;
 	private JScrollPane scrollPaneTable;
 	private DefaultTableModel modelTalble; 
 	
-	private TelaReserva telaReserva;
-	private TelaLocacao telaLocacao;
-	private ReservaController controller;
+	private LocacaoController controller;
 	
 	@SuppressWarnings("serial")
-	public ConsultaReserva(Object objectTela) {
+	public ConsultaLocacao(TelaLocacao telaLocacao) {
 		setResizable(false);
 		setTitle("Consulta Reservas");
 		setType(Type.POPUP);
@@ -52,7 +50,7 @@ public class ConsultaReserva extends JDialog {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
-		controller = new ReservaController();
+		controller = new LocacaoController();
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,14 +66,14 @@ public class ConsultaReserva extends JDialog {
 		contentPane.add(fieldID);
 		fieldID.setColumns(10);
 
-		labelDescricao = new JLabel("Descri\u00E7\u00E3o:");
-		labelDescricao.setBounds(105, 14, 61, 16);
+		labelDescricao = new JLabel("Cliente:");
+		labelDescricao.setBounds(105, 14, 42, 16);
 		contentPane.add(labelDescricao);
 
-		fieldDescricao = new JTextField();
-		fieldDescricao.setBounds(169, 12, 221, 20);
-		contentPane.add(fieldDescricao);
-		fieldDescricao.setColumns(10);
+		fieldCliente = new JTextField();
+		fieldCliente.setBounds(149, 12, 241, 20);
+		contentPane.add(fieldCliente);
+		fieldCliente.setColumns(10);
 
 		buttonResearch = new JButton("Pesquisar");
 		buttonResearch.addActionListener(new ActionListener() {
@@ -91,15 +89,7 @@ public class ConsultaReserva extends JDialog {
 		buttonSelect.setEnabled(false);
 		buttonSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				if (objectTela.getClass().equals(TelaReserva.class)) {
-					telaReserva = (TelaReserva) objectTela;
-					telaReserva.setFields((int) (tableReservas.getValueAt(tableReservas.getSelectedRow(), 0)));
-				}else {
-					telaLocacao = (TelaLocacao) objectTela;
-					telaLocacao.setReserva(controller.consultaId((int) (tableReservas.getValueAt(tableReservas.getSelectedRow(), 0))));
-				}
-
+				telaLocacao.setFields((int) (tableLocacao.getValueAt(tableLocacao.getSelectedRow(), 0)));	
 				dispose();
 			}
 		});
@@ -119,7 +109,7 @@ public class ConsultaReserva extends JDialog {
 		panelTable.add(scrollPaneTable);
 
 		modelTalble = new DefaultTableModel(null,   
-				new String [] {"Código", "Descrição", "Data", "Status"}){      
+				new String [] {"Código", "Cliente", "Data", "Data Devolução"}){      
 
 			boolean[] canEdit = new boolean []{false, false, false, false};        
 
@@ -129,34 +119,34 @@ public class ConsultaReserva extends JDialog {
 			}      
 		};    
 
-		tableReservas = new JTable(modelTalble);
-		tableReservas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		scrollPaneTable.setViewportView(tableReservas);
-		tableReservas.getColumnModel().getColumn(0).setPreferredWidth(70);
-		tableReservas.getColumnModel().getColumn(1).setPreferredWidth(499);
-		tableReservas.getColumnModel().getColumn(2).setPreferredWidth(70);
-		tableReservas.getColumnModel().getColumn(3).setPreferredWidth(70);
+		tableLocacao = new JTable(modelTalble);
+		tableLocacao.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPaneTable.setViewportView(tableLocacao);
+		tableLocacao.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tableLocacao.getColumnModel().getColumn(1).setPreferredWidth(499);
+		tableLocacao.getColumnModel().getColumn(2).setPreferredWidth(70);
+		tableLocacao.getColumnModel().getColumn(3).setPreferredWidth(70);
 
 	}
 
 	public void pesquisar() {
 
-		if (fieldDescricao.getText().isEmpty()&&fieldID.getText().isEmpty()) {
+		if (fieldCliente.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
-			List<Reserva> reservas = controller.listALL();
-			for (int i = 0; i < reservas.size(); i++) {
-				modelTalble.addRow(new Object[]{reservas.get(i).getID(), reservas.get(i).getDescricao(), reservas.get(i).getData(), reservas.get(i).getStatus()});
+			List<Locacao> locacoes = controller.listALL();
+			for (int i = 0; i < locacoes.size(); i++) {
+				modelTalble.addRow(new Object[]{locacoes.get(i).getID(), locacoes.get(i).getCliente().getNome(), locacoes.get(i).getDataHoraSaida(), locacoes.get(i).getDataPrevistaDevolucao()});
 			}
-		}else if (!fieldDescricao.getText().isEmpty()) {
+		}else if (!fieldCliente.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
-			List<Reserva> reservas = controller.consultaNome(fieldDescricao.getText());
-			for (int i = 0; i < reservas.size(); i++) {
-				modelTalble.addRow(new Object[]{reservas.get(i).getID(), reservas.get(i).getDescricao(), reservas.get(i).getData(), reservas.get(i).getStatus()});
+			List<Locacao> locacoes = controller.consultaByCliente(fieldCliente.getText());
+			for (int i = 0; i < locacoes.size(); i++) {
+				modelTalble.addRow(new Object[]{locacoes.get(i).getID(), locacoes.get(i).getCliente().getNome(), locacoes.get(i).getDataHoraSaida(), locacoes.get(i).getDataPrevistaDevolucao()});
 			}
 		}else {
 			modelTalble.setNumRows(0);
-			Reserva reserva = controller.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{reserva.getID(), reserva.getDescricao(), reserva.getData(), reserva.getStatus()});
+			Locacao locacao = controller.consultaId(Integer.parseInt(fieldID.getText()));
+			modelTalble.addRow(new Object[]{locacao.getID(), locacao.getCliente().getNome(), locacao.getDataHoraSaida(), locacao.getDataPrevistaDevolucao()});
 		}
 		
 		buttonSelect.setEnabled(true);

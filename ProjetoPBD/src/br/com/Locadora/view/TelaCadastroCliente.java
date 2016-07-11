@@ -500,7 +500,7 @@ public class TelaCadastroCliente extends JInternalFrame {
 
 		buttonLocalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ConsultaCliente(TelaCadastroCliente.this).setVisible(true);
+				new ConsultaCliente(TelaCadastroCliente.this, false).setVisible(true);
 			}
 		});
 	}

@@ -75,9 +75,13 @@ public class TelaInicial extends JFrame {
 	private TelaCadastroUsuario cadastroUsuario;
 	private TelaCadastroCategoria cadastroCategoria;
 	private TelaReserva telaReserva;
+	private TelaLocacao telaLocacao;
 	
 	private GerarRelatorio gerarRelatorio;
 	private JMenuItem mnitemCategorias;
+	private JMenuItem mnitemManutencaoDeLocacao;
+	private JMenuItem mnitemManutenoDePrecos;
+	private JMenuItem mnitemManutencaoDeReservas;
 	
 	public TelaInicial(Usuario usuarioLogado) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens/iconCar.png"));
@@ -256,8 +260,8 @@ public class TelaInicial extends JFrame {
 		menuReservas = new JMenu("Reservas");
 		menuBar.add(menuReservas);
 		
-		JMenuItem mntmManutenoDeReservas = new JMenuItem("Manuten\u00E7\u00E3o de Reservas");
-		mntmManutenoDeReservas.addActionListener(new ActionListener() {
+		mnitemManutencaoDeReservas = new JMenuItem("Manuten\u00E7\u00E3o de Reservas");
+		mnitemManutencaoDeReservas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(isCreate(telaReserva)||telaReserva.isClosed()){
 					telaReserva = null;
@@ -275,10 +279,34 @@ public class TelaInicial extends JFrame {
 				telaReserva.moveToFront();
 			}
 		});
-		menuReservas.add(mntmManutenoDeReservas);
+		menuReservas.add(mnitemManutencaoDeReservas);
 		
 		menuLocao = new JMenu("Loca\u00E7\u00E3o");
 		menuBar.add(menuLocao);
+		
+		mnitemManutencaoDeLocacao = new JMenuItem("Manuten\u00E7\u00E3o de Loca\u00E7\u00E3o");
+		mnitemManutencaoDeLocacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(isCreate(telaLocacao)||telaLocacao.isClosed()){
+					telaLocacao = null;
+					telaLocacao =  new TelaLocacao();
+					telaLocacao.setVisible(true);
+					desktopPane.add(telaLocacao);
+					try {
+						telaLocacao.setPosicao();
+						telaLocacao.setSelected(true);
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
+				
+				telaLocacao.moveToFront();
+			}
+		});
+		menuLocao.add(mnitemManutencaoDeLocacao);
+		
+		mnitemManutenoDePrecos = new JMenuItem("Manuten\u00E7\u00E3o de Pre\u00E7os");
+		menuLocao.add(mnitemManutenoDePrecos);
 // INICIO SUBMENU RELATÓRIOS		
 		menuRelatorios = new JMenu("Relat\u00F3rios");
 		menuBar.add(menuRelatorios);
