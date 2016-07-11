@@ -29,7 +29,11 @@ import br.com.Locadora.model.Reserva;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 import java.util.List;
+
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JCheckBox;
 
 
 public class TelaReserva extends JInternalFrame {
@@ -49,6 +53,7 @@ public class TelaReserva extends JInternalFrame {
 	private JLabel labelCategoria;
 	private JLabel labelCliente;
 	private JLabel labelDescricao;
+	private JLabel labelDataDeRetirada;
 	private JTextField fieldCodigo;
 	private JTextField fieldDescricao;
 	private JTextField fieldData;
@@ -64,8 +69,11 @@ public class TelaReserva extends JInternalFrame {
 	private JButton buttonLocalizar;
 	private JButton buttonNovo;
 	private JButton buttonLocalizarCliente;
-
+	private JDateChooser dateChooserDataRetirada;
+	
 	private boolean saveupdate;
+
+	private Date dataAtual;
 	
 	private EmpresaController empresaController;
 	private CategoriaController categoriaController;
@@ -75,13 +83,15 @@ public class TelaReserva extends JInternalFrame {
 	private List<Categoria> categorias;
 	private List<Empresa> empresas;
 	private Cliente cliente;	
+	private JCheckBox chckbxCancelarReserva;
+
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TelaReserva() {
-		setTitle("Reservas                                                                                                                                   ");
+		setTitle("Reservas                                                                                                                                                                            ");
 		setClosable(true);
 		setResizable(false);
-		setBounds(100, 100, 514, 342);
+		setBounds(100, 100, 635, 342);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,7 +102,7 @@ public class TelaReserva extends JInternalFrame {
 		reservaController = new ReservaController();
 		
 		panelTitulo = new JPanel();
-		panelTitulo.setBounds(0, 0, 507, 57);
+		panelTitulo.setBounds(0, 0, 625, 57);
 		panelTitulo.setBackground(SystemColor.inactiveCaption);
 		contentPane.add(panelTitulo);
 
@@ -102,7 +112,7 @@ public class TelaReserva extends JInternalFrame {
 		panelTitulo.add(labelTitulo);
 
 		panelCentro = new JPanel();
-		panelCentro.setBounds(12, 104, 480, 165);
+		panelCentro.setBounds(12, 104, 603, 165);
 		panelCentro.setBackground(new Color(204, 204, 204));
 		contentPane.add(panelCentro);
 		panelCentro.setLayout(null);
@@ -118,7 +128,7 @@ public class TelaReserva extends JInternalFrame {
 		labelStatus.setFont(new Font("SansSerif", Font.BOLD, 12));
 
 		labelEmpresa = new JLabel("Empresa:");
-		labelEmpresa.setBounds(250, 92, 54, 16);
+		labelEmpresa.setBounds(388, 92, 54, 16);
 		panelCentro.add(labelEmpresa);
 		labelEmpresa.setFont(new Font("SansSerif", Font.BOLD, 12));
 
@@ -128,7 +138,7 @@ public class TelaReserva extends JInternalFrame {
 			comboBoxEmpresa.addItem(empresas.get(i).getId()+" - "+empresas.get(i).getNome());
 		}
 		comboBoxEmpresa.setEnabled(false);
-		comboBoxEmpresa.setBounds(308, 90, 147, 20);
+		comboBoxEmpresa.setBounds(444, 90, 147, 20);
 		panelCentro.add(comboBoxEmpresa);
 
 		labelCategoria = new JLabel("Categoria:");
@@ -197,10 +207,25 @@ public class TelaReserva extends JInternalFrame {
 			comboBoxCategoria.addItem(categorias.get(i).getDescricao());
 		}
 		panelCentro.add(comboBoxCategoria);
+		
+		labelDataDeRetirada = new JLabel("Data de Retirada:");
+		labelDataDeRetirada.setBounds(400, 68, 97, 16);
+		panelCentro.add(labelDataDeRetirada);
+		
+		dateChooserDataRetirada = new JDateChooser();
+		dataAtual = dateChooserDataRetirada.getDate();
+		dateChooserDataRetirada.setEnabled(false);
+		dateChooserDataRetirada.setBounds(499, 66, 92, 20);
+		panelCentro.add(dateChooserDataRetirada);
+		
+		chckbxCancelarReserva = new JCheckBox("Cancelar Reserva");
+		chckbxCancelarReserva.setEnabled(false);
+		chckbxCancelarReserva.setBounds(465, 11, 126, 24);
+		panelCentro.add(chckbxCancelarReserva);
 
 		panelRodape = new JPanel();
 		panelRodape.setBackground(SystemColor.inactiveCaption);
-		panelRodape.setBounds(0, 292, 507, 17);
+		panelRodape.setBounds(0, 292, 625, 17);
 		contentPane.add(panelRodape);
 
 		buttonNovo = new JButton();
@@ -209,7 +234,7 @@ public class TelaReserva extends JInternalFrame {
 		buttonNovo.setForeground(Color.BLACK);
 		buttonNovo.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonNovo.setBackground(SystemColor.inactiveCaption);
-		buttonNovo.setBounds(101, 69, 50, 26);
+		buttonNovo.setBounds(161, 69, 50, 26);
 		contentPane.add(buttonNovo);
 		
 		buttonSalvar = new JButton();
@@ -219,7 +244,7 @@ public class TelaReserva extends JInternalFrame {
 		buttonSalvar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonSalvar.setEnabled(false);
 		buttonSalvar.setBackground(SystemColor.inactiveCaption);
-		buttonSalvar.setBounds(163, 69, 50, 26);
+		buttonSalvar.setBounds(223, 69, 50, 26);
 		contentPane.add(buttonSalvar);
 		
 		buttonExcluir = new JButton();
@@ -229,7 +254,7 @@ public class TelaReserva extends JInternalFrame {
 		buttonExcluir.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonExcluir.setEnabled(false);
 		buttonExcluir.setBackground(SystemColor.inactiveCaption);
-		buttonExcluir.setBounds(225, 69, 50, 26);
+		buttonExcluir.setBounds(285, 69, 50, 26);
 		contentPane.add(buttonExcluir);
 		
 		buttonCancelar = new JButton();
@@ -238,7 +263,7 @@ public class TelaReserva extends JInternalFrame {
 		buttonCancelar.setForeground(Color.BLACK);
 		buttonCancelar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonCancelar.setBackground(SystemColor.inactiveCaption);
-		buttonCancelar.setBounds(287, 69, 50, 26);
+		buttonCancelar.setBounds(347, 69, 50, 26);
 		contentPane.add(buttonCancelar);
 		
 		buttonLocalizar = new JButton();
@@ -247,7 +272,7 @@ public class TelaReserva extends JInternalFrame {
 		buttonLocalizar.setForeground(Color.BLACK);
 		buttonLocalizar.setFont(new Font("SansSerif", Font.BOLD, 13));
 		buttonLocalizar.setBackground(SystemColor.inactiveCaption);
-		buttonLocalizar.setBounds(349, 69, 50, 26);
+		buttonLocalizar.setBounds(409, 69, 50, 26);
 		contentPane.add(buttonLocalizar);
 		
 		buttonNovo.addActionListener(new ActionListener() {
@@ -272,6 +297,7 @@ public class TelaReserva extends JInternalFrame {
 						reserva.setCategoria(categorias.get(comboBoxCategoria.getSelectedIndex()));
 						reserva.setEmpresa(empresas.get(comboBoxEmpresa.getSelectedIndex()));
 						reserva.setDescricao(fieldDescricao.getText());
+						reserva.setDataRetirada(dateChooserDataRetirada.getDate());
 						if(reservaController.insert(reserva))
 							JOptionPane.showMessageDialog(null, "Reserva Realizada com Sucesso", "Mensagem Reserva", JOptionPane.INFORMATION_MESSAGE);
 						else
@@ -282,6 +308,8 @@ public class TelaReserva extends JInternalFrame {
 						reservaUpdate.setCategoria(categorias.get(comboBoxCategoria.getSelectedIndex()));
 						reservaUpdate.setEmpresa(empresas.get(comboBoxEmpresa.getSelectedIndex()));
 						reservaUpdate.setDescricao(fieldDescricao.getText());
+						reservaUpdate.setDataRetirada(dateChooserDataRetirada.getDate());
+						reservaUpdate.setCancelada(chckbxCancelarReserva.isSelected());
 						if(reservaController.commit()){
 							JOptionPane.showMessageDialog(null, "Reserva Alterada com Sucesso", "Mensagem Reserva", JOptionPane.INFORMATION_MESSAGE);
 							reservaUpdate = null;
@@ -363,6 +391,8 @@ public class TelaReserva extends JInternalFrame {
 		fieldCliente.setText(null);
 		comboBoxEmpresa.setSelectedIndex(0);
 		comboBoxCategoria.setSelectedIndex(0);
+		dateChooserDataRetirada.setDate(dataAtual);
+		chckbxCancelarReserva.setSelected(false);
 	}
 	
 	public void enableFields(){
@@ -370,6 +400,8 @@ public class TelaReserva extends JInternalFrame {
 		comboBoxEmpresa.setEnabled(true);
 		comboBoxCategoria.setEnabled(true);
 		buttonLocalizarCliente.setEnabled(true);
+		dateChooserDataRetirada.setEnabled(true);
+		chckbxCancelarReserva.setEnabled(true);
 	}
 	
 	public void disableFields(){
@@ -377,6 +409,8 @@ public class TelaReserva extends JInternalFrame {
 		comboBoxEmpresa.setEnabled(false);
 		comboBoxCategoria.setEnabled(false);
 		buttonLocalizarCliente.setEnabled(false);
+		dateChooserDataRetirada.setEnabled(false);
+		chckbxCancelarReserva.setEnabled(false);
 	}
 	
 	public void setFields(int id){
@@ -386,13 +420,16 @@ public class TelaReserva extends JInternalFrame {
 		fieldData.setText(String.valueOf(reservaUpdate.getData()));
 		fieldStatus.setText(reservaUpdate.getStatus());
 		fieldCliente.setText(reservaUpdate.getCliente().getNome());
+		cliente = reservaUpdate.getCliente();
 		comboBoxEmpresa.setSelectedItem(reservaUpdate.getEmpresa().getId()+" - "+reservaUpdate.getEmpresa().getNome());
 		comboBoxCategoria.setSelectedItem(reservaUpdate.getCategoria().getDescricao());
+		dateChooserDataRetirada.setDate(reservaUpdate.getDataRetirada());
 		buttonExcluir.setEnabled(true);
 		buttonSalvar.setEnabled(true);
 		buttonNovo.setEnabled(false);
 		saveupdate = false;
 		enableFields();
+		chckbxCancelarReserva.setEnabled(true);
 	}
 	
 	public void setCliente(Cliente cliente){

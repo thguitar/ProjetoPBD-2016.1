@@ -33,6 +33,9 @@ public class Reserva {
 	@Temporal(value=TemporalType.DATE)
 	@Column(name = "DATA_MOVIMENTO")
 	private Date data;
+	@Temporal(value=TemporalType.DATE)
+	@Column(name = "DATA_RETIRADA")
+	private Date data_retirada;
 	@Column(name = "CANCELADA")
 	private boolean cancelada;
 	
@@ -50,7 +53,7 @@ public class Reserva {
 	}
 
 	public Reserva(int iD, String descricao, String status, Cliente cliente,
-			Categoria categoria, Empresa empresa, Date data) {
+			Categoria categoria, Empresa empresa, Date data, Date data_retirada) {
 		ID = iD;
 		this.descricao = descricao;
 		this.status = status;
@@ -58,6 +61,7 @@ public class Reserva {
 		this.categoria = categoria;
 		this.empresa = empresa;
 		this.data  = data;
+		this.data_retirada = data_retirada;
 	}
 
 	public int getID() {
@@ -114,6 +118,14 @@ public class Reserva {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	public Date getDataRetirada() {
+		return data_retirada;
+	}
+
+	public void setDataRetirada(Date data_retirada) {
+		this.data_retirada = data_retirada;
 	}
 
 	public boolean isCancelada() {

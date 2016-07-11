@@ -109,7 +109,7 @@ public class ReservaController {
 	@SuppressWarnings("unchecked")
 	public List<Reserva> consultaNome(String Descricao){
 		manager.getTransaction().begin();
-		Query query = manager.createQuery("select r from Reserva r where r.descricao like :param");
+		Query query = manager.createQuery("select r from Reserva r where cancelada = 0 and r.descricao like :param");
 		query.setParameter("param", "%"+Descricao+"%");
 		List<Reserva> reservas = query.getResultList(); 
 		manager.getTransaction().commit();
@@ -119,7 +119,7 @@ public class ReservaController {
 	@SuppressWarnings("unchecked")
 	public List<Reserva> listALL(){
 		manager.getTransaction().begin();
-		Query query = manager.createQuery("select r from Reserva r");
+		Query query = manager.createQuery("select r from Reserva r where cancelada = 0");
 		List<Reserva> reservas = query.getResultList(); 
 		manager.getTransaction().commit();
 		return reservas;

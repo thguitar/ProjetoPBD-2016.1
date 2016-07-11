@@ -42,7 +42,7 @@ public class ConsultaReserva extends JDialog {
 	@SuppressWarnings("serial")
 	public ConsultaReserva(TelaReserva telaReserva) {
 		setResizable(false);
-		setTitle("Consulta Empresas");
+		setTitle("Consulta Reservas");
 		setType(Type.POPUP);
 		setModal(true);
 		setAlwaysOnTop(true);
