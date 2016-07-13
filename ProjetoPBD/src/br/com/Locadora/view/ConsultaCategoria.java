@@ -134,37 +134,41 @@ public class ConsultaCategoria extends JDialog {
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Categoria> categorias = categoriaController.ListALL();
-			if(categorias != null)
+			if(!categorias.isEmpty()){
 				for (int i = 0; i < categorias.size(); i++) {
 					modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
 				}
+				buttonSelect.setEnabled(true);
+			}
 			else
-				JOptionPane.showMessageDialog(this, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Nenhuma Categoria Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
 			categorias = null;
 			
 		}else if (!fieldNome.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Categoria> categorias = categoriaController.consultaDescricao(fieldNome.getText());
-			if(categorias != null)
+			if(!categorias.isEmpty()){
 				for (int i = 0; i < categorias.size(); i++) {
 					modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
 				}
+				buttonSelect.setEnabled(true);
+			}
 			else
-				JOptionPane.showMessageDialog(this, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Nenhuma Categoria Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
 			
 			categorias = null;
 		}else {
 			modelTalble.setNumRows(0);
 			Categoria categoria = categoriaController.consultaId(Integer.parseInt(fieldID.getText()));
-			if(categoria != null)
+			if(categoria != null){
 				modelTalble.addRow(new Object[]{categoria.getID(), categoria.getDescricao()});
+				buttonSelect.setEnabled(true);
+			}
 			else 
-				JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Nenhuma Categoria Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
 			
 			categoria = null;
 		}
 
-		buttonSelect.setEnabled(true);
-		
 	}
 }
