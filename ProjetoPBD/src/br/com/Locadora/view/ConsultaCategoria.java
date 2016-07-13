@@ -4,6 +4,7 @@ package br.com.Locadora.view;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -133,22 +134,34 @@ public class ConsultaCategoria extends JDialog {
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Categoria> categorias = categoriaController.ListALL();
-			for (int i = 0; i < categorias.size(); i++) {
-				modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
-			}
-						
+			if(categorias != null)
+				for (int i = 0; i < categorias.size(); i++) {
+					modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
+				}
+			else
+				JOptionPane.showMessageDialog(this, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			categorias = null;
 			
 		}else if (!fieldNome.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Categoria> categorias = categoriaController.consultaDescricao(fieldNome.getText());
-			for (int i = 0; i < categorias.size(); i++) {
-				modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
-			}
+			if(categorias != null)
+				for (int i = 0; i < categorias.size(); i++) {
+					modelTalble.addRow(new Object[]{categorias.get(i).getID(),categorias.get(i).getDescricao()});
+				}
+			else
+				JOptionPane.showMessageDialog(this, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+			
+			categorias = null;
 		}else {
 			modelTalble.setNumRows(0);
 			Categoria categoria = categoriaController.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{categoria.getID(), categoria.getDescricao()});
+			if(categoria != null)
+				modelTalble.addRow(new Object[]{categoria.getID(), categoria.getDescricao()});
+			else 
+				JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+			
+			categoria = null;
 		}
 
 		buttonSelect.setEnabled(true);

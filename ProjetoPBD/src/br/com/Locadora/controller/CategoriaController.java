@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 import br.com.Locadora.model.Categoria;
 
@@ -28,7 +27,6 @@ public class CategoriaController {
 			return categoria;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			manager.getTransaction().rollback();
 			return null;
 		} finally{
@@ -70,7 +68,7 @@ public class CategoriaController {
 		}
 	}
 	
-	public void delete(int id){
+	public boolean delete(int id){
 		
 		try {
 			manager = factory.createEntityManager();
@@ -78,11 +76,11 @@ public class CategoriaController {
 			Categoria categoria = manager.find(Categoria.class, id);
 			manager.remove(categoria);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Categoria Excluída com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Deletar Categoria", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}
@@ -103,7 +101,6 @@ public class CategoriaController {
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 		
@@ -122,7 +119,6 @@ public class CategoriaController {
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Categoria", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 		

@@ -191,19 +191,34 @@ public class TelaCadastroCategoria extends JInternalFrame {
 					categoria.setDescricao(fieldDescricao.getText());
 					categoria.setValorAluguel(Double.parseDouble(formattedTextFieldPreco.getText().replace(',', '.')));
 					if(saveupdate){ 
-						categoriaController.insert(categoria);
+						if(categoriaController.insert(categoria)){
+							JOptionPane.showMessageDialog(null, "Categoria Cadastrada com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
+							categoria = null;
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Categoria", "Mensagem Cadastro", JOptionPane.ERROR_MESSAGE);
 					} else{ 
 						categoria.setID(Integer.parseInt(fieldCodigo.getText()));
-						categoriaController.update(categoria);
+						if(categoriaController.update(categoria)){
+							JOptionPane.showMessageDialog(null, "Categoria Alterada com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
+							categoria = null;
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Erro ao Alterar Categoria", "Mensagem Cadastro", JOptionPane.ERROR_MESSAGE);
 					}
 					
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
-					buttonLocalizar.setEnabled(true);
-					categoria = null;
 				}
 			}	
 		});
@@ -211,12 +226,17 @@ public class TelaCadastroCategoria extends JInternalFrame {
 		buttonExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Categoria", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
-					categoriaController.delete(Integer.parseInt(fieldCodigo.getText()));
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
+					if(categoriaController.delete(Integer.parseInt(fieldCodigo.getText()))){
+						JOptionPane.showMessageDialog(null, "Categoria Excluída com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+						cleanFields();
+						disableFields();
+						buttonNovo.setEnabled(true);
+						buttonExcluir.setEnabled(false);
+						buttonSalvar.setEnabled(false);
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Erro ao Deletar Categoria", "Erro Remoção", JOptionPane.ERROR_MESSAGE);;
+						
 				}
 
 			}
