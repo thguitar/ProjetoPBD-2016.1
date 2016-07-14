@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 import br.com.Locadora.model.Cliente;
 import br.com.Locadora.model.PessoaFisica;
@@ -21,76 +20,76 @@ public class ClienteController {
 		manager = factory.createEntityManager();
 	}
 	
-	public void insert(Cliente cliente){
+	public boolean insert(Cliente cliente){
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(cliente);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally{
 			manager.close();
 		}
 		
 	}
 	
-	public void updatePF(PessoaFisica pf){
+	public boolean updatePF(PessoaFisica pf){
 
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			manager.merge(pf);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}
 	}
 	
-	public void updatePJ(PessoaJuridica pj){
+	public boolean updatePJ(PessoaJuridica pj){
 
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			manager.merge(pj);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Atualização", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}
 	}
 
-	public void deletePF(int id){
+	public boolean deletePF(int id){
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			PessoaFisica fisica = manager.find(PessoaFisica.class, id);
 			manager.remove(fisica);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Deletar Cliente", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}
 
 	}
 	
-	public void deletePJ(int id){
+	public boolean deletePJ(int id){
 
 		try {
 			manager = factory.createEntityManager();
@@ -98,11 +97,11 @@ public class ClienteController {
 			PessoaJuridica juridica = manager.find(PessoaJuridica.class, id);
 			manager.remove(juridica);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Deletar Cliente", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}

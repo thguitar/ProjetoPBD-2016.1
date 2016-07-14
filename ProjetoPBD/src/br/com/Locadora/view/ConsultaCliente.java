@@ -167,30 +167,44 @@ public class ConsultaCliente extends JDialog {
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<PessoaFisica> clientes = clienteController.consultaClientesPF();
-			for (int i = 0; i < clientes.size(); i++) {
-				modelTalble.addRow(new Object[]{clientes.get(i).getId(),clientes.get(i).getNome(), "FÍSICA", clientes.get(i).getCpf(), "ISENTO", clientes.get(i).getSexo()=='M'? "MASCULINO" : "FEMININO"});
-			}
 			List<PessoaJuridica> clientesPJ = clienteController.consultaClientesPJ();
-			for (int i = 0; i < clientesPJ.size(); i++) {
-				modelTalble.addRow(new Object[]{clientesPJ.get(i).getId(),clientesPJ.get(i).getNome(), "JURÍDICA", clientesPJ.get(i).getCnpj(), clientesPJ.get(i).getInscricaoEstadual()});
-			}
+			if(!clientes.isEmpty()&&!clientesPJ.isEmpty()){
+				for (int i = 0; i < clientes.size(); i++) {
+					modelTalble.addRow(new Object[]{clientes.get(i).getId(),clientes.get(i).getNome(), "FÍSICA", clientes.get(i).getCpf(), "ISENTO", clientes.get(i).getSexo()=='M'? "MASCULINO" : "FEMININO"});
+				}
 			
+				for (int i = 0; i < clientesPJ.size(); i++) {
+					modelTalble.addRow(new Object[]{clientesPJ.get(i).getId(),clientesPJ.get(i).getNome(), "JURÍDICA", clientesPJ.get(i).getCnpj(), clientesPJ.get(i).getInscricaoEstadual()});
+				}
+				
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(this, "Nenhum Cliente Encontrado","Aviso Busca",JOptionPane.WARNING_MESSAGE);
+
 			clientes = null;
 			clientesPJ = null;
 			
 		}else if (!fieldNome.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Cliente> clientes = clienteController.consultaNome(fieldNome.getText());
-			for (int i = 0; i < clientes.size(); i++) {
-				modelTalble.addRow(new Object[]{clientes.get(i).getId(),clientes.get(i).getNome()});
+			if(!clientes.isEmpty()){
+				for (int i = 0; i < clientes.size(); i++) {
+					modelTalble.addRow(new Object[]{clientes.get(i).getId(),clientes.get(i).getNome()});
+				}
+				buttonSelect.setEnabled(true);
 			}
+			else
+				JOptionPane.showMessageDialog(this, "Nenhum Cliente Encontrado","Aviso Busca",JOptionPane.WARNING_MESSAGE);
 		}else {
 			modelTalble.setNumRows(0);
 			Cliente cliente = clienteController.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{cliente.getId(),cliente.getNome()});
+			if(cliente != null){
+				modelTalble.addRow(new Object[]{cliente.getId(),cliente.getNome()});
+				buttonSelect.setEnabled(true);
+			}
+			else
+				JOptionPane.showMessageDialog(this, "Nenhum Cliente Encontrado","Aviso Busca",JOptionPane.WARNING_MESSAGE);
 		}
 
-		buttonSelect.setEnabled(true);
-		
 	}
 }
