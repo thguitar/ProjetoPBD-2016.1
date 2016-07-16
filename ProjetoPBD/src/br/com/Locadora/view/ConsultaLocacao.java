@@ -4,6 +4,7 @@ package br.com.Locadora.view;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -134,22 +135,44 @@ public class ConsultaLocacao extends JDialog {
 		if (fieldCliente.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Locacao> locacoes = controller.listALL();
-			for (int i = 0; i < locacoes.size(); i++) {
-				modelTalble.addRow(new Object[]{locacoes.get(i).getID(), locacoes.get(i).getCliente().getNome(), locacoes.get(i).getDataHoraSaida(), locacoes.get(i).getDataPrevistaDevolucao()});
+			if (!locacoes.isEmpty()) {
+				for (int i = 0; i < locacoes.size(); i++) {
+					modelTalble.addRow(new Object[]{locacoes.get(i).getID(), locacoes.get(i).getCliente().getNome(), locacoes.get(i).getDataHoraSaida(), locacoes.get(i).getDataPrevistaDevolucao()});
+				}
+				
+				buttonSelect.setEnabled(true);
 			}
+			else
+				JOptionPane.showMessageDialog(this, "Nenhuma Locação Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			locacoes = null;
+			
 		}else if (!fieldCliente.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Locacao> locacoes = controller.consultaByCliente(fieldCliente.getText());
-			for (int i = 0; i < locacoes.size(); i++) {
-				modelTalble.addRow(new Object[]{locacoes.get(i).getID(), locacoes.get(i).getCliente().getNome(), locacoes.get(i).getDataHoraSaida(), locacoes.get(i).getDataPrevistaDevolucao()});
+			if (!locacoes.isEmpty()) {
+				for (int i = 0; i < locacoes.size(); i++) {
+					modelTalble.addRow(new Object[]{locacoes.get(i).getID(), locacoes.get(i).getCliente().getNome(), locacoes.get(i).getDataHoraSaida(), locacoes.get(i).getDataPrevistaDevolucao()});
+				}
+				
+				buttonSelect.setEnabled(true);
 			}
+			else
+				JOptionPane.showMessageDialog(this, "Nenhuma Locação Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			locacoes = null;
 		}else {
 			modelTalble.setNumRows(0);
 			Locacao locacao = controller.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{locacao.getID(), locacao.getCliente().getNome(), locacao.getDataHoraSaida(), locacao.getDataPrevistaDevolucao()});
+			if (locacao != null) {
+				modelTalble.addRow(new Object[]{locacao.getID(), locacao.getCliente().getNome(), locacao.getDataHoraSaida(), locacao.getDataPrevistaDevolucao()});
+				buttonSelect.setEnabled(true);
+			}
+			else
+				JOptionPane.showMessageDialog(this, "Nenhuma Locação Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			locacao = null;
 		}
 		
-		buttonSelect.setEnabled(true);
-
 	}
 }

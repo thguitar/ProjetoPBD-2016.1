@@ -404,8 +404,17 @@ public class TelaLocacao extends JInternalFrame {
 						locacao.setEmpresaDestino(empresas.get(comboBoxEmpresaDevolucao.getSelectedIndex()));
 						if(reservaImportada != null)
 							locacao.setIdReservaImportada(reservaImportada.getID());
-						if(locacaoController.insert(locacao))
+						if(locacaoController.insert(locacao)){
 							JOptionPane.showMessageDialog(null, "Locação Realizada com Sucesso", "Mensagem Locação", JOptionPane.INFORMATION_MESSAGE);
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonImportReserva.setEnabled(false);
+							buttonAtualizaPreco.setEnabled(false);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
+						}
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Realizar Locação", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
 					} else{ 
@@ -419,20 +428,19 @@ public class TelaLocacao extends JInternalFrame {
 						if(locacaoController.commit()){
 							JOptionPane.showMessageDialog(null, "Locação Alterada com Sucesso", "Mensagem Locação", JOptionPane.INFORMATION_MESSAGE);
 							locacaoUpdate = null;
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonImportReserva.setEnabled(false);
+							buttonAtualizaPreco.setEnabled(false);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
 						}
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Alterar Locação", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
 						
 					}
-					
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonImportReserva.setEnabled(false);
-					buttonAtualizaPreco.setEnabled(false);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
-					buttonLocalizar.setEnabled(true);
 				}
 			}	
 		});
@@ -440,18 +448,18 @@ public class TelaLocacao extends JInternalFrame {
 		buttonExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Locação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
-					if(locacaoController.delete(Integer.parseInt(fieldCodigo.getText())))
+					if(locacaoController.delete(Integer.parseInt(fieldCodigo.getText()))){
 						JOptionPane.showMessageDialog(null, "Locação Excluída com Sucesso", "Mensagem Locação", JOptionPane.INFORMATION_MESSAGE);
+						cleanFields();
+						disableFields();
+						buttonNovo.setEnabled(true);
+						buttonAtualizaPreco.setEnabled(false);
+						buttonExcluir.setEnabled(false);
+						buttonSalvar.setEnabled(false);
+					}
 					else
 						JOptionPane.showMessageDialog(null, "Erro ao Deletar Locação", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
-					
-					
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonAtualizaPreco.setEnabled(false);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
+
 				}
 
 			}

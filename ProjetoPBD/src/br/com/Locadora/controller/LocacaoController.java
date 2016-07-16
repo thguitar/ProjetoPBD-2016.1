@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 import br.com.Locadora.model.Locacao;
 import br.com.Locadora.model.TiposLocacao;
@@ -29,7 +28,6 @@ public class LocacaoController {
 			return locacao;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Locação", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			manager.getTransaction().rollback();
 			return null;
 		} finally{
@@ -46,7 +44,6 @@ public class LocacaoController {
 			return locacao;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Locação", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			manager.getTransaction().rollback();
 			return null;
 		} finally{
@@ -71,18 +68,18 @@ public class LocacaoController {
 		}
 	}
 
-	public void update(Locacao locacao){
+	public boolean update(Locacao locacao){
 
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			manager.merge(locacao);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Reserva Alterada com Sucesso", "Mensagem Reserva", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Alterar Reserva", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}
