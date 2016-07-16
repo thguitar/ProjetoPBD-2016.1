@@ -7,7 +7,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
-import javax.swing.JOptionPane;
 
 
 import br.com.Locadora.model.Empresa;
@@ -33,7 +32,6 @@ public class UsuarioController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Consultar Usuário", null, JOptionPane.ERROR_MESSAGE);
 			return null;
 		} finally{
 			manager.close();
@@ -149,7 +147,6 @@ public class UsuarioController {
 			return usuarios;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Consultar Usuários", null, JOptionPane.ERROR_MESSAGE);
 			return null;
 		} finally {
 			manager.close();
@@ -169,7 +166,6 @@ public class UsuarioController {
 			return usuarios;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Consultar Usuários", null, JOptionPane.ERROR_MESSAGE);
 			return null;
 		} finally {
 			manager.close();
@@ -188,7 +184,6 @@ public class UsuarioController {
 			return usuarios;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Consultar Usuários", null, JOptionPane.ERROR_MESSAGE);
 			return null;
 		} finally {
 			manager.close();

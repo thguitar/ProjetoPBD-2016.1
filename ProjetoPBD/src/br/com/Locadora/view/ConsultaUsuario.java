@@ -4,6 +4,7 @@ package br.com.Locadora.view;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -132,22 +133,38 @@ public class ConsultaUsuario extends JDialog {
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Usuario> usuarios = controller.listarTodos();
-			for (int i = 0; i < usuarios.size(); i++) {
-				modelTalble.addRow(new Object[]{usuarios.get(i).getId(), usuarios.get(i).getLogin(),usuarios.get(i).getNome()});
-			}
+			if (!usuarios.isEmpty()) {
+				for (int i = 0; i < usuarios.size(); i++) {
+					modelTalble.addRow(new Object[]{usuarios.get(i).getId(), usuarios.get(i).getLogin(),usuarios.get(i).getNome()});
+				}
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(null, "Nenhum Usuário Encontrado", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			usuarios = null;	
+			
 		}else if (!fieldNome.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Usuario> usuarios = controller.consultaNome(fieldNome.getText());
-			for (int i = 0; i < usuarios.size(); i++) {
-				modelTalble.addRow(new Object[]{usuarios.get(i).getId(), usuarios.get(i).getLogin(),usuarios.get(i).getNome()});
-			}
+			if (!usuarios.isEmpty()) {
+				for (int i = 0; i < usuarios.size(); i++) {
+					modelTalble.addRow(new Object[]{usuarios.get(i).getId(), usuarios.get(i).getLogin(),usuarios.get(i).getNome()});
+				}
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(null, "Nenhum Usuário Encontrado", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			usuarios = null;
 		}else {
 			modelTalble.setNumRows(0);
 			Usuario usuario = controller.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{usuario.getId(),usuario.getNome()});
+			if (usuario != null) {
+				modelTalble.addRow(new Object[]{usuario.getId(),usuario.getNome()});
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(null, "Nenhum Usuário Encontrado", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			usuario = null;
 		}
-		
-		buttonSelect.setEnabled(true);
-		
 	}
 }
