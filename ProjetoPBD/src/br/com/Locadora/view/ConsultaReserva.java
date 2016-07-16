@@ -4,6 +4,7 @@ package br.com.Locadora.view;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -144,22 +145,37 @@ public class ConsultaReserva extends JDialog {
 		if (fieldDescricao.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Reserva> reservas = controller.listALL();
-			for (int i = 0; i < reservas.size(); i++) {
-				modelTalble.addRow(new Object[]{reservas.get(i).getID(), reservas.get(i).getDescricao(), reservas.get(i).getData(), reservas.get(i).getStatus()});
-			}
+			if (!reservas.isEmpty()) {
+				for (int i = 0; i < reservas.size(); i++) {
+					modelTalble.addRow(new Object[]{reservas.get(i).getID(), reservas.get(i).getDescricao(), reservas.get(i).getData(), reservas.get(i).getStatus()});
+				}
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(this, "Nenhuma Reserva Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			reservas = null;
 		}else if (!fieldDescricao.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Reserva> reservas = controller.consultaNome(fieldDescricao.getText());
-			for (int i = 0; i < reservas.size(); i++) {
-				modelTalble.addRow(new Object[]{reservas.get(i).getID(), reservas.get(i).getDescricao(), reservas.get(i).getData(), reservas.get(i).getStatus()});
-			}
+			if (!reservas.isEmpty()) {
+				for (int i = 0; i < reservas.size(); i++) {
+					modelTalble.addRow(new Object[]{reservas.get(i).getID(), reservas.get(i).getDescricao(), reservas.get(i).getData(), reservas.get(i).getStatus()});
+				}
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(this, "Nenhuma Reserva Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			reservas = null;
 		}else {
 			modelTalble.setNumRows(0);
 			Reserva reserva = controller.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{reserva.getID(), reserva.getDescricao(), reserva.getData(), reserva.getStatus()});
+			if(reserva !=null){
+				modelTalble.addRow(new Object[]{reserva.getID(), reserva.getDescricao(), reserva.getData(), reserva.getStatus()});
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(this, "Nenhuma Reserva Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			reserva = null;
 		}
-		
-		buttonSelect.setEnabled(true);
-
 	}
 }

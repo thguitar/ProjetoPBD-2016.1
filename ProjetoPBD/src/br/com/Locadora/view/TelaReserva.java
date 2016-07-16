@@ -298,8 +298,15 @@ public class TelaReserva extends JInternalFrame {
 						reserva.setEmpresa(empresas.get(comboBoxEmpresa.getSelectedIndex()));
 						reserva.setDescricao(fieldDescricao.getText());
 						reserva.setDataRetirada(dateChooserDataRetirada.getDate());
-						if(reservaController.insert(reserva))
+						if(reservaController.insert(reserva)){
 							JOptionPane.showMessageDialog(null, "Reserva Realizada com Sucesso", "Mensagem Reserva", JOptionPane.INFORMATION_MESSAGE);
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
+						}
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Realizar Reserva", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
 					} else{ 
@@ -313,18 +320,17 @@ public class TelaReserva extends JInternalFrame {
 						if(reservaController.commit()){
 							JOptionPane.showMessageDialog(null, "Reserva Alterada com Sucesso", "Mensagem Reserva", JOptionPane.INFORMATION_MESSAGE);
 							reservaUpdate = null;
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
 						}
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Alterar Reserva", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
 						
 					}
-					
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
-					buttonLocalizar.setEnabled(true);
 				}
 			}	
 		});
@@ -332,19 +338,18 @@ public class TelaReserva extends JInternalFrame {
 		buttonExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Reserva", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
-					if(reservaController.delete(Integer.parseInt(fieldCodigo.getText())))
+					if(reservaController.delete(Integer.parseInt(fieldCodigo.getText()))){
 						JOptionPane.showMessageDialog(null, "Reserva Excluída com Sucesso", "Mensagem Reserva", JOptionPane.INFORMATION_MESSAGE);
+						cleanFields();
+						disableFields();
+						buttonNovo.setEnabled(true);
+						buttonExcluir.setEnabled(false);
+						buttonSalvar.setEnabled(false);
+					}
 					else
 						JOptionPane.showMessageDialog(null, "Erro ao Deletar Reserva", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
 					
-					
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
 				}
-
 			}
 		});
 
