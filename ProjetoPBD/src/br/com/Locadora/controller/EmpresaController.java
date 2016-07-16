@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 import br.com.Locadora.model.Empresa;
 
@@ -28,7 +27,6 @@ public class EmpresaController {
 			return emp;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Empresa", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			manager.getTransaction().rollback();
 			return null;
 		} finally{
@@ -36,41 +34,41 @@ public class EmpresaController {
 		}
 	}
 	
-	public void insert(Empresa emp){
+	public boolean insert(Empresa emp){
 		
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(emp);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Empresa Cadastrada com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Empresa", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally{
 			manager.close();
 		}
 	}
 	
-	public void update(Empresa emp){
+	public boolean update(Empresa emp){
 
 		try {
 			manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			manager.merge(emp);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Empresa Alterada com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			manager.getTransaction().rollback();
-			JOptionPane.showMessageDialog(null, "Erro ao Alterar Empresa", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}
 	}
 	
-	public void delete(int id){
+	public boolean delete(int id){
 		
 		try {
 			manager = factory.createEntityManager();
@@ -78,11 +76,11 @@ public class EmpresaController {
 			Empresa empresa = manager.find(Empresa.class, id);
 			manager.remove(empresa);
 			manager.getTransaction().commit();
-			JOptionPane.showMessageDialog(null, "Empresa Excluída com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			return true;
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Deletar Empresa", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
+			return false;
 		} finally {
 			manager.close();
 		}

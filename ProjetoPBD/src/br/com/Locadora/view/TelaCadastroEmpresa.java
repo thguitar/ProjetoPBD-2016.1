@@ -251,18 +251,29 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 					emp.setEndEstado((String) comboBoxEstado.getSelectedItem());
 					
 					if(saveupdate){ 
-						empresaController.insert(emp);
+						if(empresaController.insert(emp)){
+							JOptionPane.showMessageDialog(null, "Empresa Cadastrada com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
+						}else
+							JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Empresa", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
 					} else{ 
 						emp.setId(Integer.parseInt(fieldCodigo.getText()));
-						empresaController.update(emp);
+						if(empresaController.update(emp)){
+							JOptionPane.showMessageDialog(null, "Empresa Alterada com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							cleanFields();
+							disableFields();
+							buttonNovo.setEnabled(true);
+							buttonExcluir.setEnabled(false);
+							buttonSalvar.setEnabled(false);
+							buttonLocalizar.setEnabled(true);
+						}else
+							JOptionPane.showMessageDialog(null, "Erro ao Alterar Empresa", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
 					}
-					
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
-					buttonLocalizar.setEnabled(true);
 				}
 			}	
 		});
@@ -270,12 +281,15 @@ public class TelaCadastroEmpresa extends JInternalFrame {
 		buttonExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Empresa", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
-					empresaController.delete(Integer.parseInt(fieldCodigo.getText()));
-					cleanFields();
-					disableFields();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
+					if(empresaController.delete(Integer.parseInt(fieldCodigo.getText()))){
+						JOptionPane.showMessageDialog(null, "Empresa Excluída com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+						cleanFields();
+						disableFields();
+						buttonNovo.setEnabled(true);
+						buttonExcluir.setEnabled(false);
+						buttonSalvar.setEnabled(false);
+					}else
+						JOptionPane.showMessageDialog(null, "Erro ao Deletar Empresa", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

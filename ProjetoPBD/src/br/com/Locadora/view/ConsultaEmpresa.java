@@ -4,6 +4,7 @@ package br.com.Locadora.view;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -131,22 +132,39 @@ public class ConsultaEmpresa extends JDialog {
 		if (fieldNome.getText().isEmpty()&&fieldID.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Empresa> empresas = empresaController.consultaEmpresas();
-			for (int i = 0; i < empresas.size(); i++) {
-				modelTalble.addRow(new Object[]{empresas.get(i).getId(),empresas.get(i).getNome()});
-			}
+			if(!empresas.isEmpty()){
+				for (int i = 0; i < empresas.size(); i++) {
+					modelTalble.addRow(new Object[]{empresas.get(i).getId(),empresas.get(i).getNome()});
+				}
+				buttonSelect.setEnabled(true);
+			}else 
+				JOptionPane.showMessageDialog(this, "Nenhuma Empresa Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+				
+			empresas = null;
 		}else if (!fieldNome.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Empresa> empresas = empresaController.consultaNome(fieldNome.getText());
-			for (int i = 0; i < empresas.size(); i++) {
-				modelTalble.addRow(new Object[]{empresas.get(i).getId(),empresas.get(i).getNome()});
-			}
+			if(!empresas.isEmpty()){
+				for (int i = 0; i < empresas.size(); i++) {
+					modelTalble.addRow(new Object[]{empresas.get(i).getId(),empresas.get(i).getNome()});
+				}
+				buttonSelect.setEnabled(true);
+			}else 
+				JOptionPane.showMessageDialog(this, "Nenhuma Empresa Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+				
+			empresas = null;
 		}else {
 			modelTalble.setNumRows(0);
 			Empresa empresa = empresaController.consultaId(Integer.parseInt(fieldID.getText()));
-			modelTalble.addRow(new Object[]{empresa.getId(),empresa.getNome()});
+			if(empresa != null){
+				modelTalble.addRow(new Object[]{empresa.getId(),empresa.getNome()});
+				buttonSelect.setEnabled(true);
+			}
+			else 
+				JOptionPane.showMessageDialog(this, "Nenhuma Empresa Encontrada", "Retorno Busca", JOptionPane.WARNING_MESSAGE);
+			
+			empresa = null;
 		}
 		
-		buttonSelect.setEnabled(true);
-
 	}
 }
