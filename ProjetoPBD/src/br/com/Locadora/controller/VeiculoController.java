@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 import br.com.Locadora.model.Veiculo;
 
@@ -29,7 +28,6 @@ public class VeiculoController {
 			return veiculo;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			manager.getTransaction().rollback();
 			return null;
 		} finally{
@@ -46,7 +44,6 @@ public class VeiculoController {
 			return veiculo;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			manager.getTransaction().rollback();
 			return null;
 		} finally{
@@ -124,7 +121,6 @@ public class VeiculoController {
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 		
@@ -143,7 +139,6 @@ public class VeiculoController {
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Buscar Veículo", "Erro Busca", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 		

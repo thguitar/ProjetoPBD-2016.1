@@ -585,8 +585,10 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 							case 2:{veiculo.setTipo('V'); veiculo.setAcessorios(new Acessorios(Double.parseDouble(fieldCapacidadeCarga.getText().replace(',', '.')), Double.parseDouble(fieldDistanciEixos.getText().replace(',', '.')), chckbxAcionamentoHemb.isSelected(), Double.parseDouble(fieldDesempenho.getText().replace(',', '.')), Double.parseDouble(fieldVolumeAbastecimento.getText().replace(',', '.'))));} break;
 							default: break;
 						}
-						if(veiculoController.insert(veiculo))
+						if(veiculoController.insert(veiculo)){
 							JOptionPane.showMessageDialog(null, "Veículo Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							cleanFields();
+						}
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Veículo", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
 					} else{
@@ -626,12 +628,12 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 						if(veiculoController.commit()){
 							JOptionPane.showMessageDialog(null, "Veículo Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 							veiculoUpdate = null;
+							cleanFields();
 						}
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao Alterar Veículo", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
 					}	
 
-					cleanFields();
 				}
 			}
 
@@ -641,22 +643,22 @@ public class TelaCadastroVeiculo extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Veículo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
 				
-					if(veiculoController.delete(fieldChassi.getText()))
+					if(veiculoController.delete(fieldChassi.getText())){
 						JOptionPane.showMessageDialog(null, "Veículo Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+						cleanFields();
+						cleanFieldsPickup();
+						cleanFieldsPequeno();
+						cleanFieldsCarga();
+						disableFieldsPickupCarga();
+						disableFieldsPequeno();
+						buttonNovo.setEnabled(true);
+						buttonExcluir.setEnabled(false);
+						buttonSalvar.setEnabled(false);
+					}
 					else
 						JOptionPane.showMessageDialog(null, "Erro ao Deletar Veículo", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
 					
-					cleanFields();
-					cleanFieldsPickup();
-					cleanFieldsPequeno();
-					cleanFieldsCarga();
-					disableFieldsPickupCarga();
-					disableFieldsPequeno();
-					buttonNovo.setEnabled(true);
-					buttonExcluir.setEnabled(false);
-					buttonSalvar.setEnabled(false);
 				}
-
 			}
 		});
 

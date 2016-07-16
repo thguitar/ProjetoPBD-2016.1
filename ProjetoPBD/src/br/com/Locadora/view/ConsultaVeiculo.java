@@ -179,16 +179,22 @@ public class ConsultaVeiculo extends JDialog {
 		if (formattedTextFieldPlaca.getText().equals("   -    ")&&fieldCodigo.getText().isEmpty()) {
 			modelTalble.setNumRows(0);
 			List<Veiculo> veiculos = controller.ListAll();
-			for (int i = 0; i < veiculos.size(); i++) {
-				if(veiculos.get(i).getTipo()=='A')
-					tipo = "Automóvel";
-				else if(veiculos.get(i).getTipo()=='C')
-					tipo = "Caminhotene";
-				else
-					tipo = "Caminhotene de Carga";
-				
-				modelTalble.addRow(new Object[]{veiculos.get(i).getID(), veiculos.get(i).getNumeroChassi(),veiculos.get(i).getPlaca(), tipo, veiculos.get(i).getCategoria().getDescricao(), veiculos.get(i).getAnoModelo(), veiculos.get(i).getAnoFabricacao()});
-			}
+			if (!veiculos.isEmpty()) {
+				for (int i = 0; i < veiculos.size(); i++) {
+					if(veiculos.get(i).getTipo()=='A')
+						tipo = "Automóvel";
+					else if(veiculos.get(i).getTipo()=='C')
+						tipo = "Caminhotene";
+					else
+						tipo = "Caminhotene de Carga";
+					
+					modelTalble.addRow(new Object[]{veiculos.get(i).getID(), veiculos.get(i).getNumeroChassi(),veiculos.get(i).getPlaca(), tipo, veiculos.get(i).getCategoria().getDescricao(), veiculos.get(i).getAnoModelo(), veiculos.get(i).getAnoFabricacao()});
+				}
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(this, "Nenhum Veículo Encontrado","Aviso Busca",JOptionPane.WARNING_MESSAGE);
+			
+			veiculos = null;	
 		}else if (!formattedTextFieldPlaca.getText().equals("   -    ")) {
 			modelTalble.setNumRows(0);
 			Veiculo veiculo = controller.consultaPlaca(formattedTextFieldPlaca.getText().replaceAll("[.-]", ""));
@@ -200,22 +206,27 @@ public class ConsultaVeiculo extends JDialog {
 				else
 					tipo = "Caminhotene de Carga";
 				modelTalble.addRow(new Object[]{veiculo.getID(), veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
-			}else {
-				JOptionPane.showMessageDialog(null, "Nenhum Veículo Localizado");
-			}
+				buttonSelect.setEnabled(true);
+			}else 
+				JOptionPane.showMessageDialog(this, "Nenhum Veículo Encontrado","Aviso Busca",JOptionPane.WARNING_MESSAGE);
+			
+			veiculo = null;
 		}else {
 			modelTalble.setNumRows(0);
 			Veiculo veiculo = controller.consultaId(Integer.parseInt(fieldCodigo.getText()));
-			if(veiculo.getTipo()=='A')
-				tipo = "Automóvel";
-			else if(veiculo.getTipo()=='C')
-				tipo = "Caminhotene";
-			else
-				tipo = "Caminhotene de Carga";
-			modelTalble.addRow(new Object[]{veiculo.getID(), veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
+			if (veiculo != null) {
+				if(veiculo.getTipo()=='A')
+					tipo = "Automóvel";
+				else if(veiculo.getTipo()=='C')
+					tipo = "Caminhotene";
+				else
+					tipo = "Caminhotene de Carga";
+				modelTalble.addRow(new Object[]{veiculo.getID(), veiculo.getNumeroChassi(),veiculo.getPlaca(), tipo, veiculo.getCategoria().getDescricao(), veiculo.getAnoModelo(), veiculo.getAnoFabricacao()});
+				buttonSelect.setEnabled(true);
+			}else
+				JOptionPane.showMessageDialog(this, "Nenhum Veículo Encontrado","Aviso Busca",JOptionPane.WARNING_MESSAGE);
+			
+			veiculo = null;
 		}
-		
-		buttonSelect.setEnabled(true);
-
 	}
 }
