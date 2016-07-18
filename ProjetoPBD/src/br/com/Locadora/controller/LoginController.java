@@ -21,9 +21,14 @@ public class LoginController implements ActionListener{
 	private EntityManager managedEntity;
 
 	public LoginController(TelaLogin telalogin){
-		managedEntity = HibernateSingleton.getInstance("HibMysql").createEntityManager();
-		this.telalogin = telalogin;
-		this.telalogin.setVisible(true);
+		try {
+			managedEntity = HibernateSingleton.getInstance(HibernateSingleton.HIBERNATE_MYSQL).createEntityManager();
+			this.telalogin = telalogin;
+			this.telalogin.setVisible(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao Connectar o Banco de Dados.\n        O Sistema será Finalizado\n","Erro de Conexão",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+		}
 	}
 
 	public void controll(){

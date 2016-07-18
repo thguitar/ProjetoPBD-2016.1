@@ -3,7 +3,6 @@ package br.com.Locadora.controller;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.JOptionPane;
 
 
 
@@ -25,8 +24,6 @@ public class HibernateSingleton {
 			return instance;
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Connectar o Banco de Dados.\n        O Sistema será Finalizado\n","Erro de Conexão",JOptionPane.ERROR_MESSAGE);
-			System.exit(0);
 			return null;
 		}
 
