@@ -22,6 +22,7 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JDesktopPane;
 
+import br.com.Locadora.controller.ConnectionSingleton;
 import br.com.Locadora.controller.HibernateSingleton;
 import br.com.Locadora.model.Usuario;
 
@@ -339,7 +340,7 @@ public class TelaInicial extends JFrame {
 							if(gerarRelatorio != null)
 								gerarRelatorio = null;
 							
-							gerarRelatorio = new GerarRelatorio(JasperFillManager.fillReport("relatorios/Clientes.jasper", null,HibernateSingleton.Connection()), false);
+							gerarRelatorio = new GerarRelatorio(JasperFillManager.fillReport("relatorios/Clientes.jasper", null,ConnectionSingleton.getConnection()), false);
 						} catch (JRException e) {
 							gerarRelatorio = null;
 							e.printStackTrace();
@@ -356,7 +357,7 @@ public class TelaInicial extends JFrame {
 							if(gerarRelatorio != null)
 								gerarRelatorio = null;
 							
-							new GerarRelatorio(JasperFillManager.fillReport("relatorios/ClientesPF.jasper", null,HibernateSingleton.Connection()), false);
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/ClientesPF.jasper", null,ConnectionSingleton.getConnection()), false);
 						} catch (JRException e) {
 							gerarRelatorio = null;
 							e.printStackTrace();
@@ -373,7 +374,7 @@ public class TelaInicial extends JFrame {
 							if(gerarRelatorio != null)
 								gerarRelatorio = null;
 							
-							new GerarRelatorio(JasperFillManager.fillReport("relatorios/ClientesPJ.jasper", null,HibernateSingleton.Connection()), false);
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/ClientesPJ.jasper", null,ConnectionSingleton.getConnection()), false);
 						} catch (JRException e) {
 							gerarRelatorio = null;
 							e.printStackTrace();
@@ -390,7 +391,7 @@ public class TelaInicial extends JFrame {
 							if(gerarRelatorio != null)
 								gerarRelatorio = null;
 							
-							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Empresas.jasper", null,HibernateSingleton.Connection()), false);
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Empresas.jasper", null,ConnectionSingleton.getConnection()), false);
 						} catch (JRException e) {
 							gerarRelatorio = null;
 							e.printStackTrace();
@@ -407,7 +408,7 @@ public class TelaInicial extends JFrame {
 							if(gerarRelatorio != null)
 								gerarRelatorio = null;
 							
-							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Usuarios.jasper", null,HibernateSingleton.Connection()), false);
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Usuarios.jasper", null,ConnectionSingleton.getConnection()), false);
 						} catch (JRException e) {
 							gerarRelatorio = null;
 							e.printStackTrace();
@@ -424,7 +425,7 @@ public class TelaInicial extends JFrame {
 							if(gerarRelatorio != null)
 								gerarRelatorio = null;
 							
-							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Veiculos.jasper", null,HibernateSingleton.Connection()), false);
+							new GerarRelatorio(JasperFillManager.fillReport("relatorios/Veiculos.jasper", null,ConnectionSingleton.getConnection()), false);
 						} catch (JRException e) {
 							gerarRelatorio = null;
 							e.printStackTrace();
