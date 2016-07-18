@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 import java.awt.Font;
@@ -15,19 +16,25 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import br.com.Locadora.model.FixedLengthJTextField;
+
 import java.awt.Color;
 import java.awt.Toolkit;
 
 public class TelaLogin extends JFrame{
 
 	private static final long serialVersionUID = -7148671693491049508L;
-
+	public static final int ERROR_CONNECT_DB = 1;
+	public static final int LOGIN_INVALID = 2;
+	public static final int FIELDS_EMPTY = 3;
+	
 	private JPanel contentPane;
 	private JLabel labelBackground;
 	private JPasswordField passwordField;
 	private JTextField FieldUser;
 	private JButton buttonEntrar;
 
+	
 	public TelaLogin() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens/iconlogin.png"));
 		setResizable(false);
@@ -53,6 +60,7 @@ public class TelaLogin extends JFrame{
 		
 		passwordField = new JPasswordField();
 		passwordField.setToolTipText("Senha");
+		passwordField.setDocument(new FixedLengthJTextField(6));
 		passwordField.setFont(new Font("Tahoma", Font.BOLD, 20));
 		passwordField.setBounds(219, 169, 148, 29);
 		
@@ -78,5 +86,13 @@ public class TelaLogin extends JFrame{
 
 	public JButton getButtonEntrar() {
 		return buttonEntrar;
+	}
+	
+	public void showMensseger(int typeMenssage){
+		switch (typeMenssage) {
+		case ERROR_CONNECT_DB:{JOptionPane.showMessageDialog(null, "Erro ao Connectar o Banco de Dados.\n        O Sistema será Finalizado\n","Erro de Conexão",JOptionPane.ERROR_MESSAGE);} break;
+		case LOGIN_INVALID:{JOptionPane.showMessageDialog(null, "Login Inv\u00E1lido",null ,JOptionPane.WARNING_MESSAGE);}break;
+		case FIELDS_EMPTY:{JOptionPane.showMessageDialog(null,"Campos Obrigat\u00F3rios",null,JOptionPane.INFORMATION_MESSAGE);} break;
+		}
 	}
 }
