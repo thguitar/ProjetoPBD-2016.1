@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import br.com.Locadora.controller.UsuarioController;
 import br.com.Locadora.model.Empresa;
+import br.com.Locadora.model.FixedLengthJTextField;
 import br.com.Locadora.model.Usuario;
 
 import java.awt.event.ActionListener;
@@ -145,6 +146,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 
 		passFieldSenha = new JPasswordField();
 		passFieldSenha.setEditable(false);
+		passFieldSenha.setDocument(new FixedLengthJTextField(6));
 		passFieldSenha.setBounds(301, 56, 114, 20);
 		panelCentro.add(passFieldSenha);
 
