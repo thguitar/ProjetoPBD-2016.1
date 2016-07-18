@@ -9,33 +9,56 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 @Entity
 public class Devolucao {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	@Column
+	private int ID;
+	@Column(name = "TANQUE_CHEIO")
 	private boolean tanqueCheio;
-	@Column
+	@Column(name = "CARRO_LAVADO")
 	private boolean carroLavado;
-	@Column
+	@Column(name = "DATA_DEVOLUCAO", nullable = false)
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date horarioDevolucao;
-	@Column
+	@Column(name = "VALOR_MULTA")
 	private Double multa;
-	@Column
-	private String descricao;
+	@Column(name = "OBSERVACAO", length = 50)
+	private String observacao;
+	
+	public Devolucao() {
+
+	}
+
 	public Devolucao(boolean tanqueCheio, boolean carroLavado,
-			Date horarioDevolucao) {
+			Date horarioDevolucao, Double multa, String observacao) {
+		super();
 		this.tanqueCheio = tanqueCheio;
 		this.carroLavado = carroLavado;
 		this.horarioDevolucao = horarioDevolucao;
+		this.multa = multa;
+		this.observacao = observacao;
 	}
+	
+	public Devolucao(int iD, boolean tanqueCheio, boolean carroLavado,
+			Date horarioDevolucao, Double multa, String observacao) {
+		super();
+		ID = iD;
+		this.tanqueCheio = tanqueCheio;
+		this.carroLavado = carroLavado;
+		this.horarioDevolucao = horarioDevolucao;
+		this.multa = multa;
+		this.observacao = observacao;
+	}
+
 	public int getId() {
-		return id;
+		return ID;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.ID = id;
 	}
 	public boolean isTanqueCheio() {
 		return tanqueCheio;
@@ -61,12 +84,11 @@ public class Devolucao {
 	public void setMulta(Double multa) {
 		this.multa = multa;
 	}
-	public String getDescricao() {
-		return descricao;
+	public String getObservacao() {
+		return observacao;
 	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
-	
 
 }
