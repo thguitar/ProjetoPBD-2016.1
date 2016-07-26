@@ -11,6 +11,7 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 
 import br.com.Locadora.model.Usuario;
+import br.com.Locadora.view.DialogConectaBanco;
 import br.com.Locadora.view.TelaInicial;
 import br.com.Locadora.view.TelaLogin;
 
@@ -18,13 +19,18 @@ public class LoginController implements ActionListener{
 
 	private TelaLogin telalogin;
 	private EntityManager managedEntity;
-
+	private DialogConectaBanco conectaBanco;
+	
 	public LoginController(TelaLogin telalogin){
 		try {
 			this.telalogin = telalogin;
+			conectaBanco = new DialogConectaBanco();
 			managedEntity = HibernateSingleton.getInstance(HibernateSingleton.HIBERNATE_MYSQL).createEntityManager();
+			conectaBanco.dispose();
+			conectaBanco = null;
 			this.telalogin.setVisible(true);
 		} catch (Exception e) {
+			conectaBanco.setMessage(DialogConectaBanco.ERRO_CONNECTION);
 			telalogin.showMensseger(TelaLogin.ERROR_CONNECT_DB);
 			System.exit(0);
 		}
