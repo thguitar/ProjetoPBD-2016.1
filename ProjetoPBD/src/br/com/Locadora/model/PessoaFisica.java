@@ -8,6 +8,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.Locadora.controller.Validations;
+
 @Entity
 @PrimaryKeyJoinColumn(name="IDCLIENTE")
 public class PessoaFisica extends Cliente{
@@ -90,8 +92,12 @@ public class PessoaFisica extends Cliente{
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		if (Validations.isValidCPF(cpf)) {
+			this.cpf = cpf;
+		}else {
+			throw new CPFCNPJInvalidException("O CPF é Inválido");
+		}
+		
 	}
-	
 	
 }

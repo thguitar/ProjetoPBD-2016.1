@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import br.com.Locadora.controller.Validations;
+
 @Entity
 @PrimaryKeyJoinColumn(name="IDCLIENTE")
 public class PessoaJuridica extends Cliente{
@@ -38,7 +40,11 @@ public class PessoaJuridica extends Cliente{
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+		if(Validations.isValidCNPJ(cnpj)){
+			this.cnpj = cnpj;
+		}
+		else
+			throw new CPFCNPJInvalidException("O CNPJ é Inválido");
 	}
 	
 	

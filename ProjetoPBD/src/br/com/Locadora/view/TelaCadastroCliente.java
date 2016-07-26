@@ -30,7 +30,7 @@ import java.util.Date;
 import javax.swing.JButton;
 
 import br.com.Locadora.controller.ClienteController;
-import br.com.Locadora.controller.Validations;
+import br.com.Locadora.model.CPFCNPJInvalidException;
 import br.com.Locadora.model.FixedLengthJTextField;
 import br.com.Locadora.model.OnlyNumberField;
 import br.com.Locadora.model.PessoaFisica;
@@ -414,91 +414,101 @@ public class TelaCadastroCliente extends JInternalFrame {
 						String s = (String) comboBoxSexo.getSelectedItem();
 						char sexo = s.charAt(0);
 						PessoaFisica pf = new PessoaFisica();
-						pf.setNome(fieldNome.getText());
-						pf.setCpf(fieldCPF.getText().replaceAll("[.-]", ""));
-						pf.setNumeroHabilitacao(fieldHabilitacao.getText());
-						pf.setBairro(fieldBairro.getText());
-						pf.setRua(fieldRua.getText());
-						pf.setnumeroEndereco(fieldNumero.getText());
-						pf.setCidade(fieldCidade.getText());
-						pf.setEstado((String) comboBox.getSelectedItem());
-						pf.setSexo(sexo);
-						pf.setDataNascimento(dateChooserNascimento.getDate());
-						pf.setDataVencimentoHailitacao(dateChooserCNH.getDate());
+						try {
+							pf.setNome(fieldNome.getText());
+							pf.setCpf(fieldCPF.getText().replaceAll("[.-]", ""));
+							pf.setNumeroHabilitacao(fieldHabilitacao.getText());
+							pf.setBairro(fieldBairro.getText());
+							pf.setRua(fieldRua.getText());
+							pf.setnumeroEndereco(fieldNumero.getText());
+							pf.setCidade(fieldCidade.getText());
+							pf.setEstado((String) comboBox.getSelectedItem());
+							pf.setSexo(sexo);
+							pf.setDataNascimento(dateChooserNascimento.getDate());
+							pf.setDataVencimentoHailitacao(dateChooserCNH.getDate());
 
-						if(saveupdate){ 
-							if(clienteController.insert(pf)){
-								JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
-								cleanFields();
-								disableFields();
-								buttonNovo.setEnabled(true);
-								buttonSalvar.setEnabled(false);
-								buttonLocalizar.setEnabled(true);
-								buttonExcluir.setEnabled(false);
-								radiobuttonPFisica.setEnabled(false);
-								radiobuttonPJurdica.setEnabled(false);
-							}else {
-								JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
+							if(saveupdate){ 
+								if(clienteController.insert(pf)){
+									JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+									cleanFields();
+									disableFields();
+									buttonNovo.setEnabled(true);
+									buttonSalvar.setEnabled(false);
+									buttonLocalizar.setEnabled(true);
+									buttonExcluir.setEnabled(false);
+									radiobuttonPFisica.setEnabled(false);
+									radiobuttonPJurdica.setEnabled(false);
+								}else {
+									JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
+								}
+
+							} else{ 
+								pf.setId(Integer.parseInt(fieldCodigo.getText()));
+								if(clienteController.updatePF(pf)){
+									JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+									cleanFields();
+									disableFields();
+									buttonNovo.setEnabled(true);
+									buttonSalvar.setEnabled(false);
+									buttonLocalizar.setEnabled(true);
+									buttonExcluir.setEnabled(false);
+									radiobuttonPFisica.setEnabled(false);
+									radiobuttonPJurdica.setEnabled(false);
+								}else {
+									JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
+								}
 							}
 
-						} else{ 
-							pf.setId(Integer.parseInt(fieldCodigo.getText()));
-							if(clienteController.updatePF(pf)){
-								JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
-								cleanFields();
-								disableFields();
-								buttonNovo.setEnabled(true);
-								buttonSalvar.setEnabled(false);
-								buttonLocalizar.setEnabled(true);
-								buttonExcluir.setEnabled(false);
-								radiobuttonPFisica.setEnabled(false);
-								radiobuttonPJurdica.setEnabled(false);
-							}else {
-								JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
-							}
+						} catch (CPFCNPJInvalidException invalidException) {
+							JOptionPane.showMessageDialog(null, "CPF Inválido","Aviso de Inconsistência" , JOptionPane.WARNING_MESSAGE);
 						}
 
 					}else {
 						PessoaJuridica pj = new PessoaJuridica();
-						pj.setNome(fieldNome.getText());
-						pj.setCnpj(fieldCNPJ.getText().replaceAll("\\D", ""));
-						pj.setInscricaoEstadual(fieldInscEstadual.getText());
-						pj.setBairro(fieldBairro.getText());
-						pj.setnumeroEndereco((fieldNumero.getText()));
-						pj.setRua(fieldRua.getText());
-						pj.setCidade(fieldCidade.getText());
-						pj.setEstado((String) comboBox.getSelectedItem());
+						try {
+							pj.setNome(fieldNome.getText());
+							pj.setCnpj(fieldCNPJ.getText().replaceAll("\\D", ""));
+							pj.setInscricaoEstadual(fieldInscEstadual.getText());
+							pj.setBairro(fieldBairro.getText());
+							pj.setnumeroEndereco((fieldNumero.getText()));
+							pj.setRua(fieldRua.getText());
+							pj.setCidade(fieldCidade.getText());
+							pj.setEstado((String) comboBox.getSelectedItem());
 
-						if(saveupdate){ 
-							if(clienteController.insert(pj)){
-								JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
-								cleanFields();
-								disableFields();
-								buttonNovo.setEnabled(true);
-								buttonSalvar.setEnabled(false);
-								buttonLocalizar.setEnabled(true);
-								buttonExcluir.setEnabled(false);
-								radiobuttonPFisica.setEnabled(false);
-								radiobuttonPJurdica.setEnabled(false);
-							}else {
-								JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
+							if(saveupdate){ 
+								if(clienteController.insert(pj)){
+									JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+									cleanFields();
+									disableFields();
+									buttonNovo.setEnabled(true);
+									buttonSalvar.setEnabled(false);
+									buttonLocalizar.setEnabled(true);
+									buttonExcluir.setEnabled(false);
+									radiobuttonPFisica.setEnabled(false);
+									radiobuttonPJurdica.setEnabled(false);
+								}else {
+									JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente", "Erro Inserção", JOptionPane.ERROR_MESSAGE);
+								}
+							} else{ 
+								pj.setId(Integer.parseInt(fieldCodigo.getText()));
+								if(clienteController.updatePJ(pj)){
+									JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+									cleanFields();
+									disableFields();
+									buttonNovo.setEnabled(true);
+									buttonSalvar.setEnabled(false);
+									buttonLocalizar.setEnabled(true);
+									buttonExcluir.setEnabled(false);
+									radiobuttonPFisica.setEnabled(false);
+									radiobuttonPJurdica.setEnabled(false);
+								}else {
+									JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
+								}
 							}
-						} else{ 
-							pj.setId(Integer.parseInt(fieldCodigo.getText()));
-							if(clienteController.updatePJ(pj)){
-								JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
-								cleanFields();
-								disableFields();
-								buttonNovo.setEnabled(true);
-								buttonSalvar.setEnabled(false);
-								buttonLocalizar.setEnabled(true);
-								buttonExcluir.setEnabled(false);
-								radiobuttonPFisica.setEnabled(false);
-								radiobuttonPJurdica.setEnabled(false);
-							}else {
-								JOptionPane.showMessageDialog(null, "Erro ao Alterar Cliente", "Erro Autalização", JOptionPane.ERROR_MESSAGE);
-							}
+						} catch (CPFCNPJInvalidException invalidException) {
+							JOptionPane.showMessageDialog(null, "CNPJ Inválido","Aviso de Inconsistência" , JOptionPane.WARNING_MESSAGE);
 						}
+
 					}
 
 				}
@@ -578,9 +588,6 @@ public class TelaCadastroCliente extends JInternalFrame {
 					fieldCidade.getText().isEmpty()||fieldNumero.getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Existem Campos Vazios",null , JOptionPane.WARNING_MESSAGE);
 				return false;
-			}else if(!Validations.isValidCPF(fieldCPF.getText().replaceAll("[.-]", ""))){
-				JOptionPane.showMessageDialog(null, "CPF Inválido","Aviso de Inconsistência" , JOptionPane.WARNING_MESSAGE);
-				return false; 
 			}
 
 			return true;
@@ -590,9 +597,6 @@ public class TelaCadastroCliente extends JInternalFrame {
 					fieldCidade.getText().isEmpty()||fieldNumero.getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Existem Campos Vazios",null , JOptionPane.WARNING_MESSAGE);
 				return false;
-			}else if(!Validations.isValidCNPJ(fieldCNPJ.getText().replaceAll("\\D", ""))){
-				JOptionPane.showMessageDialog(null, "CNPJ Inválido","Aviso de Inconsistência" , JOptionPane.WARNING_MESSAGE);
-				return false; 
 			}
 
 			return true;
