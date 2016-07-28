@@ -45,6 +45,8 @@ public class DialogConectaBanco extends JDialog {
 	}
 
 	public void setMessage(String message) {
+		this.progressBar.setIndeterminate(false);
+		this.progressBar.setValue(100);
 		this.labelMessage.setText(message);
 	}
 

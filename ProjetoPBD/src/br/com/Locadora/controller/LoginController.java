@@ -31,8 +31,6 @@ public class LoginController implements ActionListener{
 			this.telalogin.setVisible(true);
 		} catch (Exception e) {
 			conectaBanco.setMessage(DialogConectaBanco.ERRO_CONNECTION);
-			telalogin.showMensseger(TelaLogin.ERROR_CONNECT_DB);
-			System.exit(0);
 		}
 	}
 

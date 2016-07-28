@@ -4,6 +4,8 @@ package br.com.Locadora.controller;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.Locadora.view.Warnings;
+
 
 
 public class HibernateSingleton {
@@ -23,7 +25,9 @@ public class HibernateSingleton {
 
 			return instance;
 		} catch (Exception e) {
+			Warnings.showMessageDialog(Warnings.ERROR_CONNECT_DB, e.getMessage()+"\n"+e.getCause()+"\n"+e.getClass());
 			e.printStackTrace();
+			System.exit(0);
 			return null;
 		}
 
