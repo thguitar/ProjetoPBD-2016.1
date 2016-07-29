@@ -99,10 +99,8 @@ public class LoginController implements ActionListener{
 		if(storedProcedure.getOutputParameterValue("P_VALIDO").toString().equals("1")){ 
 			closeManaged();
 			return true;
-		}else {
-			closeManaged();
-			return false;
 		}
+		return false;
 	}
 
 	@Override

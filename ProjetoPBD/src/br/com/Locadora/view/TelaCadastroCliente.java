@@ -520,27 +520,27 @@ public class TelaCadastroCliente extends JInternalFrame {
 				if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir ?", "Excluir Usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
 					if(radiobuttonPFisica.isSelected()){
 						if(clienteController.deletePF(Integer.parseInt(fieldCodigo.getText()))){
-							JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							//JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 							cleanFields();
 							disableFields();
 							buttonNovo.setEnabled(true);
 							buttonExcluir.setEnabled(false);
 							buttonSalvar.setEnabled(false);
-						} else{
+						} /*else{
 							JOptionPane.showMessageDialog(null, "Erro ao Deletar Cliente", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
-						}
+						}*/
 
 					}else {
 						if(clienteController.deletePJ(Integer.parseInt(fieldCodigo.getText()))){
-							JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
+							//JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso", "Mensagem Cadastro", JOptionPane.INFORMATION_MESSAGE);
 							cleanFields();
 							disableFields();
 							buttonNovo.setEnabled(true);
 							buttonExcluir.setEnabled(false);
 							buttonSalvar.setEnabled(false);
-						} else{
+						}/* else{
 							JOptionPane.showMessageDialog(null, "Erro ao Deletar Cliente", "Erro Remoção", JOptionPane.ERROR_MESSAGE);
-						}
+						}*/
 					}				
 
 				}

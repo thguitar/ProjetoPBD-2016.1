@@ -6,10 +6,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
+
+
+
+
 
 import br.com.Locadora.model.Cliente;
 import br.com.Locadora.model.PessoaFisica;
 import br.com.Locadora.model.PessoaJuridica;
+import br.com.Locadora.view.Warnings;
 
 public class ClienteController {
 	EntityManagerFactory factory;
@@ -79,7 +85,13 @@ public class ClienteController {
 			manager.remove(fisica);
 			manager.getTransaction().commit();
 			return true;
-		} catch (Exception e) {
+		}catch(RollbackException rollbackException){
+			rollbackException.printStackTrace();
+			if(rollbackException.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException"))
+				Warnings.showMessageDialog(Warnings.CLIENT_DELETE_ERROR, "\nEste cliente não pode ser eliminado porque está relacionado a outros registros.");
+			return false;
+		}
+		catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
 			return false;
@@ -98,7 +110,13 @@ public class ClienteController {
 			manager.remove(juridica);
 			manager.getTransaction().commit();
 			return true;
-		} catch (Exception e) {
+		}catch(RollbackException rollbackException){
+			rollbackException.printStackTrace();
+			if(rollbackException.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException"))
+				Warnings.showMessageDialog(Warnings.CLIENT_DELETE_ERROR, "\nEste cliente não pode ser eliminado porque está relacionado a outros registros.");
+			return false;
+		}
+		catch (Exception e) {
 			manager.getTransaction().rollback();
 			e.printStackTrace();
 			return false;

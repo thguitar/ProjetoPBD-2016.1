@@ -54,6 +54,43 @@ public class TiposLocacaoController {
 		}
 	}
 	
+	public boolean update(List<TiposLocacao> tiposLocacao){
+
+		try {
+			manager = factory.createEntityManager();
+			manager.getTransaction().begin();
+			manager.merge(tiposLocacao.get(0));
+			manager.merge(tiposLocacao.get(1));
+			manager.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			manager.getTransaction().rollback();
+			return false;
+		} finally {
+			manager.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TiposLocacao> Consulta(){
+		
+		try {
+			manager = factory.createEntityManager();
+			manager.getTransaction().begin();
+			Query query = manager.createQuery("select t from TiposLocacao t");
+			List<TiposLocacao> tiposLocacaos = query.getResultList(); 
+			manager.getTransaction().commit();
+			return tiposLocacaos;
+		} catch (Exception e) {
+			manager.getTransaction().rollback();
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao Buscar Tipos", "Erro Busca", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+		
+	}	
+	
 	@SuppressWarnings("unchecked")
 	public List<TiposLocacao> ConsultaUpdate(){
 		

@@ -55,9 +55,6 @@ public class TelaManutencaoPreco extends JInternalFrame {
 	private TiposLocacaoController controller;
 	private List<TiposLocacao> tiposLocacaos;
 
-
-
-
 	public TelaManutencaoPreco() {
 		setTitle("Manuten\u00E7\u00E3o de Pre\u00E7os                                                                                 ");
 		setClosable(true);
@@ -69,7 +66,7 @@ public class TelaManutencaoPreco extends JInternalFrame {
 		contentPane.setLayout(null);
 
 		controller = new TiposLocacaoController();
-		tiposLocacaos = controller.ConsultaUpdate();
+		tiposLocacaos = controller.Consulta();
 
 		panelTitulo = new JPanel();
 		panelTitulo.setBounds(0, 0, 430, 57);
@@ -187,25 +184,20 @@ public class TelaManutencaoPreco extends JInternalFrame {
 		buttonSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (validarFields()) {
-
 					tiposLocacaos.get(0).setValor(Double.parseDouble(fieldPrecoKml.getText().replace(',', '.')));
 					tiposLocacaos.get(1).setValor(Double.parseDouble(textFieldPrecoKmc.getText().replace(',', '.')));
-					if(controller.commit())
+					if(controller.update(tiposLocacaos))
 						JOptionPane.showMessageDialog(null, "Preços Alterados com Sucesso", "Mensagem Preços", JOptionPane.INFORMATION_MESSAGE);
 					else
 						JOptionPane.showMessageDialog(null, "Erro ao Alterar Preços", "Erro Alteração", JOptionPane.ERROR_MESSAGE);
 				} 
-
-				cleanFields();
-				disableFields();
 			}
 		});
 
 		buttonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cleanFields();
-				disableFields();
-				buttonSalvar.setEnabled(false);
+				textFieldPrecoKmc.setText(String.valueOf(tiposLocacaos.get(1).getValor()));
+				fieldPrecoKml.setText(String.valueOf(tiposLocacaos.get(0).getValor()));
 			}
 
 		});
@@ -221,18 +213,6 @@ public class TelaManutencaoPreco extends JInternalFrame {
 
 		return true;
 	}
-
-	public void cleanFields(){
-	}
-
-	public void enableFields(){
-		fieldPrecoKml.setEditable(true);
-	}
-
-	public void disableFields(){
-		fieldPrecoKml.setEditable(false);
-	}
-
 
 	public void setPosicao() {
 		Dimension d = this.getDesktopPane().getSize();
